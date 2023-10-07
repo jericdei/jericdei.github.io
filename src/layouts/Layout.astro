@@ -1,5 +1,5 @@
 --- 
-import '@fontsource-variable/chivo-mono';
+import '@fontsource-variable/dm-sans';
 import 'remixicon/fonts/remixicon.css'
 import Menu from '../components/vue/Menu.vue';
 import { ViewTransitions } from 'astro:transitions';
@@ -23,13 +23,13 @@ const { title } = Astro.props;
 		<ViewTransitions />
 	</head>
 	<body class="dark:bg-gray-700 dark:text-slate-200">
-		<header class="flex p-4 justify-between items-center">
+		<header class="flex justify-between items-center sticky top-0 p-8">
 			<p class="text-lg font-bold">jericdei</p>
 
 			<Menu client:only />
 		</header>
 
-		<main class="px-8">
+		<main>
 			<slot />
 		</main>
 	</body>
@@ -37,6 +37,6 @@ const { title } = Astro.props;
 
 <style is:global>
 body {
-  font-family: 'Chivo Mono Variable', sans-serif;
+  font-family: 'DM Sans', sans-serif;
 }
 </style>

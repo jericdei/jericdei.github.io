@@ -6,7 +6,7 @@ module.exports = {
 	theme: {
 		extend: {
 			fontFamily: {
-				sans: ["Chivo Mono Variable", ...defaultTheme.fontFamily.sans],
+				sans: ["DM Sans", ...defaultTheme.fontFamily.sans],
 			},
 		},
 	},

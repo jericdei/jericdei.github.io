@@ -11,9 +11,9 @@ dependencies:
   '@astrojs/vue':
     specifier: ^2.2.1
     version: 2.2.1(@babel/core@7.22.11)(astro@2.10.14)(vite@4.4.9)(vue@3.3.4)
-  '@fontsource-variable/chivo-mono':
-    specifier: ^5.0.9
-    version: 5.0.9
+  '@fontsource-variable/dm-sans':
+    specifier: ^5.0.3
+    version: 5.0.3
   astro:
     specifier: ^2.10.14
     version: 2.10.14
@@ -876,8 +876,8 @@ packages:
     dev: false
     optional: true
 
-  /@fontsource-variable/chivo-mono@5.0.9:
-    resolution: {integrity: sha512-k6hVE7MCZK2GXx3+992phNuxL7lArpK7o1cMpSROrBelFOLZnMjwqm2K1trhbb5TprWWe7iOgTZ6ho41wtZP6Q==}
+  /@fontsource-variable/dm-sans@5.0.3:
+    resolution: {integrity: sha512-MrdN9qZ95gVqcSuOXMnbCuYS2TtL1mOiUqTaslP05rkZUi9LzrvbXsEGBCODVjJi9MH27HuKKJjOdWK0OeuIlw==}
     dev: false
 
   /@jridgewell/gen-mapping@0.3.3:
