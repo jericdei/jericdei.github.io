@@ -1,49 +1,37 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import TextCarousel from '../components/vue/TextCarousel.vue'
-import Button from '../components/astro/Button.astro'
+import Layout from "../layouts/Layout.astro";
+import TextCarousel from "../components/vue/TextCarousel.vue";
+import Button from 'primevue/button/Button.vue'
 
-const roles = [
-	'Full-Stack Developer.',
-	'Tech Enthusiast.',
-	'Builder.'
-]
+const roles = ["Full-Stack Developer.", "Tech Enthusiast.", "Builder."];
 ---
 
 <Layout title="jericdei">
-	<section class="text-center space-y-16 px-8 py-48 flex flex-col justify-center">
+	<section
+		class="text-center space-y-16 px-8 py-48 flex flex-col justify-center"
+	>
 		<p class="text-3xl leading-[3rem]">
-			Hi there! I'm 
-			
-			<br /> 
+			Hi there! I'm
+
+			<br />
 
 			<span class="text-6xl font-bold">Jeric,</span>
-			
+
 			<br />
 
 			<TextCarousel client:only texts={roles} />
 		</p>
 
-		<Button label="View my projects" />
+		<div class="mt-4">
+			<Button client:only label="View my projects" />
+		</div>
 	</section>
 
 	<section class="bg-slate-900 px-4 py-16 text-center">
-		<h2 class="font-bold mb-8 text-2xl">
-			What's my niche?
-		</h2>
+		<h2 class="font-bold mb-8 text-2xl">My Projects</h2>
 
 		<p>
-			I specialize in building powerful, responsive, and professional data or content-driven web applications. 
-		</p>
-	</section>
-
-	<section class="py-16 px-4">
-		<p class="text-2xl text-center">
-			That's not all!
-		</p>
-
-		<p class="mt-4">
-			I'm also continuously adding a lot of technologies in my arsenal, especially other fields in software development including Mobile Development and Data Science.
+			Here are some of my personal and professional projects.
 		</p>
 	</section>
 </Layout>
