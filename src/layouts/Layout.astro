@@ -4,11 +4,27 @@ import 'remixicon/fonts/remixicon.css'
 import '../css/global.css'
 import Menu from '../components/vue/Menu.vue';
 import { ViewTransitions } from 'astro:transitions';
+import Logo from '../components/vue/Logo.vue';
 interface Props {
 	title: string;
 }
 
 const { title } = Astro.props;
+
+const menuItems = [
+	{
+		label: 'Home',
+		path: '/',
+	},
+	{
+		label: 'Blog',
+		path: '/blog',
+	},
+	{
+		label: 'Contact',
+		path: '/contact',
+	}
+]
 ---
 
 <!DOCTYPE html>
@@ -24,10 +40,24 @@ const { title } = Astro.props;
 		<ViewTransitions />
 	</head>
 	<body class="dark:bg-gray-700 dark:text-slate-200">
-		<header class="flex justify-between items-center sticky top-0 p-8">
-			<p class="text-lg font-bold">jericdei</p>
+		<header class="flex justify-between items-center top-0 p-8 relative">
+			<Logo color="white" width={100} />
 
-			<Menu client:only />
+			<div>
+				<nav class="hidden md:block">
+					<ul class="flex gap-4 items-center">
+						{
+							menuItems.map((item) => (
+								<li class="font-bold"><a href={item.path}>{item.label}</a></li>
+							))
+						}
+					</ul>
+				</nav>
+
+				<div class="md:hidden">
+					<Menu client:only items={menuItems} />
+				</div>
+			</div>
 		</header>
 
 		<main>
