@@ -5,9 +5,25 @@ import { technologies } from '../content/json/technologies.json'
 import Button from 'primevue/button/Button.vue'
 import Image from 'astro/components/Image.astro'
 import TechnologyTag from '../components/astro/TechnologyTag.astro'
+import Tag from 'primevue/tag/Tag.vue'
 
 function getTechnologies(slugs: string[]) {
     return technologies.filter((tech) => slugs.includes(tech.slug))
+}
+
+function capitalizeFirstLetter(string: string) {
+    return string.charAt(0).toUpperCase() + string.slice(1)
+}
+
+function getProjectTypeSeverity(type: string) {
+    switch (type) {
+        case 'personal':
+            return 'warning'
+        case 'professional':
+            return 'success'
+        default:
+            return 'info'
+    }
 }
 ---
 
@@ -22,10 +38,17 @@ function getTechnologies(slugs: string[]) {
         >
             {
                 projects.map((project) => (
-                    <div class="rounded-lg bg-surface-700 p-4">
-                        <p class="font-bold lg:text-lg">{project.name}</p>
+                    <div class="rounded-lg bg-slate-300 p-4 dark:bg-surface-700">
+                        <div class="flex justify-between">
+                            <p class="font-bold lg:text-lg">{project.name}</p>
 
-                        <div class="mt-2 flex flex-wrap gap-2">
+                            <Tag
+                                value={capitalizeFirstLetter(project.type)}
+                                severity={getProjectTypeSeverity(project.type)}
+                            />
+                        </div>
+
+                        <div class="mt-4 flex flex-wrap gap-2">
                             {getTechnologies(project.tech_stack).map((tech) => (
                                 <div>
                                     <TechnologyTag technology={tech} />
@@ -39,7 +62,7 @@ function getTechnologies(slugs: string[]) {
                                 alt={project.name}
                                 height={300}
                                 width={600}
-                                class="flex items-center justify-center rounded-lg bg-slate-300 dark:bg-slate-600"
+                                class="flex items-center justify-center rounded-lg bg-slate-400 dark:bg-slate-600"
                                 onerror="this.src='/placeholder.svg'"
                             />
                         </div>
