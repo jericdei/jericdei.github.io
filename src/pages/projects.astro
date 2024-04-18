@@ -2,10 +2,8 @@
 import Layout from '../layouts/Layout.astro'
 import { projects } from '../content/json/projects.json'
 import { technologies } from '../content/json/technologies.json'
-import { Icon } from 'astro-icon/components'
 import Button from 'primevue/button/Button.vue'
 import Image from 'astro/components/Image.astro'
-import Tag from 'primevue/tag/Tag.vue'
 import TechnologyTag from '../components/astro/TechnologyTag.astro'
 
 function getTechnologies(slugs: string[]) {
@@ -13,7 +11,7 @@ function getTechnologies(slugs: string[]) {
 }
 ---
 
-<Layout title="Contact">
+<Layout title="Projects">
     <section class="container mx-auto py-32">
         <p class="text-center text-2xl lg:text-left lg:text-4xl">
             Here are some of my personal and professional projects.
