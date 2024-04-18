@@ -11,7 +11,7 @@ interface Props {
 
 const { title } = Astro.props
 
-const { pathname } = Astro.url
+const { pathname } = new URL(Astro.url)
 
 const menuItems = [
     {
@@ -20,11 +20,11 @@ const menuItems = [
     },
     {
         label: 'Projects',
-        path: '/projects',
+        path: '/projects/',
     },
     {
         label: 'Blog',
-        path: '/blog',
+        path: '/blog/',
     },
 ]
 ---
@@ -57,9 +57,6 @@ const menuItems = [
                         {
                             menuItems.map((item) => (
                                 <>
-                                    <p>
-                                        [{pathname}--{item.path}]
-                                    </p>
                                     <li
                                         class:list={[
                                             'text-lg',
