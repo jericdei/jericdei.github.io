@@ -56,17 +56,22 @@ const menuItems = [
                     <ul class="flex items-center gap-8">
                         {
                             menuItems.map((item) => (
-                                <li
-                                    class:list={[
-                                        'text-lg',
-                                        {
-                                            'font-bold text-primary-500':
-                                                pathname === item.path,
-                                        },
-                                    ]}
-                                >
-                                    <a href={item.path}>{item.label}</a>
-                                </li>
+                                <>
+                                    <p>
+                                        [{pathname}--{item.path}]
+                                    </p>
+                                    <li
+                                        class:list={[
+                                            'text-lg',
+                                            {
+                                                'font-bold text-primary-500':
+                                                    pathname === item.path,
+                                            },
+                                        ]}
+                                    >
+                                        <a href={item.path}>{item.label}</a>
+                                    </li>
+                                </>
                             ))
                         }
                     </ul>
