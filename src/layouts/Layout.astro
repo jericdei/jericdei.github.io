@@ -1,4 +1,4 @@
---- 
+---
 import '@fontsource-variable/dm-sans';
 import 'remixicon/fonts/remixicon.css'
 import '../css/global.css'
@@ -10,6 +10,8 @@ interface Props {
 }
 
 const { title } = Astro.props;
+
+const { pathname } = Astro.url
 
 const menuItems = [
 	{
@@ -39,23 +41,23 @@ const menuItems = [
 
 		<ViewTransitions />
 	</head>
-	<body class="dark:bg-gray-700 dark:text-slate-200">
-		<header class="flex justify-between items-center top-0 p-8 relative">
-			<Logo color="white" width={100} />
+	<body class="bg-gradient-to-r from-slate-200 to-slate-300 text-slate-900 dark:from-slate-800 dark:to-slate-900 dark:text-slate-200">
+		<header class="flex justify-between items-center top-0 p-8 container mx-auto relative">
+			<Logo width={100} />
 
 			<div>
 				<nav class="hidden md:block">
-					<ul class="flex gap-4 items-center">
+					<ul class="flex gap-8 items-center">
 						{
 							menuItems.map((item) => (
-								<li class="font-bold"><a href={item.path}>{item.label}</a></li>
+								<li class:list={['text-lg', { 'font-bold text-primary-500': pathname === item.path }]}><a href={item.path}>{item.label}</a></li>
 							))
 						}
 					</ul>
 				</nav>
 
 				<div class="md:hidden">
-					<Menu client:only items={menuItems} />
+					<Menu client:only="vue" items={menuItems} />
 				</div>
 			</div>
 		</header>
@@ -65,9 +67,3 @@ const menuItems = [
 		</main>
 	</body>
 </html>
-
-<style is:global>
-body {
-  font-family: 'DM Sans', sans-serif;
-}
-</style>

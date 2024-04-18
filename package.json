@@ -1,26 +1,26 @@
 {
-    "name": "portfolio",
-    "type": "module",
-    "version": "0.0.1",
-    "scripts": {
-        "dev": "astro dev",
-        "start": "astro dev",
-        "build": "astro build",
-        "preview": "astro preview",
-        "astro": "astro"
-    },
-    "dependencies": {
-        "@astrojs/tailwind": "^4.0.0",
-        "@astrojs/vue": "^2.2.1",
-        "@fontsource-variable/dm-sans": "^5.0.3",
-        "astro": "^2.10.14",
-        "primevue": "^3.49.0",
-        "remixicon": "^3.5.0",
-        "tailwindcss": "^3.0.24",
-        "vue": "^3.3.4"
-    },
-    "devDependencies": {
-        "prettier": "^3.0.2",
-        "prettier-plugin-tailwindcss": "^0.5.3"
-    }
+  "name": "portfolio",
+  "type": "module",
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/tailwind": "5.1.0",
+    "@astrojs/vue": "4.1.0",
+    "@fontsource-variable/dm-sans": "^5.0.3",
+    "astro": "4.6.2",
+    "primevue": "^3.49.0",
+    "remixicon": "^3.5.0",
+    "tailwindcss": "^3.0.24",
+    "vue": "^3.3.4"
+  },
+  "devDependencies": {
+    "prettier": "^3.0.2",
+    "prettier-plugin-tailwindcss": "^0.5.3"
+  }
 }

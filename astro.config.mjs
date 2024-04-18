@@ -6,9 +6,6 @@ import vue from '@astrojs/vue'
 // https://astro.build/config
 export default defineConfig({
     site: 'https://jericdei.github.io',
-    experimental: {
-        viewTransitions: true,
-    },
     integrations: [
         tailwind({
             applyBaseStyles: false,
@@ -17,9 +14,4 @@ export default defineConfig({
             appEntrypoint: '/src/vue',
         }),
     ],
-    // vite: {
-    //     ssr: {
-    //         external: ['primevue'],
-    //     },
-    // },
 })
