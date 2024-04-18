@@ -23,9 +23,12 @@ const props = defineProps<{
             </button>
 
             <nav
-                class="absolute text-slate-900 text-center bg-gray-400 rounded-xl top-48 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[30rem]"
+                class="absolute left-1/2 top-48 w-[18rem] -translate-x-1/2 -translate-y-1/2 rounded-xl bg-gray-400 text-center text-slate-900"
             >
-                <ul class="flex flex-col gap-4 p-4" :class="{ hidden: !menuVisible }">
+                <ul
+                    class="flex flex-col gap-4 p-4"
+                    :class="{ hidden: !menuVisible }"
+                >
                     <MenuListItem
                         v-for="item in props.items"
                         :key="item.path"

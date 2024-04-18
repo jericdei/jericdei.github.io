@@ -1,69 +1,85 @@
 ---
-import '@fontsource-variable/dm-sans';
+import '@fontsource-variable/dm-sans'
 import 'remixicon/fonts/remixicon.css'
 import '../css/global.css'
-import Menu from '../components/vue/Menu.vue';
-import { ViewTransitions } from 'astro:transitions';
-import Logo from '../components/vue/Logo.vue';
+import Menu from '../components/vue/Menu.vue'
+import { ViewTransitions } from 'astro:transitions'
+import Logo from '../components/vue/Logo.vue'
 interface Props {
-	title: string;
+    title: string
 }
 
-const { title } = Astro.props;
+const { title } = Astro.props
 
 const { pathname } = Astro.url
 
 const menuItems = [
-	{
-		label: 'Home',
-		path: '/',
-	},
     {
-		label: 'Projects',
-		path: '/projects',
-	},
-	{
-		label: 'Blog',
-		path: '/blog',
-	},
+        label: 'Home',
+        path: '/',
+    },
+    {
+        label: 'Projects',
+        path: '/projects',
+    },
+    {
+        label: 'Blog',
+        path: '/blog',
+    },
 ]
 ---
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="description" content="Astro description">
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
-		<title>{title}</title>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="description" content="Astro description" />
+        <meta name="viewport" content="width=device-width" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <meta name="generator" content={Astro.generator} />
+        <title>{title}</title>
 
-		<ViewTransitions />
-	</head>
-	<body class="bg-gradient-to-r from-slate-200 to-slate-300 text-slate-900 dark:from-slate-800 dark:to-slate-900 dark:text-slate-200">
-		<header class="flex justify-between items-center top-0 p-8 container mx-auto relative">
-			<Logo width={100} />
+        <ViewTransitions />
+    </head>
+    <body
+        class="bg-gradient-to-r from-slate-200 to-slate-300 text-slate-900 dark:from-slate-800 dark:to-slate-900 dark:text-slate-200"
+    >
+        <header
+            class="container relative top-0 mx-auto flex items-center justify-between p-8"
+        >
+            <a href="/">
+                <Logo width={100} />
+            </a>
 
-			<div>
-				<nav class="hidden md:block">
-					<ul class="flex gap-8 items-center">
-						{
-							menuItems.map((item) => (
-								<li class:list={['text-lg', { 'font-bold text-primary-500': pathname === item.path }]}><a href={item.path}>{item.label}</a></li>
-							))
-						}
-					</ul>
-				</nav>
+            <div>
+                <nav class="hidden md:block">
+                    <ul class="flex items-center gap-8">
+                        {
+                            menuItems.map((item) => (
+                                <li
+                                    class:list={[
+                                        'text-lg',
+                                        {
+                                            'font-bold text-primary-500':
+                                                pathname === item.path,
+                                        },
+                                    ]}
+                                >
+                                    <a href={item.path}>{item.label}</a>
+                                </li>
+                            ))
+                        }
+                    </ul>
+                </nav>
 
-				<div class="md:hidden">
-					<Menu client:only="vue" items={menuItems} />
-				</div>
-			</div>
-		</header>
+                <div class="md:hidden">
+                    <Menu client:only="vue" items={menuItems} />
+                </div>
+            </div>
+        </header>
 
-		<main>
-			<slot />
-		</main>
-	</body>
+        <main>
+            <slot />
+        </main>
+    </body>
 </html>
