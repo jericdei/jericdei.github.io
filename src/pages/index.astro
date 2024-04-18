@@ -15,11 +15,17 @@ const roles = ["Full-Stack Developer.", "Tech Enthusiast.", "Innovator."];
 
 			<span class="text-4xl md:text-6xl lg:text-8xl font-bold">Jeric June Logan</span>
 
-			<TextCarousel client:only texts={roles} />
+			<TextCarousel client:only="vue" texts={roles} />
 		</div>
 
 		<div class="mt-4">
-			<Button client:only label="View my projects" />
+            <a href="mailto:loganjeric25@gmail.com">
+                <Button client:only="vue" label="Hit me up" icon="ri-chat-1-fill" />
+            </a>
+
+			<a href="https://github.com/jericdei" target="_blank">
+                <Button client:only="vue" severity="secondary" label="View my GitHub" icon="ri-github-fill" />
+            </a>
 		</div>
 	</section>
 </Layout>

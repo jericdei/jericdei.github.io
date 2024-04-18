@@ -1,0 +1,95 @@
+---
+import Layout from '../layouts/Layout.astro'
+import { projects } from '../content/json/projects.json'
+import { technologies } from '../content/json/technologies.json'
+import { Icon } from 'astro-icon/components'
+import Button from 'primevue/button/Button.vue'
+import Image from 'astro/components/Image.astro'
+import Tag from 'primevue/tag/Tag.vue'
+import TechnologyTag from '../components/astro/TechnologyTag.astro'
+
+function getTechnologies(slugs: string[]) {
+    return technologies.filter((tech) => slugs.includes(tech.slug))
+}
+---
+
+<Layout title="Contact">
+    <section class="container mx-auto py-32">
+        <p class="text-center text-2xl lg:text-left lg:text-4xl">
+            Here are some of my personal and professional projects.
+        </p>
+
+        <div
+            class="mt-16 grid grid-cols-1 gap-x-8 gap-y-12 p-4 md:grid-cols-2 lg:grid-cols-4"
+        >
+            {
+                projects.map((project) => (
+                    <div class="rounded-lg bg-surface-700 p-4">
+                        <p class="font-bold lg:text-lg">{project.name}</p>
+
+                        <div class="mt-2 flex flex-wrap gap-2">
+                            {getTechnologies(project.tech_stack).map((tech) => (
+                                <div>
+                                    <TechnologyTag technology={tech} />
+                                </div>
+                            ))}
+                        </div>
+
+                        <div class="mt-4">
+                            <Image
+                                src={project.image}
+                                alt={project.name}
+                                height={300}
+                                width={600}
+                                class="flex items-center justify-center rounded-lg bg-slate-300 dark:bg-slate-600"
+                                onerror="this.src='/placeholder.svg'"
+                            />
+                        </div>
+
+                        <div class="mt-4 flex flex-wrap items-center gap-2">
+                            <a href={project.repo_url} target="_blank">
+                                <Button
+                                    client:only="vue"
+                                    severity="secondary"
+                                    label={
+                                        project.repo_url ? 'Repository' : 'N/A'
+                                    }
+                                    icon={
+                                        project.repo_url ? 'ri-github-fill' : ''
+                                    }
+                                    size="small"
+                                    disabled={!project.repo_url}
+                                />
+                            </a>
+
+                            <a href={project.live_url} target="_blank">
+                                <Button
+                                    client:only="vue"
+                                    label={project.live_url ? 'Link' : 'N/A'}
+                                    icon={
+                                        project.live_url
+                                            ? 'ri-external-link-line'
+                                            : ''
+                                    }
+                                    size="small"
+                                    disabled={!project.live_url}
+                                />
+                            </a>
+                        </div>
+                    </div>
+                ))
+            }
+        </div>
+
+        <div class="mt-16 flex justify-center">
+            <a href="https://github.com/jericdei" target="_blank">
+                <Button
+                    client:only="vue"
+                    severity="secondary"
+                    label="View more on my GitHub Profile"
+                    icon="ri-github-fill"
+                />
+            </a>
+        </div>
+    </section>
+</Layout>

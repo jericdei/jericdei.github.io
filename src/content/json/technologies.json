@@ -1,0 +1,188 @@
+{
+    "technologies": [
+        {
+            "slug": "laravel",
+            "name": "Laravel",
+            "type": ["framework", "php", "web", "backend", "frontend"],
+            "logo": "/logos/laravel.svg",
+            "level": 9,
+            "opinion": "In terms of building backends and server-rendered web apps, Laravel is my favorite framework to use. It's the first web framework I learned and it's the reason I love developing full-stack applications, especially now that Laravel has a very good ecosystem and libraries that really makes my life easy."
+        },
+        {
+            "slug": "vue",
+            "name": "Vue.js",
+            "type": ["framework", "js", "web", "frontend"],
+            "logo": "/logos/vue.svg",
+            "level": 9,
+            "opinion": "I think Vue is the UI framework that makes the most sense to me. Especially the Composition API and the `<script setup>` syntax. It's very simple to use, easy to learn, scalable, and has great community support."
+        },
+        {
+            "slug": "inertia",
+            "name": "Inertia.js",
+            "type": ["web", "tools"],
+            "level": 9,
+            "logo": "/logos/inertia.svg",
+            "opinion": "Inertia is one of the technologies that blew my mind. When I first started using Laravel, I mainly use it to build APIs that my frontend applications consume. It's quite a pain-in-the ass to maintain two separate repos. But with Inertia, it's very easy to build powerful full-stack apps. I can just use Laravel and Vue without any hassle."
+        },
+        {
+            "slug": "tailwind",
+            "name": "Tailwind CSS",
+            "type": ["css", "web", "frontend"],
+            "logo": "/logos/tailwind.svg",
+            "level": 10,
+            "opinion": "I love CSS, but Tailwind just makes writing styles fun and easy. It's my go-to CSS framework when I need to build some good-looking interfaces. I can't imagine not using Tailwind in my projects."
+        },
+        {
+            "slug": "mysql",
+            "name": "MySQL",
+            "type": ["backend", "database"],
+            "logo": "/logos/mysql.svg",
+            "level": 10,
+            "opinion": "In terms of databases, MySQL is always my first choice. As much as I love using NoSQL databases, it's still much better to plan the schema and build databases using Relational Databases."
+        },
+        {
+            "slug": "typescript",
+            "name": "TypeScript",
+            "type": ["js", "web", "frontend", "backend"],
+            "logo": "/logos/typescript.svg",
+            "level": 10,
+            "opinion": "As much as I love vanilla JavaScript, I can't go back to it once I learned TypeScript. I believe it's a must-have for any developer who wants to build a scalable web application."
+        },
+        {
+            "slug": "php",
+            "name": "PHP",
+            "type": ["php", "web", "backend"],
+            "logo": "/logos/php.svg",
+            "level": 10,
+            "opinion": "I think PHP is overly hated these days. But in reality, modern PHP is a very powerful language, and in my opinion, building backends in PHP is a lot more intuitive than building backends in JavaScript."
+        },
+        {
+            "slug": "node",
+            "name": "Node.js",
+            "type": ["js", "web", "backend"],
+            "logo": "/logos/node.svg",
+            "level": 9,
+            "opinion": "It's the most popular JavaScript runtime. It's a must-have for full-stack developers."
+        },
+        {
+            "slug": "bun",
+            "name": "Bun",
+            "type": ["js", "web", "backend"],
+            "logo": "/logos/bun.svg",
+            "level": 8,
+            "opinion": "I've been using Bun for quite some time. It's much faster to work with than Node, especially when using its built in package manager. I also love that TypeScript works out of the box."
+        },
+        {
+            "slug": "express",
+            "name": "Express",
+            "type": ["js", "web", "backend"],
+            "logo": "/logos/express.svg",
+            "level": 8,
+            "opinion": "Express is my most used library in creating JavaScript backends. It's very simple to use."
+        },
+        {
+            "slug": "astro",
+            "name": "Astro",
+            "type": ["framework", "js", "web", "frontend", "backend"],
+            "logo": "/logos/astro.svg",
+            "level": 8,
+            "opinion": "Astro is my go-to technology in terms of developing static websites. It has great performance and great community support. It also integrates well with all popular frameworks and libraries if I want to have some interactivity. In fact, this website is built with Astro."
+        },
+        {
+            "slug": "react",
+            "name": "React",
+            "type": ["js", "web", "frontend"],
+            "logo": "/logos/react.svg",
+            "level": 7,
+            "opinion": "At first, I hate React because of its syntax. But as I use it in my work, I understand the strengths and advantages of it. The ecosystem is top-notch. Integrations with third-party libraries are very well supported."
+        },
+        {
+            "slug": "react-native",
+            "name": "React Native",
+            "type": ["js", "mobile", "frontend"],
+            "logo": "/logos/react.svg",
+            "level": 8,
+            "opinion": "My go-to technology when building mobile apps. It's very easy to develop cross-platform apps that are truly native, and because I'm a web developer, I feel right at home with it."
+        },
+        {
+            "slug": "mongodb",
+            "name": "MongoDB",
+            "type": ["backend", "database"],
+            "logo": "/logos/mongodb.svg",
+            "level": 8,
+            "opinion": "MongoDB is a great tool to quickly store data. It's very powerful and has great integrations with JavaScript libraries and frameworks."
+        },
+        {
+            "slug": "storyblok",
+            "name": "Storyblok",
+            "type": ["js", "cms"],
+            "logo": "/logos/storyblok.svg",
+            "level": 7,
+            "opinion": "I think Storyblok is one of the best CMS I've used. It's a great way to build content and a great way to build an ecosystem of plugins."
+        },
+        {
+            "slug": "git",
+            "name": "Git",
+            "type": ["tools"],
+            "logo": "/logos/git.svg",
+            "level": 10,
+            "opinion": "Must-have for version control. Nuffsaid."
+        },
+        {
+            "slug": "docker",
+            "name": "Docker",
+            "type": ["tools", "devops"],
+            "logo": "/logos/docker.svg",
+            "level": 9,
+            "opinion": "Setting up development environment and production infrastructure has never been easier with Docker. I'm in love with this technology because I literally can do whatever I want with it. It's a great skillset to have especially in CI/CD pipelines and automations."
+        },
+        {
+            "slug": "codeigniter",
+            "name": "CodeIgniter",
+            "type": ["framework", "backend", "php"],
+            "logo": "/logos/codeigniter.svg",
+            "level": 5,
+            "opinion": "I used CodeIgniter in some of the legacy projects in my company. Not a big fan of it but it's the framework most of our projects was built with and it gets the job done."
+        },
+        {
+            "slug": "nuxt",
+            "name": "Nuxt.js",
+            "type": ["framework", "js", "web", "frontend", "backend"],
+            "logo": "/logos/nuxt.svg",
+            "level": 9,
+            "opinion": "Since I love using Vue, I'm also enjoying using Nuxt. It's just the best of both worlds. I'm looking forward to use it in my future projects."
+        },
+        {
+            "slug": "next",
+            "name": "Next.js",
+            "type": ["framework", "js", "web", "frontend", "backend"],
+            "logo": "/logos/next.svg",
+            "level": 8,
+            "opinion": "The most popular framework in the JavaScript ecosystem. Haven't used it (cuz Vue is life) but I'm excited to try it out."
+        },
+        {
+            "slug": "svelte",
+            "name": "Svelte",
+            "type": ["framework", "js", "web", "frontend"],
+            "logo": "/logos/svelte.svg",
+            "level": 9,
+            "opinion": "Similar with Vue, I like the simplicity of the syntax of Svelte. I tried using it and the developer experience is amazing. The ecosystem is not that good since it's kinda new but I think in a few years it will be great."
+        },
+        {
+            "slug": "postgres",
+            "name": "PostgreSQL",
+            "type": ["database", "backend"],
+            "logo": "/logos/postgres.svg",
+            "level": 7,
+            "opinion": "Just like MySQL, I like using Postgres. Unfortunately, it's not the go-to database in my work (they love MySQL), but I used it on my personal projects."
+        },
+        {
+            "slug": "bootstrap",
+            "name": "Bootstrap",
+            "type": ["css", "web", "frontend"],
+            "logo": "/logos/bootstrap.svg",
+            "level": 7,
+            "opinion": "My first CSS framework I used earlier in my career. It's the CSS framework that my professional projects mostly use. It gets the job done but I'm not a fan of it, I prefer styling things with full control like Tailwind."
+        }
+    ]
+}

@@ -1,0 +1,175 @@
+{
+    "projects": [
+        {
+            "name": "MaJeKaL Mission",
+            "type": "freelance",
+            "repo_url": "https://github.com/jericdei/majekal-mission",
+            "live_url": "https://majekalmission.org",
+            "image": "/projects/majekal-mission.png",
+            "progress": 100,
+            "description": "A charity website focused on generating donations for various causes. The platform provides an easy-to-use interface for users to explore different programs, understand their missions, and contribute securely. The goal is to foster a community of generosity, raise awareness about social issues, and drive impactful change through transparent and accountable giving.",
+            "tech_stack": [
+                "typescript",
+                "astro",
+                "vue",
+                "tailwind",
+                "storyblok",
+                "bun"
+            ]
+        },
+        {
+            "name": "Mei Li Tea House Website",
+            "type": "freelance",
+            "repo_url": "https://github.com/jericdei/meiliteahouse",
+            "live_url": "https://meiliteahouse.com",
+            "image": "/projects/meiliteahouse.png",
+            "progress": 100,
+            "description": "The official website of Mei Li Tea House Philippines. This website is designed with a minimalistic and modern design. It also includes an investment system where people can submit their investment proposals, and administrators can monitor and verify the submissions.",
+            "tech_stack": [
+                "php",
+                "typescript",
+                "laravel",
+                "tailwind",
+                "vue",
+                "inertia",
+                "mysql",
+                "node"
+            ]
+        },
+        {
+            "name": "Kheops",
+            "type": "professional",
+            "repo_url": null,
+            "live_url": "https://test.cornerstone.ph",
+            "image": "/projects/kheops.png",
+            "progress": "stopped",
+            "description": "An admin panel for managing real-estate entities (properties, networks, etc.). It also serves as the backend API of Lhoopa App, a mobile app on one of the companies I work for.",
+            "tech_stack": [
+                "php",
+                "typescript",
+                "laravel",
+                "inertia",
+                "vue",
+                "tailwind",
+                "mysql",
+                "node"
+            ]
+        },
+        {
+            "name": "Lhoopa Ticketing System",
+            "type": "professional",
+            "repo_url": null,
+            "live_url": "https://support.lhoopa.com",
+            "image": "/projects/lhoopa-ticketing-system.png",
+            "progress": 100,
+            "description": "The official support portal for the Lhoopa Inc. It handles operational and support ticketing for both employees and clients.",
+            "tech_stack": [
+                "php",
+                "typescript",
+                "laravel",
+                "inertia",
+                "vue",
+                "bootstrap",
+                "mysql",
+                "node"
+            ]
+        },
+        {
+            "name": "Weather Forecast App",
+            "type": "personal",
+            "repo_url": "https://github.com/jericdei/weather-forecast-app",
+            "live_url": "https://weather-forecast-app-neon.vercel.app",
+            "image": "/projects/weather-forecast-app.png",
+            "progress": 100,
+            "description": "A simple weather forecasting app that uses multiple API providers to fetch weather data.",
+            "tech_stack": ["typescript", "vue", "tailwind", "bun"]
+        },
+        {
+            "name": "Patient App",
+            "type": "personal",
+            "repo_url": "https://github.com/jericdei/patient-app",
+            "live_url": null,
+            "image": "/projects/patient-app.png",
+            "progress": 100,
+            "description": "Basic CRUD app for managing patients. It's a project for a practical examination on one of the companies I'm applying for.",
+            "tech_stack": ["php", "laravel", "bootstrap", "mysql"]
+        },
+        {
+            "name": "Finance Tracker",
+            "type": "personal",
+            "repo_url": "https://github.com/jericdei/finance-tracker",
+            "live_url": "https://finance-tracker-three-snowy.vercel.app",
+            "image": "/projects/finance-tracker.png",
+            "progress": 20,
+            "description": "A personal finance tracker for me and my girlfriend. It can be used to record income and expenses, set goals, and track progress.",
+            "tech_stack": [
+                "typescript",
+                "nuxt",
+                "vue",
+                "tailwind",
+                "postgres",
+                "bun"
+            ]
+        },
+        {
+            "name": "Chat App",
+            "type": "personal",
+            "repo_url": "https://github.com/jericdei/chat-app",
+            "live_url": null,
+            "image": "/projects/chat-app.png",
+            "progress": 90,
+            "description": "A simple real-time chat application. It has authentication, and users can send messages to each other. It's a project I wrote just to try Laravel's new first-party WebSocket package, Laravel Reverb.",
+            "tech_stack": [
+                "php",
+                "typescript",
+                "laravel",
+                "vue",
+                "inertia",
+                "mysql"
+            ]
+        },
+        {
+            "name": "Chirp",
+            "type": "personal",
+            "repo_url": "https://github.com/jericdei/chirp",
+            "live_url": null,
+            "image": "/projects/chirp.png",
+            "progress": 80,
+            "description": "A simple twitter clone application. It has authentication, and users can post chirps (tweet), comment on other's chirps, and like chirps.",
+            "tech_stack": [
+                "php",
+                "typescript",
+                "laravel",
+                "vue",
+                "inertia",
+                "postgres"
+            ]
+        },
+        {
+            "name": "Expo Nativewind",
+            "type": "personal",
+            "repo_url": "https://github.com/jericdei/expo-nativewind",
+            "live_url": null,
+            "image": "/projects/expo-nativewind.png",
+            "progress": null,
+            "description": "A simple Expo mobile app just to try out Nativewind (Tailwind CSS for React Native).",
+            "tech_stack": [
+                "typescript",
+                "nativewind",
+                "expo",
+                "react-native",
+                "bun"
+            ]
+        },
+        {
+            "name": "PSGC to Database",
+            "type": "personal",
+            "repo_url": "https://github.com/jericdei/psgc-to-database",
+            "live_url": null,
+            "image": "/projects/psgc-to-database.png",
+            "progress": 100,
+            "description": "A simple PHP command line tool to convert Philippine Standard Geographic Code (PSGC) data to database tables. It will download the latest PSGC data and convert Regions, Provinces, Municipalities, Cities, Sub-municipalities, and Barangays to their respective tables.",
+            "tech_stack": ["php", "laravel", "mysql"]
+        }
+    ]
+}
