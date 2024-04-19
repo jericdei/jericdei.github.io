@@ -6,6 +6,7 @@ import Button from 'primevue/button/Button.vue'
 import Image from 'astro/components/Image.astro'
 import TechnologyTag from '../components/astro/TechnologyTag.astro'
 import Tag from 'primevue/tag/Tag.vue'
+import ProgressBar from 'primevue/progressbar/ProgressBar.vue'
 
 function getTechnologies(slugs: string[]) {
     return technologies.filter((tech) => slugs.includes(tech.slug))
@@ -38,64 +39,101 @@ function getProjectTypeSeverity(type: string) {
         >
             {
                 projects.map((project) => (
-                    <div class="rounded-lg bg-slate-300 p-4 dark:bg-surface-700">
-                        <div class="flex justify-between">
-                            <p class="font-bold lg:text-lg">{project.name}</p>
-
-                            <Tag
-                                value={capitalizeFirstLetter(project.type)}
-                                severity={getProjectTypeSeverity(project.type)}
-                            />
+                    <div class="group relative">
+                        <div class="pointer-events-none absolute bottom-[103%] right-0 rounded-lg bg-surface-0/90 p-4 opacity-0 transition-opacity duration-300 group-hover:opacity-100 dark:bg-surface-900/90">
+                            <p class="text-slate-800 dark:text-slate-300">
+                                {project.description}
+                            </p>
                         </div>
 
-                        <div class="mt-4 flex flex-wrap gap-2">
-                            {getTechnologies(project.tech_stack).map((tech) => (
+                        <div class="rounded-lg bg-slate-300 p-4 transition-all dark:bg-surface-700">
+                            <div class="flex items-center justify-between">
+                                <p class="font-bold lg:text-lg">
+                                    {project.name}
+                                </p>
+                                <Tag
+                                    value={capitalizeFirstLetter(project.type)}
+                                    severity={getProjectTypeSeverity(
+                                        project.type,
+                                    )}
+                                />
+                            </div>
+
+                            <div class="mt-4 flex flex-wrap gap-2">
+                                {getTechnologies(project.tech_stack).map(
+                                    (tech) => (
+                                        <div>
+                                            <TechnologyTag technology={tech} />
+                                        </div>
+                                    ),
+                                )}
+                            </div>
+
+                            <div class="mt-4">
+                                <Image
+                                    src={project.image}
+                                    alt={project.name}
+                                    height={300}
+                                    width={600}
+                                    class="flex items-center justify-center rounded-lg bg-slate-400 dark:bg-slate-600"
+                                    onerror="this.src='/placeholder.svg'"
+                                />
+                            </div>
+
+                            <div class="mt-4">
                                 <div>
-                                    <TechnologyTag technology={tech} />
+                                    <span>Progress: </span>
+
+                                    {project.progress ? (
+                                        <ProgressBar
+                                            client:load
+                                            value={project.progress}
+                                        />
+                                    ) : (
+                                        <ProgressBar
+                                            client:load
+                                            mode="indeterminate"
+                                        />
+                                    )}
                                 </div>
-                            ))}
-                        </div>
+                            </div>
 
-                        <div class="mt-4">
-                            <Image
-                                src={project.image}
-                                alt={project.name}
-                                height={300}
-                                width={600}
-                                class="flex items-center justify-center rounded-lg bg-slate-400 dark:bg-slate-600"
-                                onerror="this.src='/placeholder.svg'"
-                            />
-                        </div>
+                            <div class="mt-8 flex flex-wrap items-center gap-2">
+                                <a href={project.repo_url} target="_blank">
+                                    <Button
+                                        client:only="vue"
+                                        severity="secondary"
+                                        label={
+                                            project.repo_url
+                                                ? 'Repository'
+                                                : 'N/A'
+                                        }
+                                        icon={
+                                            project.repo_url
+                                                ? 'ri-github-fill'
+                                                : ''
+                                        }
+                                        size="small"
+                                        disabled={!project.repo_url}
+                                    />
+                                </a>
 
-                        <div class="mt-4 flex flex-wrap items-center gap-2">
-                            <a href={project.repo_url} target="_blank">
-                                <Button
-                                    client:only="vue"
-                                    severity="secondary"
-                                    label={
-                                        project.repo_url ? 'Repository' : 'N/A'
-                                    }
-                                    icon={
-                                        project.repo_url ? 'ri-github-fill' : ''
-                                    }
-                                    size="small"
-                                    disabled={!project.repo_url}
-                                />
-                            </a>
-
-                            <a href={project.live_url} target="_blank">
-                                <Button
-                                    client:only="vue"
-                                    label={project.live_url ? 'Link' : 'N/A'}
-                                    icon={
-                                        project.live_url
-                                            ? 'ri-external-link-line'
-                                            : ''
-                                    }
-                                    size="small"
-                                    disabled={!project.live_url}
-                                />
-                            </a>
+                                <a href={project.live_url} target="_blank">
+                                    <Button
+                                        client:only="vue"
+                                        label={
+                                            project.live_url ? 'Link' : 'N/A'
+                                        }
+                                        icon={
+                                            project.live_url
+                                                ? 'ri-external-link-line'
+                                                : ''
+                                        }
+                                        size="small"
+                                        disabled={!project.live_url}
+                                    />
+                                </a>
+                            </div>
                         </div>
                     </div>
                 ))

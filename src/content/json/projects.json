@@ -37,12 +37,12 @@
             ]
         },
         {
-            "name": "Kheops",
+            "name": "Lhoopa Kheops",
             "type": "professional",
             "repo_url": null,
             "live_url": "https://test.cornerstone.ph",
             "image": "/projects/kheops.png",
-            "progress": "stopped",
+            "progress": null,
             "description": "An admin panel for managing real-estate entities (properties, networks, etc.). It also serves as the backend API of Lhoopa App, a mobile app on one of the companies I work for.",
             "tech_stack": [
                 "php",
@@ -151,7 +151,7 @@
             "repo_url": "https://github.com/jericdei/expo-nativewind",
             "live_url": null,
             "image": "/projects/expo-nativewind.png",
-            "progress": null,
+            "progress": 30,
             "description": "A simple Expo mobile app just to try out Nativewind (Tailwind CSS for React Native).",
             "tech_stack": [
                 "typescript",
