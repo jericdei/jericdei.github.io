@@ -17,23 +17,19 @@ const roles = ['Full-Stack Developer.', 'Tech Enthusiast.', 'Innovator.']
                 >Jeric June Logan</span
             >
 
-            <TextCarousel client:only="vue" texts={roles} />
+            <TextCarousel client:load texts={roles} />
         </div>
 
         <div
             class="mt-4 flex flex-wrap items-center justify-center gap-4 lg:justify-start"
         >
             <a href="mailto:loganjeric25@gmail.com">
-                <Button
-                    client:only="vue"
-                    label="Hit me up"
-                    icon="ri-chat-1-fill"
-                />
+                <Button client:load label="Hit me up" icon="ri-chat-1-fill" />
             </a>
 
             <a href="https://github.com/jericdei" target="_blank">
                 <Button
-                    client:only="vue"
+                    client:load
                     severity="secondary"
                     label="View my GitHub"
                     icon="ri-github-fill"
