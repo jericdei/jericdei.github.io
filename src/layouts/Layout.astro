@@ -12,8 +12,6 @@ interface Props {
 
 const { title } = Astro.props
 
-const { pathname } = new URL(Astro.url)
-
 const menuItems = [
     {
         label: 'Home',
@@ -28,6 +26,8 @@ const menuItems = [
         path: '/blog/',
     },
 ]
+
+const isActive = (path: string) => path === Astro.url.pathname
 ---
 
 <!doctype html>
@@ -64,7 +64,7 @@ const menuItems = [
                                             'text-lg',
                                             {
                                                 'font-bold text-primary-500':
-                                                    pathname === item.path,
+                                                    isActive(item.path),
                                             },
                                         ]}
                                     >

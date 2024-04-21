@@ -6,6 +6,7 @@ import ProgressBar from 'primevue/progressbar/ProgressBar.vue'
 import Button from 'primevue/button/Button.vue'
 import { getEntries } from 'astro:content'
 import { getDataEntryById } from 'astro:content'
+import { capitalizeFirstLetter } from '@/content/utils/string'
 
 interface Props {
     projectId: any
@@ -15,10 +16,6 @@ const { projectId } = Astro.props
 
 const project = await getDataEntryById('projects', projectId)
 const technologies = await getEntries(project.data.technologies!)
-
-function capitalizeFirstLetter(string: string) {
-    return string.charAt(0).toUpperCase() + string.slice(1)
-}
 
 function getProjectTypeSeverity(type: string) {
     switch (type) {

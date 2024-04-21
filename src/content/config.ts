@@ -26,7 +26,20 @@ const projects = defineCollection({
     }),
 })
 
+const posts = defineCollection({
+    type: 'content',
+    schema: z.object({
+        title: z.string(),
+        description: z.string(),
+        publishedDate: z.date(),
+        updatedDate: z.date().optional(),
+        image: z.string().optional(),
+        tags: z.array(z.string()).optional(),
+    }),
+})
+
 export const collections = {
     technologies,
     projects,
+    posts,
 }
