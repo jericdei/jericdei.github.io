@@ -1,0 +1,11 @@
+{
+  "slug": "mongodb",
+  "name": "MongoDB",
+  "type": [
+    "backend",
+    "database"
+  ],
+  "logo": "/logos/mongodb.svg",
+  "level": 8,
+  "opinion": "MongoDB is a great tool to quickly store data. It's very powerful and has great integrations with JavaScript libraries and frameworks."
+}

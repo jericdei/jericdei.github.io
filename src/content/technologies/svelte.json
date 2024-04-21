@@ -1,0 +1,13 @@
+{
+  "slug": "svelte",
+  "name": "Svelte",
+  "type": [
+    "framework",
+    "js",
+    "web",
+    "frontend"
+  ],
+  "logo": "/logos/svelte.svg",
+  "level": 9,
+  "opinion": "Similar with Vue, I like the simplicity of the syntax of Svelte. I tried using it and the developer experience is amazing. The ecosystem is not that good since it's kinda new but I think in a few years it will be great."
+}

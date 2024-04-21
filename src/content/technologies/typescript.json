@@ -1,0 +1,13 @@
+{
+  "slug": "typescript",
+  "name": "TypeScript",
+  "type": [
+    "js",
+    "web",
+    "frontend",
+    "backend"
+  ],
+  "logo": "/logos/typescript.svg",
+  "level": 10,
+  "opinion": "As much as I love vanilla JavaScript, I can't go back to it once I learned TypeScript. I believe it's a must-have for any developer who wants to build a scalable web application."
+}

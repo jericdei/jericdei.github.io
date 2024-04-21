@@ -1,0 +1,11 @@
+{
+  "slug": "mysql",
+  "name": "MySQL",
+  "type": [
+    "backend",
+    "database"
+  ],
+  "logo": "/logos/mysql.svg",
+  "level": 10,
+  "opinion": "In terms of databases, MySQL is always my first choice. As much as I love using NoSQL databases, it's still much better to plan the schema and build databases using Relational Databases."
+}

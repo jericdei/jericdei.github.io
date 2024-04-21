@@ -1,0 +1,11 @@
+{
+  "slug": "postgres",
+  "name": "PostgreSQL",
+  "type": [
+    "database",
+    "backend"
+  ],
+  "logo": "/logos/postgres.svg",
+  "level": 7,
+  "opinion": "Just like MySQL, I like using Postgres. Unfortunately, it's not the go-to database in my work (they love MySQL), but I used it on my personal projects."
+}

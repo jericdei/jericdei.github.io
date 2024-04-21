@@ -1,0 +1,19 @@
+{
+  "name": "Mei Li Tea House Website",
+  "type": "freelance",
+  "repo_url": "https://github.com/jericdei/meiliteahouse",
+  "live_url": "https://meiliteahouse.com",
+  "image": "/projects/meiliteahouse.png",
+  "progress": 100,
+  "description": "The official website of Mei Li Tea House Philippines. This website is designed with a minimalistic and modern design. It also includes an investment system where people can submit their investment proposals, and administrators can monitor and verify the submissions.",
+  "technologies": [
+    "php",
+    "typescript",
+    "laravel",
+    "tailwind",
+    "vue",
+    "inertia",
+    "mysql",
+    "node"
+  ]
+}

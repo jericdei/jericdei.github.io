@@ -1,0 +1,14 @@
+{
+  "slug": "nuxt",
+  "name": "Nuxt.js",
+  "type": [
+    "framework",
+    "js",
+    "web",
+    "frontend",
+    "backend"
+  ],
+  "logo": "/logos/nuxt.svg",
+  "level": 9,
+  "opinion": "Since I love using Vue, I'm also enjoying using Nuxt. It's just the best of both worlds. I'm looking forward to use it in my future projects."
+}

@@ -1,0 +1,8 @@
+{
+    "slug": "expo",
+    "name": "Expo",
+    "type": ["js", "mobile", "frontend"],
+    "logo": "/logos/expo.svg",
+    "level": 8,
+    "opinion": "Expo is very easy to setup especially in Development. I like the way it allows me to build mobile apps with React Native. Building locally is quite a challenge, though. But their build-on-cloud solution is actually affordable."
+}

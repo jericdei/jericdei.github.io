@@ -1,0 +1,11 @@
+{
+  "slug": "inertia",
+  "name": "Inertia.js",
+  "type": [
+    "web",
+    "tools"
+  ],
+  "level": 9,
+  "logo": "/logos/inertia.svg",
+  "opinion": "Inertia is one of the technologies that blew my mind. When I first started using Laravel, I mainly use it to build APIs that my frontend applications consume. It's quite a pain-in-the ass to maintain two separate repos. But with Inertia, it's very easy to build powerful full-stack apps. I can just use Laravel and Vue without any hassle."
+}

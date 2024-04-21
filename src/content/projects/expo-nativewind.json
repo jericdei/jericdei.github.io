@@ -1,0 +1,10 @@
+{
+    "name": "Expo Nativewind",
+    "type": "personal",
+    "repo_url": "https://github.com/jericdei/expo-nativewind",
+    "live_url": null,
+    "image": "/projects/expo-nativewind.png",
+    "progress": 30,
+    "description": "A simple Expo mobile app just to try out Nativewind (Tailwind CSS for React Native).",
+    "technologies": ["typescript", "expo", "react-native", "bun"]
+}

@@ -1,0 +1,12 @@
+{
+  "slug": "bootstrap",
+  "name": "Bootstrap",
+  "type": [
+    "css",
+    "web",
+    "frontend"
+  ],
+  "logo": "/logos/bootstrap.svg",
+  "level": 7,
+  "opinion": "My first CSS framework I used earlier in my career. It's the CSS framework that my professional projects mostly use. It gets the job done but I'm not a fan of it, I prefer styling things with full control like Tailwind."
+}

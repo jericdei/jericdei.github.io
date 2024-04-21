@@ -1,31 +1,10 @@
 ---
+import ProjectCard from '@/components/astro/ProjectCard.astro'
 import Layout from '../layouts/Layout.astro'
-import { projects } from '../content/json/projects.json'
-import { technologies } from '../content/json/technologies.json'
 import Button from 'primevue/button/Button.vue'
-import Image from 'astro/components/Image.astro'
-import TechnologyTag from '../components/astro/TechnologyTag.astro'
-import Tag from 'primevue/tag/Tag.vue'
-import ProgressBar from 'primevue/progressbar/ProgressBar.vue'
+import { getCollection } from 'astro:content'
 
-function getTechnologies(slugs: string[]) {
-    return technologies.filter((tech) => slugs.includes(tech.slug))
-}
-
-function capitalizeFirstLetter(string: string) {
-    return string.charAt(0).toUpperCase() + string.slice(1)
-}
-
-function getProjectTypeSeverity(type: string) {
-    switch (type) {
-        case 'personal':
-            return 'warning'
-        case 'professional':
-            return 'success'
-        default:
-            return 'info'
-    }
-}
+const projects = await getCollection('projects')
 ---
 
 <Layout title="Projects">
@@ -37,107 +16,7 @@ function getProjectTypeSeverity(type: string) {
         <div
             class="mt-16 grid grid-cols-1 gap-x-8 gap-y-12 p-4 md:grid-cols-2 lg:grid-cols-4"
         >
-            {
-                projects.map((project) => (
-                    <div class="group relative">
-                        <div class="pointer-events-none absolute bottom-[103%] right-0 rounded-lg bg-surface-0/90 p-4 opacity-0 transition-opacity duration-300 group-hover:opacity-100 dark:bg-surface-900/90">
-                            <p class="text-slate-800 dark:text-slate-300">
-                                {project.description}
-                            </p>
-                        </div>
-
-                        <div class="rounded-lg bg-slate-300 p-4 transition-all dark:bg-surface-700">
-                            <div class="flex items-center justify-between">
-                                <p class="font-bold lg:text-lg">
-                                    {project.name}
-                                </p>
-                                <Tag
-                                    value={capitalizeFirstLetter(project.type)}
-                                    severity={getProjectTypeSeverity(
-                                        project.type,
-                                    )}
-                                />
-                            </div>
-
-                            <div class="mt-4 flex flex-wrap gap-2">
-                                {getTechnologies(project.tech_stack).map(
-                                    (tech) => (
-                                        <div>
-                                            <TechnologyTag technology={tech} />
-                                        </div>
-                                    ),
-                                )}
-                            </div>
-
-                            <div class="mt-4">
-                                <Image
-                                    src={project.image}
-                                    alt={project.name}
-                                    height={300}
-                                    width={600}
-                                    class="flex items-center justify-center rounded-lg bg-slate-400 dark:bg-slate-600"
-                                    onerror="this.src='/placeholder.svg'"
-                                />
-                            </div>
-
-                            <div class="mt-4">
-                                <div>
-                                    <span>Progress: </span>
-
-                                    {project.progress ? (
-                                        <ProgressBar
-                                            client:load
-                                            value={project.progress}
-                                        />
-                                    ) : (
-                                        <ProgressBar
-                                            client:load
-                                            mode="indeterminate"
-                                        />
-                                    )}
-                                </div>
-                            </div>
-
-                            <div class="mt-8 flex flex-wrap items-center gap-2">
-                                <a href={project.repo_url} target="_blank">
-                                    <Button
-                                        client:only="vue"
-                                        severity="secondary"
-                                        label={
-                                            project.repo_url
-                                                ? 'Repository'
-                                                : 'N/A'
-                                        }
-                                        icon={
-                                            project.repo_url
-                                                ? 'ri-github-fill'
-                                                : ''
-                                        }
-                                        size="small"
-                                        disabled={!project.repo_url}
-                                    />
-                                </a>
-
-                                <a href={project.live_url} target="_blank">
-                                    <Button
-                                        client:only="vue"
-                                        label={
-                                            project.live_url ? 'Link' : 'N/A'
-                                        }
-                                        icon={
-                                            project.live_url
-                                                ? 'ri-external-link-line'
-                                                : ''
-                                        }
-                                        size="small"
-                                        disabled={!project.live_url}
-                                    />
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                ))
-            }
+            {projects.map((project) => <ProjectCard projectId={project.id} />)}
         </div>
 
         <div class="mt-16 flex justify-center">

@@ -1,0 +1,13 @@
+{
+  "slug": "vue",
+  "name": "Vue.js",
+  "type": [
+    "framework",
+    "js",
+    "web",
+    "frontend"
+  ],
+  "logo": "/logos/vue.svg",
+  "level": 9,
+  "opinion": "I think Vue is the UI framework that makes the most sense to me. Especially the Composition API and the `<script setup>` syntax. It's very simple to use, easy to learn, scalable, and has great community support."
+}

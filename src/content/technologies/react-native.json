@@ -1,0 +1,12 @@
+{
+  "slug": "react-native",
+  "name": "React Native",
+  "type": [
+    "js",
+    "mobile",
+    "frontend"
+  ],
+  "logo": "/logos/react.svg",
+  "level": 8,
+  "opinion": "My go-to technology when building mobile apps. It's very easy to develop cross-platform apps that are truly native, and because I'm a web developer, I feel right at home with it."
+}

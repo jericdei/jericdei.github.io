@@ -1,0 +1,12 @@
+{
+  "slug": "express",
+  "name": "Express",
+  "type": [
+    "js",
+    "web",
+    "backend"
+  ],
+  "logo": "/logos/express.svg",
+  "level": 8,
+  "opinion": "Express is my most used library in creating JavaScript backends. It's very simple to use."
+}

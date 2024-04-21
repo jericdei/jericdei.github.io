@@ -1,0 +1,10 @@
+{
+  "slug": "git",
+  "name": "Git",
+  "type": [
+    "tools"
+  ],
+  "logo": "/logos/git.svg",
+  "level": 10,
+  "opinion": "Must-have for version control. Nuffsaid."
+}

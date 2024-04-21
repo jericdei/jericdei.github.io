@@ -1,0 +1,17 @@
+{
+  "name": "Chat App",
+  "type": "personal",
+  "repo_url": "https://github.com/jericdei/chat-app",
+  "live_url": null,
+  "image": "/projects/chat-app.png",
+  "progress": 90,
+  "description": "A simple real-time chat application. It has authentication, and users can send messages to each other. It's a project I wrote just to try Laravel's new first-party WebSocket package, Laravel Reverb.",
+  "technologies": [
+    "php",
+    "typescript",
+    "laravel",
+    "vue",
+    "inertia",
+    "mysql"
+  ]
+}

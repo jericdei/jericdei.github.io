@@ -1,0 +1,17 @@
+{
+  "name": "Chirp",
+  "type": "personal",
+  "repo_url": "https://github.com/jericdei/chirp",
+  "live_url": null,
+  "image": "/projects/chirp.png",
+  "progress": 80,
+  "description": "A simple twitter clone application. It has authentication, and users can post chirps (tweet), comment on other's chirps, and like chirps.",
+  "technologies": [
+    "php",
+    "typescript",
+    "laravel",
+    "vue",
+    "inertia",
+    "postgres"
+  ]
+}

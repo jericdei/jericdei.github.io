@@ -1,0 +1,14 @@
+{
+  "slug": "next",
+  "name": "Next.js",
+  "type": [
+    "framework",
+    "js",
+    "web",
+    "frontend",
+    "backend"
+  ],
+  "logo": "/logos/next.svg",
+  "level": 8,
+  "opinion": "The most popular framework in the JavaScript ecosystem. Haven't used it (cuz Vue is life) but I'm excited to try it out."
+}

@@ -1,0 +1,19 @@
+{
+    "name": "Lhoopa Ticketing System",
+    "type": "professional",
+    "repo_url": null,
+    "live_url": "https://support.lhoopa.com",
+    "image": "/projects/lhoopa-ticketing-system.png",
+    "progress": null,
+    "description": "The official support portal for the Lhoopa Inc. It handles operational and support ticketing for both employees and clients.",
+    "technologies": [
+        "php",
+        "typescript",
+        "laravel",
+        "inertia",
+        "vue",
+        "bootstrap",
+        "mysql",
+        "node"
+    ]
+}

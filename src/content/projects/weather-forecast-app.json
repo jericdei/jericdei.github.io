@@ -1,0 +1,15 @@
+{
+  "name": "Weather Forecast App",
+  "type": "personal",
+  "repo_url": "https://github.com/jericdei/weather-forecast-app",
+  "live_url": "https://weather-forecast-app-neon.vercel.app",
+  "image": "/projects/weather-forecast-app.png",
+  "progress": 100,
+  "description": "A simple weather forecasting app that uses multiple API providers to fetch weather data.",
+  "technologies": [
+    "typescript",
+    "vue",
+    "tailwind",
+    "bun"
+  ]
+}
