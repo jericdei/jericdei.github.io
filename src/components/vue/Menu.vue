@@ -23,7 +23,7 @@ const props = defineProps<{
             </button>
 
             <nav
-                class="absolute left-1/2 top-48 w-[18rem] -translate-x-1/2 -translate-y-1/2 rounded-xl bg-gray-400 text-center text-slate-900"
+                class="absolute left-1/2 top-48 z-10 w-[18rem] -translate-x-1/2 -translate-y-1/2 rounded-xl bg-gray-400 text-center text-slate-900"
             >
                 <ul
                     class="flex flex-col gap-4 p-4"
