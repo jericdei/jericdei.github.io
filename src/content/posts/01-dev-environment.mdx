@@ -1,13 +1,19 @@
 ---
-title: 'My Ultimate Development Environment'
-slug: 'my-dev-environment'
-description: 'This is how I setup my development environment on any PC.'
+title: 'Flexible Development Environment Using Docker'
+slug: 'docker-dev-environment'
+description: 'How to setup a flexible development environment using Docker.'
 publishedDate: 2024-04-22
 image: '/blog/01.jpg'
-tags: ['docker']
+tags: ['development', 'docker']
 ---
 
-import Message from 'primevue/message/Message.vue'
+import Alert from '@/components/astro/Alert.astro'
+import composeYaml from '@/code/compose.yaml?raw'
+import merbYaml from '@/code/merb/merb.yaml?raw'
+import merbBackend from '@/code/merb/backend.ts?raw'
+import merbVite from '@/code/merb/vite.config.ts?raw'
+import { Code } from 'astro-expressive-code/components'
+import { getSpecificLines } from '@/utils/string'
 
 For us software developers, especially in enterprise setup, it's crucial to create a dedicated development environment to manage multiple projects with different dependencies as easy and efficient as possible.
 
@@ -17,12 +23,12 @@ In this post, I want to share how I setup my development environment from scratc
 
 Everything starts on which Operating System are we using. In my opinion, Ubuntu is the best operating system for software development. But since I also do gaming, my personal machine uses Windows, and I just use Windows Subsystem for Linux (WSL) for my development projects.
 
-<Message client:only severity="info" closable={false}>
+<Alert severity="info">
     If you are using WSL, I prefer to use the `Debian` distro instead of the
     default `Ubuntu` distro, because the `Debian` distro doesn't have any
     pre-installed packages, so you're basically starting from scratch, which is
     what we want.
-</Message>
+</Alert>
 
 ## Basic Ubuntu Packages
 
@@ -31,7 +37,7 @@ Now that we have an OS to work with, let's just install some basic packages we n
 Open up your terminal and update our package manager.
 
 ```bash
-# Update APT cache
+# Make sure to get the latest APT packages available
 sudo apt update;
 
 # Upgrade all installed packages in your system
@@ -46,30 +52,82 @@ sudo apt install -y git zsh curl wget unzip make
 
 #### What did we install?
 
--   `git`: For version control
+-   `git`: For version control and managing repositories.
 -   `zsh`: I prefer `zsh` over Ubuntu's default `bash` shell.
 -   `curl` and `wget`: For fetching remote files/endpoints. Most libraries out there uses them for installation.
 -   `unzip`: For extracting `zip` files.
 -   `make`: Some libraries uses `make` for installation. We can also use it to simplify workflow by creating a `Makefile` for some projects.
 
+## Terminal
+
+### Default Login Shell
+
+Since we've installed `zsh`, let's use it for our login shell.
+
+```bash
+chsh -s /usr/bin/zsh
+```
+
+This command will change the default shell from `/usr/bin/bash` to `/usr/bin/zsh`. It will ask for your password so just type it there.
+
+After changing the login shell, restart your terminal completely to apply the changes.
+
+### Warp
+
+I've recently discovered this terminal emulator on the internet, and it looks very good. Warp is a terminal application that has a lot of features that makes our life way easier. It has a smart autocompletion, IDE-like keybindings, very intuitive and customizable UI, heck, it even has integration with AI if you want to ask something about commands or anything. Its latest major release includes Linux support, though Windows support is still in development _(there is a workaround where you can run Warp in WSL, though it's not officially stable: <a href="https://github.com/warpdotdev/Warp/issues/4240" target="_blank">Link Here</a>)_.
+
+#### Installation
+
+1. Go to the <a href="https://app.warp.dev/get_warp" target="_blank">Warp website</a>.
+2. Download the `.deb` file.
+3. Copy the filename of the downloaded file (including `.deb`).
+4. Open up your terminal and install the app using `apt`:
+
+```bash
+sudo apt install -y ~/Downloads/<filename>.deb
+```
+
+<Alert severity="warn">
+    While Warp is a great terminal app to use, its main caveat for most users is
+    that **you need to sign up for an account in order to use it**. Which is
+    quite weird for just a terminal application. But if you don't mind it like
+    me, then we're good to go!
+</Alert>
+
+After successful installation and sign up, you can now configure your Warp depending on what works the best for you. But for me, here are some settings I have that want to share:
+
+-   **Features > Editor**
+    -   Open completions menu as you type = `true`
+    -   Expand aliases as you type = `true`
+    -   Show input hint text = `true`
+    -   Tab key behaviour = `Accept Autosuggestion`
+        -   I like to use `tab` to accept autocomplete, and Warp now assigns `ctrl + space` to open completion menu. Which is like using Copilot in VSCode. I like that.
+
+## Tools
+
+Next, we can install tools we need for development projects. Tools like `Node.js`, `Bun`, `PHP`, `Rust` or any other command line tools you may need for specific projects. You can just search the internet on how to install such tools in your OS. I'm gonna leave that task to you!
+
+<Alert severity="info">
+    Even if we're gonna use Docker for our dev environment, I think it's fine to
+    install these tools in our machine for generating a project, for example.
+</Alert>
+
 ## Code Editor / IDE
 
 I don't wanna make a debate on what Code Editor or IDE is the best, let's just use the most accessible and easier to use, Microsoft VSCode. Since we're on Ubuntu, we have a lot of ways to install VSCode on our machine, either using `snap`, `flatpak`, etc. But for this one, I think we should just directly download the `.deb` package from the VSCode website itself.
 
-1. Open your browser and go to the VSCode website: https://code.visualstudio.com/.
+1. Open your browser and go to the <a href="https://code.visualstudio.com" target="_blank">VSCode website</a>.
 2. Download the `.deb` file.
-3. Copy the filename of the downloaded file (including the file extension).
-4. Open terminal.
+3. Copy the filename of the downloaded file (including `.deb`).
+4. Open up your terminal and install the app using `apt`:
 
 ```bash
-cd ~/Downloads
-
-sudo apt install -y ./<filename.deb>
+sudo apt install -y ~/Downloads/<filename.deb>
 ```
 
 ## Docker
 
-I know, I know. At first, Docker is very overwhelming to use. But just bear with me, because I'm gonna walk you through all commands you need to know and how to use Docker on your projects.
+I know, I know. At first, Docker is very overwhelming to use. But just bear with me, because I'm gonna walk you through all commands you need to know and how to use Docker on your projects. It's also a great skillset to have as a software developer.
 
 ### Why Docker?
 
@@ -89,12 +147,12 @@ curl -fsSL https://get.docker.com -o get-docker.sh
 sudo sh get-docker.sh
 ```
 
-<Message client:only severity="warn" closable={false}>
+<Alert severity="warn">
     As much as I love Docker Desktop, sometimes there are some weirdness on the
     Docker Engine included in it, especially in Ubuntu. So if you are in Ubuntu,
     I recommend to just install the Docker Engine with the CLI to interact with
     it.
-</Message>
+</Alert>
 
 After the commands succeed, you can sanity-check if Docker is really installed.
 
@@ -106,23 +164,26 @@ docker version
 docker compose version
 ```
 
-If both commands doesn't have any errors, you're now good to go! But there's one more crucial step we need to do so we can use Docker even without root privileges (without prefixing docker commands with `sudo`).
+If both commands doesn't have any errors, congratulations! You just installed Docker! But there's one more crucial step we need to do so we can use Docker even without root privileges (without prefixing docker commands with `sudo`).
 
 ```bash
 sudo usermod -aG docker $USER
 ```
 
-<Message client:only severity="warn" closable={false}>
+<Alert severity="warn">
     This command will add your user to the `docker` group, and we need to
     **restart our system** for the changes to apply.
-</Message>
+</Alert>
 
 After restarting our system, we should be able to use Docker without root privileges. Let's test it out!
 
 ```bash
 docker run hello-world
+```
 
-# This command should output like:
+This command will pull the `hello-world` image from Docker Hub and try to run it. This should have an output of something like:
+
+```bash
 Hello from Docker!
 This message shows that your installation appears to be working correctly.
 
@@ -147,7 +208,7 @@ For more examples and ideas, visit:
 
 Nice! We now have Docker working in our system. Onto the next step!
 
-## Create Our Global Docker Services
+## Global Docker Services
 
 Now, installing Docker won't instantly spin up services we need for our development environment, it's just a tool for us to easily run multiple services using `compose.yaml` files. So we need to have a global compose file to have services we'll use on every project we have.
 
@@ -165,8 +226,214 @@ This is actually optional. You can use whatever database client you're most used
 
 ### Let's install them all!
 
-First, let's create a `compose.yml` file on our home directory.
+Before we create our global services configuration, let's first create a user-defined Docker network which we will use on all our services, so that all of them will connect on a single network:
 
-```bash title="/home/<my-username>"
-touch compose.yml
+```bash
+# replace `mynetwork` with the network name you want
+docker network create mynetwork
 ```
+
+Then, create a `compose.yaml` file on our home directory and open it up in VSCode:
+
+```bash title="~"
+code compose.yaml
+```
+
+Create the `traefik` service:
+
+<Code
+    lang="yaml"
+    code={getSpecificLines(composeYaml, 1, 25)}
+    title="~/compose.yaml"
+    showLineNumbers
+/>
+
+Wow. This is kinda overwhelming to understand but basically, it just pulls the official Traefik v2.11 image from Docker Hub and we configure it how we want. After this configuration, you don't even need to touch this unless you want to customize more. You can just refer to their <a href="https://doc.traefik.io/traefik/" target="_blank">Documentation</a> to learn more.
+
+Now for our `dbgate` service:
+
+<Code
+    lang="yaml"
+    code={getSpecificLines(composeYaml, 27, 47)}
+    title="~/compose.yaml"
+    showLineNumbers
+    startLineNumber={27}
+/>
+
+As you may notice, we declare a `volume` on the `dbgate` service, so we need to include a top-level `volumes` configuration for that:
+
+<Code
+    lang="yaml"
+    code={getSpecificLines(composeYaml, 49, 51)}
+    title="~/compose.yaml"
+    showLineNumbers
+    startLineNumber={49}
+/>
+
+We also need to define the Docker network we used on our services:
+
+<Code
+    lang="yaml"
+    code={getSpecificLines(composeYaml, 53, 55)}
+    title="~/compose.yaml"
+    showLineNumbers
+    startLineNumber={53}
+/>
+
+And.. that's it! Here's our full `compose.yaml`
+
+<Code lang="yaml" code={composeYaml} title="~/compose.yaml" showLineNumbers />
+
+### Time to run the services
+
+Alrighty! Let's spin 'em all up!
+
+```bash title="~"
+docker compose up -d
+```
+
+#### What does this command do?
+
+-   `docker`: communicate with the Docker Engine
+-   `compose`: use the Compose plugin by Docker
+-   `up`: run the services declared on the `compose.yaml` file
+-   `-d`: run in detached mode (in the background)
+
+It should take a while to pull and build the containers. Probably around 5-10 minutes, depending on your computer and internet speed. Once the build is complete, you should see a success message like this:
+
+```bash
+ ✔ Container dbgate            Started
+ ✔ Container traefik           Started
+```
+
+You should be able to access the services using their custom domains!
+
+-   `traefik`: http://traefik.localhost
+-   `dbgate`: http://dbgate.localhost
+
+## Conclusion
+
+That's basically it. Now you have a flexible dev environment setup using Docker! To test things out, check out my other posts to setup different frameworks using this setup. Happy coding!
+
+{/* prettier-ignore */}
+{/* ## Test It Out
+
+Now that we have fully set up our dev environment, let's try to create a simple MERB (merb stack but uses Bun instead of Node) stack application and run it using Docker.
+
+### Prerequisites
+
+Even if we're gonna run this project in Docker, it's not easy to generate a project after building the containers, so you need these tools before proceeding:
+
+-   Bun
+
+```bash title="~"
+curl -fsSL https://bun.sh/install | bash
+```
+
+1. Create a `projects` directory on your home directory:
+
+```bash title="~"
+mkdir -p projects
+
+cd projects
+```
+
+2. Create directories for every framework/language for better organization:
+
+```bash frame="terminal" title="~/projects"
+mkdir -p js
+
+cd js
+```
+
+I like to organize my projects depending on what language they mainly use. But if you have a different way of organizing, you do you bro.
+
+3. Create a directory for your project and open it in VSCode:
+
+```bash frame="terminal" title="~/projects/js"
+mkdir -p merb-stack-project
+
+cd merb-stack-project
+
+code .
+```
+
+4. Create our `backend` project:
+
+```bash frame="terminal" title="~/projects/js/merb-stack-project"
+mkdir -p backend
+
+cd backend
+
+bun init -y
+```
+
+Install Express.js
+
+```bash frame="terminal" title="~/projects/js/merb-stack-project/backend"
+bun add express
+
+# For TypeScript
+bun add -d @types/express
+```
+
+Setup the Express.js application
+
+<Code
+    lang="ts"
+    code={merbBackend}
+    title="~/projects/js/merb-stack-project/backend/index.ts"
+    showLineNumbers
+/>
+
+5. Create our `frontend` project:
+
+```bash frame="terminal" title="~/projects/js/merb-stack-project"
+mkdir -p frontend
+
+cd frontend
+
+bun create vite@latest
+
+# Fill up the fields like the following:
+✔ Project name: .
+✔ Select a framework: > React
+✔ Select a variant: > TypeScript
+```
+
+Install NPM dependencies:
+
+```bash frame="terminal" title="~/projects/js/merb-stack-project/frontend"
+bun install
+```
+
+6. Create a `compose.yaml` file on the `merb-stack-project` directory:
+
+```bash frame="terminal" title="~/projects/js/merb-stack-project/frontend"
+cd ..
+
+code compose.yaml
+```
+
+<br />
+
+<Code
+    lang="yaml"
+    code={merbYaml}
+    title="~/projects/js/merb-stack-project/compose.yaml"
+    showLineNumbers
+/>
+
+7. Update the `vite.config.ts` of our `frontend` to enable HMR:
+
+<Code
+    lang="ts"
+    code={merbVite}
+    title="~/projects/js/merb-stack-project/frontend/vite.config.ts"
+    showLineNumbers
+    useDiffSyntax={true}
+/>
+
+You should now be able to access your backend on http://backend.merb.localhost and your frontend on http://frontend.merb.localhost.
+
+8. \*/}

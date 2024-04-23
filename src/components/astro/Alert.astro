@@ -1,0 +1,19 @@
+---
+import Message from 'primevue/message/Message.vue'
+import type { MessageProps } from 'primevue/message'
+
+type Props = MessageProps
+
+const props = Astro.props
+---
+
+<Message
+    client:only="vue"
+    closable={false}
+    pt={{
+        text: 'leading-5!',
+    }}
+    {...props}
+>
+    <slot />
+</Message>

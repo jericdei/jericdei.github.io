@@ -1,0 +1,51 @@
+services:
+    backend:
+        image: oven/bun:1.1.4-alpine
+        container_name: merb-backend
+        ports:
+            - 3000
+        volumes:
+            - ./backend:/app
+        networks:
+            - mynetwork
+        working_dir: /app
+        command: bun --watch .
+        labels:
+            - traefik.docker.network=mynetwork
+            - traefik.http.services.backend.loadbalancer.server.port=3000
+            - traefik.http.routers.backend.rule=Host(`backend.merb.localhost`)
+
+    frontend:
+        image: oven/bun:1.1.4-alpine
+        container_name: merb-frontend
+        ports:
+            # This time we need to specify the exposed port
+            # for us to enable Vite's Hot Reload
+            - 42069:5173
+        volumes:
+            - ./frontend:/app
+        networks:
+            - mynetwork
+        working_dir: /app
+        command: bun dev
+        labels:
+            - traefik.docker.network=mynetwork
+            - traefik.http.services.frontend.loadbalancer.server.port=5173
+            - traefik.http.routers.frontend.rule=Host(`frontend.merb.localhost`)
+
+    database:
+        image: mongo:7.0
+        container_name: merb-database
+        ports:
+            - 27017
+        volumes:
+            - merb_mongodb_data:/data/db
+        networks:
+            - mynetwork
+
+networks:
+    mynetwork:
+        external: true
+
+volumes:
+    merb_mongodb_data:

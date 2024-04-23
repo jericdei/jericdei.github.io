@@ -1,0 +1,55 @@
+services:
+    traefik:
+        image: traefik:v2.11
+        container_name: traefik
+        # Enables the web UI and tells Traefik to listen to docker
+        command:
+            - '--api.insecure=true'
+            - '--providers.docker=true'
+        ports:
+            # We will expose port 80 to our host machine to intercept requests
+            # from that port and forward it to traefik
+            - '80:80'
+            # The Traefik Web UI (enabled by --api.insecure=true)
+            - '8080:8080'
+        volumes:
+            # So that Traefik can listen to the Docker events
+            - /var/run/docker.sock:/var/run/docker.sock
+        labels:
+            # Optional: To assign a custom domain `traefik.localhost`
+            # to the Traefik Web UI
+            - traefik.docker.network=mynetwork
+            - traefik.http.services.traefik.loadbalancer.server.port=8080
+            - traefik.http.routers.traefik.rule=Host(`traefik.localhost`)
+        networks:
+            - mynetwork
+
+    dbgate:
+        image: dbgate/dbgate:latest
+        container_name: dbgate
+        depends_on:
+            # This will wait until the traefik service is up and running before starting dbgate
+            - traefik
+        ports:
+            # This will expose port 3000 of the container, which DbGate uses,
+            # but Docker will randomly choose an available port on our machine
+            # to assign (so we won't have to)
+            - '3000'
+        volumes:
+            # This will persist your DbGate configuration on container restart
+            - dbgate_data:/root/.dbgate
+        labels:
+            # Assign a custom domain to the service
+            - traefik.docker.network=mynetwork
+            - traefik.http.services.dbgate.loadbalancer.server.port=3000
+            - traefik.http.routers.dbgate.rule=Host(`dbgate.localhost`)
+        networks:
+            - mynetwork
+
+volumes:
+    dbgate_data:
+        driver: local
+
+networks:
+    mynetwork:
+        external: true
