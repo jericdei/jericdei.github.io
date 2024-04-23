@@ -1,5 +1,6 @@
 ---
 import Layout from '@/layouts/Layout.astro'
+import Image from 'astro/components/Image.astro'
 import { getCollection } from 'astro:content'
 
 export async function getStaticPaths() {
@@ -16,8 +17,19 @@ const { Content } = await entry.render()
 ---
 
 <Layout title={entry.data.title}>
-    <section class="container mx-auto">
-        <h1 class="text-center text-xl md:text-2xl lg:text-left lg:text-4xl">
+    <section class="container mx-auto mt-8">
+        <Image
+            src={entry.data.image as string}
+            alt={entry.data.title}
+            height={300}
+            width={600}
+            transition:name="blog-image"
+        />
+
+        <h1
+            class="mt-8 text-center text-xl font-bold md:text-2xl lg:text-left lg:text-4xl"
+            transition:name="blog-title"
+        >
             {entry.data.title}
         </h1>
 
