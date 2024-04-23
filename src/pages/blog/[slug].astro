@@ -17,23 +17,38 @@ const { Content } = await entry.render()
 ---
 
 <Layout title={entry.data.title}>
-    <section class="container mx-auto mt-8">
-        <Image
-            src={entry.data.image as string}
-            alt={entry.data.title}
-            height={300}
-            width={600}
-            transition:name="blog-image"
-        />
-
-        <h1
-            class="mt-8 text-center text-xl font-bold md:text-2xl lg:text-left lg:text-4xl"
-            transition:name="blog-title"
+    <section class="container mx-auto my-8">
+        <div
+            class="prose mx-auto mt-8 dark:prose-invert prose-p:text-justify prose-code:before:hidden prose-code:after:hidden"
         >
-            {entry.data.title}
-        </h1>
+            <Image
+                src={entry.data.image as string}
+                alt={entry.data.title}
+                height={300}
+                width={600}
+                transition:name="blog-image"
+            />
 
-        <div class="mt-8">
+            <h1
+                class="mt-8 text-center text-xl font-bold md:text-2xl lg:text-left lg:text-4xl"
+                transition:name="blog-title"
+            >
+                {entry.data.title}
+            </h1>
+
+            <small
+                >Published on {
+                    new Date(entry.data.publishedDate).toLocaleDateString(
+                        'en-us',
+                        {
+                            year: 'numeric',
+                            month: 'long',
+                            day: '2-digit',
+                        },
+                    )
+                }</small
+            >
+
             <Content />
         </div>
     </section>

@@ -7,4 +7,166 @@ image: '/blog/01.jpg'
 tags: ['docker']
 ---
 
-Published on {new Date(frontmatter.publishedDate).toLocaleDateString('en-us', { year: 'numeric', month: 'long', day: '2-digit' })}
+import Message from 'primevue/message/Message.vue'
+
+For us software developers, especially in enterprise setup, it's crucial to create a dedicated development environment to manage multiple projects with different dependencies as easy and efficient as possible.
+
+In this post, I want to share how I setup my development environment from scratch, and in every Operating System I use.
+
+## Operating System
+
+Everything starts on which Operating System are we using. In my opinion, Ubuntu is the best operating system for software development. But since I also do gaming, my personal machine uses Windows, and I just use Windows Subsystem for Linux (WSL) for my development projects.
+
+<Message client:only severity="info" closable={false}>
+    If you are using WSL, I prefer to use the `Debian` distro instead of the
+    default `Ubuntu` distro, because the `Debian` distro doesn't have any
+    pre-installed packages, so you're basically starting from scratch, which is
+    what we want.
+</Message>
+
+## Basic Ubuntu Packages
+
+Now that we have an OS to work with, let's just install some basic packages we need in development.
+
+Open up your terminal and update our package manager.
+
+```bash
+# Update APT cache
+sudo apt update;
+
+# Upgrade all installed packages in your system
+sudo apt upgrade -y;
+```
+
+Then install our packages.
+
+```bash
+sudo apt install -y git zsh curl wget unzip make
+```
+
+#### What did we install?
+
+-   `git`: For version control
+-   `zsh`: I prefer `zsh` over Ubuntu's default `bash` shell.
+-   `curl` and `wget`: For fetching remote files/endpoints. Most libraries out there uses them for installation.
+-   `unzip`: For extracting `zip` files.
+-   `make`: Some libraries uses `make` for installation. We can also use it to simplify workflow by creating a `Makefile` for some projects.
+
+## Code Editor / IDE
+
+I don't wanna make a debate on what Code Editor or IDE is the best, let's just use the most accessible and easier to use, Microsoft VSCode. Since we're on Ubuntu, we have a lot of ways to install VSCode on our machine, either using `snap`, `flatpak`, etc. But for this one, I think we should just directly download the `.deb` package from the VSCode website itself.
+
+1. Open your browser and go to the VSCode website: https://code.visualstudio.com/.
+2. Download the `.deb` file.
+3. Copy the filename of the downloaded file (including the file extension).
+4. Open terminal.
+
+```bash
+cd ~/Downloads
+
+sudo apt install -y ./<filename.deb>
+```
+
+## Docker
+
+I know, I know. At first, Docker is very overwhelming to use. But just bear with me, because I'm gonna walk you through all commands you need to know and how to use Docker on your projects.
+
+### Why Docker?
+
+There are a lot of blog posts and YouTube videos on why and how Docker solves a lot of common problems in software development. But in my opinion, the main reason I like to use Docker is that I can just easily run all my projects at the same time without interrupting my host machine, especially if my projects have different dependencies. For example, I have these projects:
+
+-   a backend written in Node.js v21 with MySQL 5.7,
+-   an API written in PHP 8.1,
+-   a React app running in Node.js v18,
+-   a Laravel app running in PHP 8.3 with MySQL 8.0, with a frontend running in Node.js v20.
+
+You can easily notice the differences in PHP and Node.js versions for every project. If I just install every dependencies in my host machine, man, it's a pain-in-the-ass managing different versions, and most of the time it will have a conflict on something like ports. Docker makes it easy to isolate projects with their corresponding dependencies ready to spin up everytime.
+
+Let's start with installing Docker Engine.
+
+```bash
+curl -fsSL https://get.docker.com -o get-docker.sh
+sudo sh get-docker.sh
+```
+
+<Message client:only severity="warn" closable={false}>
+    As much as I love Docker Desktop, sometimes there are some weirdness on the
+    Docker Engine included in it, especially in Ubuntu. So if you are in Ubuntu,
+    I recommend to just install the Docker Engine with the CLI to interact with
+    it.
+</Message>
+
+After the commands succeed, you can sanity-check if Docker is really installed.
+
+```bash
+# Check docker version
+docker version
+
+# Check docker compose version
+docker compose version
+```
+
+If both commands doesn't have any errors, you're now good to go! But there's one more crucial step we need to do so we can use Docker even without root privileges (without prefixing docker commands with `sudo`).
+
+```bash
+sudo usermod -aG docker $USER
+```
+
+<Message client:only severity="warn" closable={false}>
+    This command will add your user to the `docker` group, and we need to
+    **restart our system** for the changes to apply.
+</Message>
+
+After restarting our system, we should be able to use Docker without root privileges. Let's test it out!
+
+```bash
+docker run hello-world
+
+# This command should output like:
+Hello from Docker!
+This message shows that your installation appears to be working correctly.
+
+To generate this message, Docker took the following steps:
+ 1. The Docker client contacted the Docker daemon.
+ 2. The Docker daemon pulled the "hello-world" image from the Docker Hub.
+    (amd64)
+ 3. The Docker daemon created a new container from that image which runs the
+    executable that produces the output you are currently reading.
+ 4. The Docker daemon streamed that output to the Docker client, which sent it
+    to your terminal.
+
+To try something more ambitious, you can run an Ubuntu container with:
+ $ docker run -it ubuntu bash
+
+Share images, automate workflows, and more with a free Docker ID:
+ https://hub.docker.com/
+
+For more examples and ideas, visit:
+ https://docs.docker.com/get-started/
+```
+
+Nice! We now have Docker working in our system. Onto the next step!
+
+## Create Our Global Docker Services
+
+Now, installing Docker won't instantly spin up services we need for our development environment, it's just a tool for us to easily run multiple services using `compose.yaml` files. So we need to have a global compose file to have services we'll use on every project we have.
+
+### What global services do we need?
+
+Well, in my dev environment setup, I like to have these services globally:
+
+#### Traefik
+
+An easy-to-use reverse proxy for our services. I like to have one especially if I have to manage different projects and give it a unique domain I can use to access the app. I don't even need to think of a unique port to expose for each project (It's tiring bruh).
+
+#### DbGate
+
+This is actually optional. You can use whatever database client you're most used to. But DbGate is just the best I've tried so far. It's free, fully-featured, supports all types of databases (SQL, NoSQL), and the best part, We don't need to install it as an application! It has an official Docker image that we can use to run the service locally on the web.
+
+### Let's install them all!
+
+First, let's create a `compose.yml` file on our home directory.
+
+```bash title="/home/<my-username>"
+touch compose.yml
+```
