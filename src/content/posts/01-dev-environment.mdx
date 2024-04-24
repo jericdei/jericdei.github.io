@@ -8,10 +8,10 @@ tags: ['development', 'docker']
 ---
 
 import Alert from '@/components/astro/Alert.astro'
-import composeYaml from '@/code/compose.yaml?raw'
-import merbYaml from '@/code/merb/merb.yaml?raw'
-import merbBackend from '@/code/merb/backend.ts?raw'
-import merbVite from '@/code/merb/vite.config.ts?raw'
+import composeYaml from '_/code/compose.yaml?raw'
+import merbYaml from '_/code/merb/merb.yaml?raw'
+import merbBackend from '_/code/merb/backend.ts?raw'
+import merbVite from '_/code/merb/vite.config.ts?raw'
 import { Code } from 'astro-expressive-code/components'
 import { getSpecificLines } from '@/utils/string'
 
@@ -222,7 +222,7 @@ An easy-to-use reverse proxy for our services. I like to have one especially if 
 
 #### DbGate
 
-This is actually optional. You can use whatever database client you're most used to. But DbGate is just the best I've tried so far. It's free, fully-featured, supports all types of databases (SQL, NoSQL), and the best part, We don't need to install it as an application! It has an official Docker image that we can use to run the service locally on the web.
+This is actually optional. You can use whatever database client you're most used to. But DbGate is just the best I've tried so far. It's free, fully-featured, supports all types of databases (SQL, NoSQL), and the best part, we don't even need to install it as a standalone application in our system! It has an official Docker Image that we can use to run the service locally on the web.
 
 ### Let's install them all!
 
