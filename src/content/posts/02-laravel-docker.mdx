@@ -1,0 +1,120 @@
+---
+title: 'Dockerize Laravel Application w/ Inertia and Vue'
+slug: 'dockerize-laravel-inertia-vue'
+description: 'How to dockerize a Laravel application with Inertia and Vue.js'
+publishedDate: null
+image: '/blog/02.jpeg'
+tags: ['development', 'docker', 'laravel', 'vue', 'inertia']
+---
+
+import * as devEnvironmentPost from '@/content/posts/01-dev-environment.mdx'
+import Alert from '@/components/astro/Alert.astro'
+
+This post is a continuation and basically an application based on my previous post, <a href={devEnvironmentPost.frontmatter.slug}>{devEnvironmentPost.frontmatter.title}</a>, in which we are going to run a Laravel application with Inertia and Vue.js frontend using our previous setup, which is Docker.
+
+## Requirements
+
+### PHP CLI (at least version 8.2)
+
+In modern debian-based distros, you can just install it using `apt`:
+
+```bash
+sudo apt install -y php-cli
+```
+
+<Alert severity="warn">
+    Note that we are just installing the CLI version of PHP, not the standalone
+    `php` package from APT, since it also ships `apache` by default, and we
+    don't want `apache` to take over our port 80 once it gets installed on our
+    system. So we should just install the CLI version.
+</Alert>
+
+### Composer
+
+We also need Composer CLI on our system to easily generate Laravel projects with a single command.
+
+#### PHP Extensions
+
+Even if we're gonna run Laravel through Docker, we still need the PHP extensions needed by Laravel for us to generate a project.
+
+To install Composer, just enter these commands on your terminal:
+
+```bash
+php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+sudo mkdir -p /usr/local/bin
+sudo php composer-setup.php --install-dir=/usr/local/bin --filename=composer
+php -r "unlink('composer-setup.php');"
+```
+
+Alright! Let's generate our Laravel project!
+
+## Generate Laravel project
+
+To easily create a Laravel project, let's first install the Laravel installer globally:
+
+```bash
+composer global require laravel/installer
+```
+
+Then, let's check if we have the `laravel` command on our terminal:
+
+```diff lang="bash"
+laravel
+
+- zsh: command not found: laravel
+```
+
+Oops! ZSH doesn't consider our global Laravel installation. Let's fix it by including the Composer bin to our `PATH` variable on our `.zshrc`:
+
+Open our `.zshrc` file on our editor:
+
+```bash
+code ~/.zshrc
+```
+
+Add the following lines to the end of the file:
+
+```diff lang="bash" title="~/.zshrc"
+
+# .. other lines
+
++ # Composer
++ export PATH=$PATH:$HOME/.config/composer/vendor/bin
+```
+
+Then, let's source the file to apply the changes:
+
+```bash
+source ~/.zshrc
+```
+
+That's it! The `laravel` command should now work.
+
+```bash
+laravel
+
+Laravel Installer 5.7.2
+
+Usage:
+  command [options] [arguments]
+
+Options:
+  -h, --help            Display help for the given command. When no command is given display help for the list command
+  -q, --quiet           Do not output any message
+  -V, --version         Display this application version
+      --ansi|--no-ansi  Force (or disable --no-ansi) ANSI output
+  -n, --no-interaction  Do not ask any interactive question
+  -v|vv|vvv, --verbose  Increase the verbosity of messages: 1 for normal output, 2 for more verbose output and 3 for debug
+
+Available commands:
+  completion  Dump the shell completion script
+  help        Display help for a command
+  list        List commands
+  new         Create a new Laravel application
+```
+
+Nice! Now let's generate our project. First, let's create a project directory if you don't have one:
+
+```bash title="~"
+mkdir projects
+```
