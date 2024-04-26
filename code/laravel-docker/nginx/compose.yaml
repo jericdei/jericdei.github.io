@@ -1,0 +1,73 @@
+name: my-project
+
+services:
+    app:
+        container_name: my-project-app
+        build:
+            context: . # We will use a Dockerfile to build our image
+            args:
+                # This will match our user ID to the container user ID
+                # to prevent permission issues
+                uid: ${UID:-1000}
+                user: ${USER:-user} # Use any username you want for the default
+        environment: # PHP environment variables
+            - SERVICE_NAME=app
+            - SERVICE_TAGS=dev
+        working_dir: /var/www/html
+        ports:
+            - 42069:5173 # Expose port 5173 with a static port on our host for Vite HMR
+        volumes:
+            - ./:/var/www/html # Mount our project directory into the container
+        networks:
+            - myinternalnetwork # Link our service to the internal network
+        depends_on:
+            - mysql # Wait until MySQL is up and running
+
+    server: # We need a separate service for our web server
+        container_name: my-project-server
+        image: nginx:alpine
+        restart: unless-stopped
+        tty: true
+        labels:
+            - 'traefik.docker.network=mynetwork'
+            - 'traefik.http.routers.my-project-server.rule=Host(`my-project.localhost`)'
+        ports:
+            - 80
+        volumes:
+            - ./:/var/www/html
+            - ./.docker/nginx/conf.d/:/etc/nginx/conf.d/
+        networks:
+            - myinternalnetwork
+            - mynetwork
+
+    mysql:
+        image: mysql/mysql-server:8.0
+        container_name: my-project-mysql
+        ports:
+            - 3306 # Expose port 3306 with a random port on our host
+        environment: # Modify this as you want
+            MYSQL_ROOT_PASSWORD: root
+            MYSQL_ROOT_HOST: '%'
+            MYSQL_DATABASE: my_database
+            MYSQL_USER: user
+            MYSQL_PASSWORD: password
+            MYSQL_ALLOW_EMPTY_PASSWORD: 1
+        volumes:
+            - myproject_mysql_data:/var/lib/mysql # Persist data between container restarts
+        networks:
+            - myinternalnetwork
+            - mynetwork
+        healthcheck: # Check if MySQL is up and running
+            test: ['CMD', 'mysqladmin', 'ping', '-proot']
+            retries: 3
+            timeout: 5s
+
+networks:
+    myinternalnetwork:
+        driver: bridge
+    mynetwork:
+        external: true
+
+volumes:
+    myproject_mysql_data:
+        driver: local

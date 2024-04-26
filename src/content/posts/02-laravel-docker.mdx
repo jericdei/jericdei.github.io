@@ -2,13 +2,21 @@
 title: 'Dockerize Laravel Application w/ Inertia and Vue'
 slug: 'dockerize-laravel-inertia-vue'
 description: 'How to dockerize a Laravel application with Inertia and Vue.js'
-publishedDate: null
+publishedDate: 2024-04-26
 image: '/blog/02.jpeg'
 tags: ['development', 'docker', 'laravel', 'vue', 'inertia']
 ---
 
 import * as devEnvironmentPost from '@/content/posts/01-dev-environment.mdx'
 import Alert from '@/components/astro/Alert.astro'
+import { Code } from 'astro-expressive-code/components'
+import composeApacheYaml from '_/code/laravel-docker/apache/compose.yaml?raw'
+import dockerfileApache from '_/code/laravel-docker/apache/Dockerfile?raw'
+import composeNginxYaml from '_/code/laravel-docker/nginx/compose.yaml?raw'
+import dockerfileNginx from '_/code/laravel-docker/nginx/Dockerfile?raw'
+import nginxConf from '_/code/laravel-docker/nginx/app.conf?raw'
+import { getSpecificLines } from '@/utils/string'
+import viteConfig from '_/code/laravel-docker/vite.config?raw'
 
 This post is a continuation and basically an application based on my previous post, <a href={devEnvironmentPost.frontmatter.slug}>{devEnvironmentPost.frontmatter.title}</a>, in which we are going to run a Laravel application with Inertia and Vue.js frontend using our previous setup, which is Docker.
 
@@ -29,13 +37,19 @@ sudo apt install -y php-cli
     system. So we should just install the CLI version.
 </Alert>
 
-### Composer
-
-We also need Composer CLI on our system to easily generate Laravel projects with a single command.
-
 #### PHP Extensions
 
 Even if we're gonna run Laravel through Docker, we still need the PHP extensions needed by Laravel for us to generate a project.
+
+To install required PHP extensions by Laravel, just use this command:
+
+```bash
+sudo apt install openssl php-bcmath php-curl php-json php-mbstring php-mysql php-tokenizer php-xml php-zip
+```
+
+### Composer
+
+We also need Composer CLI on our system to easily generate Laravel projects with a single command.
 
 To install Composer, just enter these commands on your terminal:
 
@@ -117,4 +131,290 @@ Nice! Now let's generate our project. First, let's create a project directory if
 
 ```bash title="~"
 mkdir projects
+
+cd projects
 ```
+
+(Optional) Then create a `laravel` directory just to be organized.
+
+```bash frame="terminal" title="~/projects"
+mkdir laravel
+
+cd laravel
+```
+
+Use the Laravel Installer to generate a project
+
+```bash frame="terminal" title="~/projects/laravel"
+laravel new
+```
+
+It will ask you some questions regarding on how you will start your project. Here's mine:
+
+-   What is the name of your project? **my-project** (Name it whatever you want)
+-   Would you like to install a starter kit? **Laravel Breeze**
+-   Which Breeze stack would you like to install? **Vue with Inertia**
+-   Would you like any optional features? **Dark mode, TypeScript**
+-   Which testing framework do you prefer? **Pest**
+-   Would you like to initialize a Git repository? **Yes**
+-   Which database will your application use? **MySQL**
+-   Default database updated. Would you like to run the default database migrations? **No**
+    -   We don't need to run the default migrations immediately since we'll setup our MySQL container after the installation.
+
+Alright! Now our project is generated, let's create our `compose.yaml` file!
+
+First, let's open our project in VSCode.
+
+```bash frame="terminal" title="~/projects/laravel"
+cd my-project
+
+code .
+```
+
+Then create a file in the root directory named `compose.yaml`
+
+Let's start by defining our top-level `name`:
+
+<Code
+    lang="yaml"
+    code={getSpecificLines(composeApacheYaml, 1, 1)}
+    title="~/projects/laravel/my-project/compose.yaml"
+    showLineNumbers
+/>
+
+### Web Server
+
+There are two main options for the web server of our Laravel app, which are `Apache` and `NGINX`. It of course, depends on your preference and the server you'll deploy your app.
+
+#### Apache
+
+Our PHP-Apache `app` service looks like this:
+
+<Code
+    lang="yaml"
+    code={getSpecificLines(composeApacheYaml, 3, 29)}
+    title="~/projects/laravel/my-project/compose.yaml"
+    showLineNumbers
+    startLineNumber={3}
+/>
+
+It's a pretty basic single service that contains PHP and Apache together. You can also read the comments to know what it does, and you remove the comments after if you want.
+
+The `Dockerfile` for this service is this:
+
+<Code
+    lang="dockerfile"
+    code={dockerfileApache}
+    title="~/projects/laravel/my-project/Dockerfile"
+    showLineNumbers
+/>
+
+Looks complicated, but it basically does these things:
+
+1. Get the PHP 8.3 with Apache image from Docker Hub
+1. Install system dependencies
+1. Configure Apache to serve our app
+1. Install PHP Extensions needed by Laravel
+1. Get the latest Composer binary
+1. Install Node.js
+1. Set some permissions
+
+#### NGINX
+
+Now for NGINX, it's quite more complicated. This time we need to have 2 separate services: `app` and `server`. The `app` service will be our PHP service and `server` will be NGINX. The services looks like these:
+
+<Code
+    lang="yaml"
+    code={getSpecificLines(composeNginxYaml, 3, 41)}
+    title="~/projects/laravel/my-project/compose.yaml"
+    showLineNumbers
+    startLineNumber={3}
+/>
+
+This is the `Dockerfile` for our `app` service:
+
+<Code
+    lang="dockerfile"
+    code={dockerfileNginx}
+    title="~/projects/laravel/my-project/Dockerfile"
+    showLineNumbers
+/>
+
+The `Dockerfile` for our `app` service is actually quite similar to the `Dockerfile` for our Apache service, except that we don't configure our web server inside this `Dockerfile`, since our NGINX service is separated. This `Dockerfile` does the following:
+
+1. Get the PHP 8.3-fpm image from Docker Hub
+1. Install system dependencies
+1. Install PHP Extensions needed by Laravel
+1. Get the latest Composer binary
+1. Install Node.js
+1. Set some permissions
+
+Now, create a `.docker` directory to store our service configurations.
+
+For our NGINX configuration, create a `app.conf` file on your `.docker/nginx/conf.d` directory:
+
+<Code
+    lang="nginx"
+    code={nginxConf}
+    title="~/projects/laravel/my-project/.docker/nginx/conf.d/app.conf"
+    showLineNumbers
+/>
+
+This is a pretty basic NGINX configuration. You can modify it as you want.
+
+### Database
+
+The database service for both web servers are the same. We'll just use `MySQL`:
+
+<Code
+    lang="yaml"
+    code={getSpecificLines(composeApacheYaml, 31, 53)}
+    title="~/projects/laravel/my-project/compose.yaml"
+/>
+
+Alright! That's our services. Last thing, we need to define the volumes and networks we used:
+
+<Code
+    lang="yaml"
+    code={getSpecificLines(composeApacheYaml, 55, 64)}
+    title="~/projects/laravel/my-project/compose.yaml"
+/>
+
+That's it! Here are the complete `compose.yaml` for both web servers:
+
+#### Apache
+
+<Code
+    lang="yaml"
+    code={composeApacheYaml}
+    title="~/projects/laravel/my-project/compose.yaml"
+    showLineNumbers
+/>
+
+#### NGINX
+
+<Code
+    lang="yaml"
+    code={composeNginxYaml}
+    title="~/projects/laravel/my-project/compose.yaml"
+    showLineNumbers
+/>
+
+Now, before spinning up our services, we must update our `vite.config.ts` to enable HMR:
+
+<Code
+    lang="ts"
+    code={viteConfig}
+    title="~/projects/js/merb-stack-project/frontend/vite.config.ts"
+    showLineNumbers
+    useDiffSyntax={true}
+/>
+
+We also need to modify our `.env` for our app URL and database credentials:
+
+```bash
+APP_URL=http://my-project.localhost
+...
+DB_CONNECTION=mysql
+DB_HOST=my-project-mysql
+DB_PORT=3306
+DB_DATABASE=my_database
+DB_USERNAME=user
+DB_PASSWORD=password
+```
+
+Nice! It's finally time to spin up our services!
+
+```bash frame="terminal" title="~/projects/laravel/my-project"
+docker compose up -d
+```
+
+After the containers are built, you should be able to visit your Laravel app using the custom domain you assigned (http://my-project.localhost) in my case.
+
+<img class="rounded-xl" src="/blog/02/laravel.png" />
+
+You can check if the HMR works when you run the Vite dev server:
+
+```bash frame="terminal" title="~/projects/laravel/my-project"
+# Make sure NPM dependencies are installed
+docker compose exec app npm install
+
+docker compose exec app npm run dev
+```
+
+You can also run `artisan` and `composer` commands using the following:
+
+```bash frame="terminal" title="~/projects/laravel/my-project"
+docker compose exec app php artisan [COMMAND]
+
+docker compose exec app composer [COMMAND]
+```
+
+## Bonus
+
+Well, it's not fun to manually type all those commands every time I want to execute some `artisan`, `composer`, or `npm` commands. So I have a simple solution: `justfile`!
+
+It's a command runner that we can use to alias our common commands throughout the project. To know more, you can read visit the repository <a href="https://github.com/casey/just" target="_blank">here</a>.
+
+### Installation and Setup
+
+1. Set up the APT repository
+
+```bash title="~"
+wget -qO - 'https://proget.makedeb.org/debian-feeds/prebuilt-mpr.pub' | gpg --dearmor | sudo tee /usr/share/keyrings/prebuilt-mpr-archive-keyring.gpg 1> /dev/null
+echo "deb [arch=all,$(dpkg --print-architecture) signed-by=/usr/share/keyrings/prebuilt-mpr-archive-keyring.gpg] https://proget.makedeb.org prebuilt-mpr $(lsb_release -cs)" | sudo tee /etc/apt/sources.list.d/prebuilt-mpr.list
+sudo apt update
+```
+
+2. Install using APT
+
+```bash
+sudo apt install -y just
+```
+
+3. Create a `justfile` on the root of your project.
+
+```make title="~/projects/laravel/my-project/justfile"
+up:
+    docker compose up -d
+down:
+    docker compose down
+rebuild:
+    docker compose up -d --build --force-recreate
+sh:
+    docker compose exec -u 1000 app bash
+php *COMMAND:
+    docker compose exec -u 1000 app php {{COMMAND}}
+artisan *COMMAND:
+    docker compose exec -u 1000 app php artisan {{COMMAND}}
+composer *COMMAND:
+    docker compose exec -u 1000 app composer {{COMMAND}}
+mysql *COMMAND:
+    docker compose exec mysql mysql -uroot -proot {{COMMAND}}
+node *COMMAND:
+    docker compose exec -u 1000 app node {{COMMAND}}
+npm *COMMAND:
+    docker compose exec -u 1000 app npm {{COMMAND}}
+dev:
+    docker compose exec -u 1000 app npm run dev
+build:
+    docker compose exec -u 1000 app npm run build
+```
+
+That's it! You can now just run your commands normally, just prefix it by `just`.
+
+```bash frame="terminal" title="~/projects/laravel/my-project"
+just artisan migrate:fresh --seed
+
+just composer require spatie/laravel-permission
+
+just npm run dev
+# or
+just dev
+```
+
+All those commands are just my personal preference to use. It's up to you what commands you want to alias. Feel free to modify the `justfile`!
+
+## Conclusion
+
+This is how you dockerize a modern Laravel Application effectively. While these configuration seems like a lot of work, it can save us a lot of time especially in production environments.
