@@ -13,7 +13,7 @@ defineProps<{
 </script>
 
 <template>
-    <div class="group relative">
+    <div class="group relative max-w-[25rem]">
         <div
             class="pointer-events-none absolute bottom-[103%] right-0 rounded-lg bg-surface-0/90 p-4 opacity-0 transition-opacity duration-300 group-hover:opacity-100 dark:bg-surface-900/90"
         >

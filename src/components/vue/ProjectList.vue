@@ -1,11 +1,12 @@
 <script setup lang="ts">
 import type { CollectionEntry } from 'astro:content'
 import ProjectCard from './ProjectCard.vue'
-import Tag from 'primevue/tag'
 import { capitalizeFirstLetter, getProjectTypeSeverity } from '@/utils/string'
 import Button from 'primevue/button'
-import ButtonGroup from 'primevue/buttongroup'
 import { ref } from 'vue'
+import { breakpointsTailwind, useBreakpoints } from '@vueuse/core'
+
+const breakpoints = useBreakpoints(breakpointsTailwind)
 
 const props = defineProps<{
     projects: CollectionEntry<'projects'>[]
@@ -44,7 +45,7 @@ function filterByType(type: string) {
 
 <template>
     <div>
-        <div class="mt-16 flex justify-center gap-4">
+        <div class="mt-16 flex flex-wrap justify-center gap-4">
             <Button
                 v-for="item in types"
                 :key="item"
@@ -56,15 +57,35 @@ function filterByType(type: string) {
             />
         </div>
 
-        <div
-            class="mt-8 grid grid-cols-1 gap-x-8 gap-y-12 p-4 md:grid-cols-2 lg:grid-cols-4"
+        <TransitionGroup
+            :name="breakpoints.greaterOrEqual('lg').value ? 'list' : ''"
+            tag="ul"
+            class="mt-8 flex flex-wrap justify-center gap-x-8 gap-y-12 p-4"
         >
             <ProjectCard
                 v-for="project in projects"
                 :key="project.id"
-                :project
+                :project="project"
                 :technologies="getTechnologies(project)"
             />
-        </div>
+        </TransitionGroup>
     </div>
 </template>
+
+<style scoped>
+.list-move,
+.list-enter-active,
+.list-leave-active {
+    transition: all 0.3s ease;
+}
+
+.list-enter-from,
+.list-leave-to {
+    opacity: 0;
+    transform: translateX(30px);
+}
+
+.list-leave-active {
+    position: absolute;
+}
+</style>
