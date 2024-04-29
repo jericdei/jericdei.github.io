@@ -1,23 +1,24 @@
 ---
-import ProjectCard from '@/components/astro/ProjectCard.astro'
 import Layout from '../layouts/Layout.astro'
 import Button from 'primevue/button/Button.vue'
 import { getCollection } from 'astro:content'
+import ProjectList from '@/components/vue/ProjectList.vue'
 
 const projects = await getCollection('projects')
+const technologies = await getCollection('technologies')
 ---
 
 <Layout title="Projects">
     <section class="container mx-auto px-4 py-32">
-        <p class="text-center text-2xl lg:text-left lg:text-4xl">
+        <p class="text-center text-2xl lg:text-4xl">
             Here are some of my personal and professional projects.
         </p>
 
-        <div
-            class="mt-16 grid grid-cols-1 gap-x-8 gap-y-12 p-4 md:grid-cols-2 lg:grid-cols-4"
-        >
-            {projects.map((project) => <ProjectCard projectId={project.id} />)}
-        </div>
+        <ProjectList
+            client:only="vue"
+            projects={projects}
+            technologies={technologies}
+        />
 
         <div class="mt-16 flex justify-center">
             <a href="https://github.com/jericdei" target="_blank">

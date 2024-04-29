@@ -6,6 +6,13 @@ import PostCard from '@/components/astro/PostCard.astro'
 const posts = await getCollection('posts', ({ data }) =>
     import.meta.env.DEV ? true : data.publishedDate,
 )
+
+posts.sort((a, b) => {
+    const publishedDateA = a.data?.publishedDate?.getTime() || 0
+    const publishedDateB = b.data?.publishedDate?.getTime() || 0
+
+    return publishedDateB - publishedDateA
+})
 ---
 
 <Layout title="Blog">

@@ -12,3 +12,14 @@ export function getSpecificLines(
         .slice(startLine - 1, endLine)
         .join('\n')
 }
+
+export function getProjectTypeSeverity(type: string) {
+    switch (type) {
+        case 'personal':
+            return 'warning'
+        case 'professional':
+            return 'success'
+        default:
+            return 'info'
+    }
+}
