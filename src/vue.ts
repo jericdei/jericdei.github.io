@@ -1,6 +1,7 @@
 import type { App } from 'vue'
 import PrimeVue from 'primevue/config'
 import Lara from './primevue/Lara'
+import Tooltip from 'primevue/tooltip'
 
 export default (app: App) => {
     app.component('router-link', {
@@ -9,5 +10,7 @@ export default (app: App) => {
             <a :href="to">
             <slot />
             </a>`,
-    }).use(PrimeVue, { ripple: true, unstyled: true, pt: Lara })
+    })
+        .use(PrimeVue, { ripple: true, unstyled: true, pt: Lara })
+        .directive('tooltip', Tooltip)
 }

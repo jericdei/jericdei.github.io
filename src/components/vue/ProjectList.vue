@@ -6,12 +6,12 @@ import Button from 'primevue/button'
 import { ref } from 'vue'
 import { breakpointsTailwind, useBreakpoints } from '@vueuse/core'
 
-const breakpoints = useBreakpoints(breakpointsTailwind)
-
 const props = defineProps<{
     projects: CollectionEntry<'projects'>[]
     technologies: CollectionEntry<'technologies'>[]
 }>()
+
+const breakpoints = useBreakpoints(breakpointsTailwind)
 
 const types = new Set(props.projects.flatMap((project) => project.data.type))
 
@@ -71,21 +71,3 @@ function filterByType(type: string) {
         </TransitionGroup>
     </div>
 </template>
-
-<style scoped>
-.list-move,
-.list-enter-active,
-.list-leave-active {
-    transition: all 0.3s ease;
-}
-
-.list-enter-from,
-.list-leave-to {
-    opacity: 0;
-    transform: translateX(30px);
-}
-
-.list-leave-active {
-    position: absolute;
-}
-</style>
