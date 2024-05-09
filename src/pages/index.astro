@@ -3,6 +3,7 @@ import Layout from '../layouts/Layout.astro'
 import TextCarousel from '../components/vue/TextCarousel.vue'
 import Button from 'primevue/button/Button.vue'
 import ScrollToTechStack from '@/components/vue/ScrollToTechStack.vue'
+import TechStackList from '@/components/vue/TechStackList.vue'
 import { getCollection } from 'astro:content'
 
 const roles = ['Full-Stack Developer.', 'Tech Enthusiast.', 'Innovator.']
@@ -55,7 +56,7 @@ const technologies = await getCollection('technologies')
         </h2>
 
         <div class="">
-            {technologies.map((technology) => <p>{technology.data.name}</p>)}
+            <TechStackList client:load technologies={technologies} />
         </div>
     </section>
 </Layout>
