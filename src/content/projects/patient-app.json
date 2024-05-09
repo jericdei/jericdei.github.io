@@ -1,15 +1,10 @@
 {
-  "name": "Patient App",
-  "type": "personal",
-  "repo_url": "https://github.com/jericdei/patient-app",
-  "live_url": null,
-  "image": "/projects/patient-app.png",
-  "progress": 100,
-  "description": "Basic CRUD app for managing patients. It's a project for a practical examination on one of the companies I'm applying for.",
-  "technologies": [
-    "php",
-    "laravel",
-    "bootstrap",
-    "mysql"
-  ]
+    "name": "Patient App",
+    "type": "personal",
+    "repo_url": "https://github.com/jericdei/patient-app",
+    "live_url": null,
+    "image": "/projects/patient-app.png",
+    "progress": 100,
+    "description": "Basic CRUD app for managing patients. It's a project for a practical examination on one of the companies I'm applying for.",
+    "technologies": ["php", "laravel", "bootstrap", "mysql"]
 }

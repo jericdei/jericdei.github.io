@@ -1,14 +1,8 @@
 {
-  "slug": "astro",
-  "name": "Astro",
-  "type": [
-    "framework",
-    "js",
-    "web",
-    "frontend",
-    "backend"
-  ],
-  "logo": "/logos/astro.svg",
-  "level": 8,
-  "opinion": "Astro is my go-to technology in terms of developing static websites. It has great performance and great community support. It also integrates well with all popular frameworks and libraries if I want to have some interactivity. In fact, this website is built with Astro."
+    "slug": "astro",
+    "name": "Astro",
+    "type": ["framework", "js", "web", "frontend", "backend"],
+    "logo": "/logos/astro.svg",
+    "level": 8,
+    "opinion": "Astro is my go-to technology in terms of developing static websites. It has great performance and great community support. It also integrates well with all popular frameworks and libraries if I want to have some interactivity. In fact, this website is built with Astro."
 }

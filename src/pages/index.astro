@@ -2,13 +2,17 @@
 import Layout from '../layouts/Layout.astro'
 import TextCarousel from '../components/vue/TextCarousel.vue'
 import Button from 'primevue/button/Button.vue'
+import ScrollToTechStack from '@/components/vue/ScrollToTechStack.vue'
+import { getCollection } from 'astro:content'
 
 const roles = ['Full-Stack Developer.', 'Tech Enthusiast.', 'Innovator.']
+
+const technologies = await getCollection('technologies')
 ---
 
 <Layout title="jericdei">
     <section
-        class="container mx-auto flex flex-col justify-center space-y-16 py-48 text-center lg:text-left"
+        class="container mx-auto flex flex-col justify-center space-y-16 py-32 text-center lg:text-left"
     >
         <div class="flex flex-col gap-4 text-3xl leading-[3rem]">
             <p class="lg:text-4xl">Hi there! I'm</p>
@@ -36,5 +40,40 @@ const roles = ['Full-Stack Developer.', 'Tech Enthusiast.', 'Innovator.']
                 />
             </a>
         </div>
+
+        <div class="flex justify-center pt-32">
+            <ScrollToTechStack client:load />
+        </div>
+    </section>
+
+    <section
+        id="tech-stack"
+        class="container mx-auto flex flex-col justify-center space-y-16 py-32 text-center lg:text-left"
+    >
+        <h2 class="mt-4 text-center text-3xl font-bold lg:text-5xl">
+            My Tech Stack
+        </h2>
+
+        <div class="">
+            {technologies.map((technology) => <p>{technology.data.name}</p>)}
+        </div>
     </section>
 </Layout>
+
+<style>
+    @keyframes bounce {
+        0%,
+        20%,
+        50%,
+        80%,
+        100% {
+            transform: translateY(0);
+        }
+        40% {
+            transform: translateY(-20px);
+        }
+        60% {
+            transform: translateY(-10px);
+        }
+    }
+</style>

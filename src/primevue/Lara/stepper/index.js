@@ -1,6 +1,9 @@
 export default {
     root: ({ props }) => ({
-        class: ['flex-1', props.orientation === 'vertical' ? 'flex-col' : 'flex-row']
+        class: [
+            'flex-1',
+            props.orientation === 'vertical' ? 'flex-col' : 'flex-row',
+        ],
     }),
     nav: {
         class: [
@@ -20,12 +23,17 @@ export default {
             'list-none',
 
             // Overflow
-            'overflow-x-auto'
-        ]
+            'overflow-x-auto',
+        ],
     },
     stepperpanel: {
         panel: ({ context, parent }) => ({
-            class: [context.active ? 'flex-1' : '', parent.props.orientation === 'vertical' ? 'flex flex-col flex-initial' : '']
+            class: [
+                context.active ? 'flex-1' : '',
+                parent.props.orientation === 'vertical'
+                    ? 'flex flex-col flex-initial'
+                    : '',
+            ],
         }),
         header: ({ parent, context }) => ({
             class: [
@@ -39,8 +47,8 @@ export default {
                 parent.props.orientation === 'vertical' ? 'flex-initial' : '',
 
                 // Spacing
-                'p-2'
-            ]
+                'p-2',
+            ],
         }),
         action: {
             class: [
@@ -67,8 +75,8 @@ export default {
                 'bg-transparent',
 
                 // Focus
-                'outline-none'
-            ]
+                'outline-none',
+            ],
         },
         number: ({ context }) => ({
             class: [
@@ -78,7 +86,9 @@ export default {
                 'justify-center',
 
                 // Colors (Conditional)
-                context.active ? 'bg-primary-500 dark:bg-primary-400 text-surface-0 dark:text-surface-900' : 'border border-surface-200 dark:border-surface-700 text-surface-900 dark:text-surface-0', // Adjust colors as needed
+                context.active
+                    ? 'bg-primary-500 dark:bg-primary-400 text-surface-0 dark:text-surface-900'
+                    : 'border border-surface-200 dark:border-surface-700 text-surface-900 dark:text-surface-0', // Adjust colors as needed
 
                 // Size and Shape
                 'min-w-[2rem]',
@@ -90,14 +100,16 @@ export default {
                 'text-lg',
 
                 // Borders
-                context.active ? 'border-0 border-none' : 'border-solid border-2',
+                context.active
+                    ? 'border-0 border-none'
+                    : 'border-solid border-2',
 
                 // Transitions
                 'transition',
                 'transition-colors',
                 'transition-shadow',
-                'duration-200'
-            ]
+                'duration-200',
+            ],
         }),
         title: ({ context }) => ({
             class: [
@@ -112,41 +124,60 @@ export default {
                 'ml-2',
 
                 // Text
-                context.active ? 'text-surface-900 dark:text-surface-0' : 'text-surface-700 dark:text-surface-0/80',
+                context.active
+                    ? 'text-surface-900 dark:text-surface-0'
+                    : 'text-surface-700 dark:text-surface-0/80',
                 'font-bold',
 
                 // Transitions
                 'transition',
                 'transition-colors',
                 'transition-shadow',
-                'duration-200'
-            ]
+                'duration-200',
+            ],
         }),
         separator: ({ context, state, parent }) => ({
             class: [
                 // Colors (Conditional for active step)
-                state.d_activeStep <= context.index ? 'bg-surface-200 dark:bg-surface-700' : 'bg-primary-500 dark:bg-primary-400',
+                state.d_activeStep <= context.index
+                    ? 'bg-surface-200 dark:bg-surface-700'
+                    : 'bg-primary-500 dark:bg-primary-400',
 
                 // Conditional for Vertical Orientation
-                parent.props.orientation === 'vertical' ? ['flex-none', 'w-[2px]', 'h-auto', 'ml-[calc(1.29rem+2px)]'] : ['flex-1', 'w-full', 'h-[2px]', 'ml-4'],
+                parent.props.orientation === 'vertical'
+                    ? [
+                          'flex-none',
+                          'w-[2px]',
+                          'h-auto',
+                          'ml-[calc(1.29rem+2px)]',
+                      ]
+                    : ['flex-1', 'w-full', 'h-[2px]', 'ml-4'],
 
                 // Transitions
                 'transition-shadow',
-                'duration-200'
-            ]
+                'duration-200',
+            ],
         }),
         transition: {
-            class: ['flex flex-1', 'bg-surface-0 dark:bg-surface-800', 'text-surface-900 dark:text-surface-0'],
+            class: [
+                'flex flex-1',
+                'bg-surface-0 dark:bg-surface-800',
+                'text-surface-900 dark:text-surface-0',
+            ],
             enterFromClass: 'max-h-0',
-            enterActiveClass: 'overflow-hidden transition-[max-height] duration-1000 ease-[cubic-bezier(0.42,0,0.58,1)]',
+            enterActiveClass:
+                'overflow-hidden transition-[max-height] duration-1000 ease-[cubic-bezier(0.42,0,0.58,1)]',
             enterToClass: 'max-h-[1000px]',
             leaveFromClass: 'max-h-[1000px]',
-            leaveActiveClass: 'overflow-hidden transition-[max-height] duration-[450ms] ease-[cubic-bezier(0,1,0,1)]',
-            leaveToClass: 'max-h-0'
+            leaveActiveClass:
+                'overflow-hidden transition-[max-height] duration-[450ms] ease-[cubic-bezier(0,1,0,1)]',
+            leaveToClass: 'max-h-0',
         },
         content: ({ parent }) => ({
-            class: [parent.props.orientation === 'vertical' ? 'w-full pl-4' : '']
-        })
+            class: [
+                parent.props.orientation === 'vertical' ? 'w-full pl-4' : '',
+            ],
+        }),
     },
     panelcontainer: {
         class: [
@@ -155,7 +186,7 @@ export default {
             'text-surface-900 dark:text-surface-0',
 
             // Spacing
-            'p-4'
-        ]
-    }
-};
+            'p-4',
+        ],
+    },
+}

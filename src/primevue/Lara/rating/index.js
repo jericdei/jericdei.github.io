@@ -9,9 +9,10 @@ export default {
 
             // Misc
             {
-                'opacity-60 select-none pointer-events-none cursor-default': props.disabled
-            }
-        ]
+                'opacity-60 select-none pointer-events-none cursor-default':
+                    props.disabled,
+            },
+        ],
     }),
     cancelitem: ({ context }) => ({
         class: [
@@ -20,12 +21,13 @@ export default {
 
             //State
             {
-                'outline-none ring ring-primary-500/50 dark:ring-primary-400/50': context.focused
+                'outline-none ring ring-primary-500/50 dark:ring-primary-400/50':
+                    context.focused,
             },
 
             // Misc
-            'cursor-pointer'
-        ]
+            'cursor-pointer',
+        ],
     }),
     cancelicon: {
         class: [
@@ -39,8 +41,8 @@ export default {
             'hover:text-red-600 dark:hover:text-red-300',
 
             // Transition
-            'transition duration-200 ease-in'
-        ]
+            'transition duration-200 ease-in',
+        ],
     },
     item: ({ props, context }) => ({
         class: [
@@ -49,15 +51,16 @@ export default {
 
             // State
             {
-                'outline-none ring ring-primary-500/50 dark:ring-primary-400/50': context.focused
+                'outline-none ring ring-primary-500/50 dark:ring-primary-400/50':
+                    context.focused,
             },
 
             // Misc
             {
                 'cursor-pointer': !props.readonly,
-                'cursor-default': props.readonly
-            }
-        ]
+                'cursor-default': props.readonly,
+            },
+        ],
     }),
     officon: ({ props }) => ({
         class: [
@@ -68,11 +71,14 @@ export default {
             'text-surface-700 dark:text-surface-0/80',
 
             // State
-            { 'hover:text-primary-500 dark:hover:text-primary-400': !props.readonly },
+            {
+                'hover:text-primary-500 dark:hover:text-primary-400':
+                    !props.readonly,
+            },
 
             // Transition
-            'transition duration-200 ease-in'
-        ]
+            'transition duration-200 ease-in',
+        ],
     }),
     onicon: ({ props }) => ({
         class: [
@@ -83,10 +89,13 @@ export default {
             'text-primary-500 dark:text-primary-400',
 
             // State
-            { 'hover:text-primary-600 dark:hover:text-primary-300': !props.readonly },
+            {
+                'hover:text-primary-600 dark:hover:text-primary-300':
+                    !props.readonly,
+            },
 
             // Transition
-            'transition duration-200 ease-in'
-        ]
-    })
-};
+            'transition duration-200 ease-in',
+        ],
+    }),
+}

@@ -1,17 +1,17 @@
 {
-  "name": "MaJeKaL Mission",
-  "type": "freelance",
-  "repo_url": "https://github.com/jericdei/majekal-mission",
-  "live_url": "https://majekalmission.org",
-  "image": "/projects/majekal-mission.png",
-  "progress": 100,
-  "description": "A charity website focused on generating donations for various causes. The platform provides an easy-to-use interface for users to explore different programs, understand their missions, and contribute securely. The goal is to foster a community of generosity, raise awareness about social issues, and drive impactful change through transparent and accountable giving.",
-  "technologies": [
-    "typescript",
-    "astro",
-    "vue",
-    "tailwind",
-    "storyblok",
-    "bun"
-  ]
+    "name": "MaJeKaL Mission",
+    "type": "freelance",
+    "repo_url": "https://github.com/jericdei/majekal-mission",
+    "live_url": "https://majekalmission.org",
+    "image": "/projects/majekal-mission.png",
+    "progress": 100,
+    "description": "A charity website focused on generating donations for various causes. The platform provides an easy-to-use interface for users to explore different programs, understand their missions, and contribute securely. The goal is to foster a community of generosity, raise awareness about social issues, and drive impactful change through transparent and accountable giving.",
+    "technologies": [
+        "typescript",
+        "astro",
+        "vue",
+        "tailwind",
+        "storyblok",
+        "bun"
+    ]
 }

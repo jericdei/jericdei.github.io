@@ -1,17 +1,10 @@
 {
-  "name": "Finance Tracker",
-  "type": "personal",
-  "repo_url": "https://github.com/jericdei/finance-tracker",
-  "live_url": "https://finance-tracker-three-snowy.vercel.app",
-  "image": "/projects/finance-tracker.png",
-  "progress": 20,
-  "description": "A personal finance tracker for me and my girlfriend. It can be used to record income and expenses, set goals, and track progress.",
-  "technologies": [
-    "typescript",
-    "nuxt",
-    "vue",
-    "tailwind",
-    "postgres",
-    "bun"
-  ]
+    "name": "Finance Tracker",
+    "type": "personal",
+    "repo_url": "https://github.com/jericdei/finance-tracker",
+    "live_url": "https://finance-tracker-three-snowy.vercel.app",
+    "image": "/projects/finance-tracker.png",
+    "progress": 20,
+    "description": "A personal finance tracker for me and my girlfriend. It can be used to record income and expenses, set goals, and track progress.",
+    "technologies": ["typescript", "nuxt", "vue", "tailwind", "postgres", "bun"]
 }

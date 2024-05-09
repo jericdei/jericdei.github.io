@@ -12,8 +12,11 @@ export default {
             // Color
             'bg-surface-50 dark:bg-surface-700',
             'border border-surface-200 dark:border-surface-700',
-            { 'p-2 items-center': props.orientation == 'horizontal', 'flex-col sm:w-48 p-0 py-1': props.orientation !== 'horizontal' }
-        ]
+            {
+                'p-2 items-center': props.orientation == 'horizontal',
+                'flex-col sm:w-48 p-0 py-1': props.orientation !== 'horizontal',
+            },
+        ],
     }),
     menu: ({ props }) => ({
         class: [
@@ -45,17 +48,17 @@ export default {
             'bg-surface-0 dark:bg-surface-700 sm:bg-transparent dark:sm:bg-transparent',
 
             // Misc
-            'outline-none'
-        ]
+            'outline-none',
+        ],
     }),
     menuitem: ({ props }) => ({
         class: [
             'sm:relative static',
             {
                 'sm:w-auto w-full': props.horizontal,
-                'w-full': !props.horizontal
-            }
-        ]
+                'w-full': !props.horizontal,
+            },
+        ],
     }),
     content: ({ props, context }) => ({
         class: [
@@ -64,22 +67,28 @@ export default {
 
             //  Colors
             {
-                'text-surface-500 dark:text-white/70': !context.focused && !context.active,
-                'text-surface-500 dark:text-white/70 bg-surface-200 dark:bg-surface-600/90': context.focused && !context.active,
-                'text-primary-700 dark:text-surface-0/80 bg-primary-50 dark:bg-primary-400/30': context.focused && context.active,
-                'text-primary-700 dark:text-surface-0/80 bg-primary-50 dark:bg-primary-400/30': !context.focused && context.active
+                'text-surface-500 dark:text-white/70':
+                    !context.focused && !context.active,
+                'text-surface-500 dark:text-white/70 bg-surface-200 dark:bg-surface-600/90':
+                    context.focused && !context.active,
+                'text-primary-700 dark:text-surface-0/80 bg-primary-50 dark:bg-primary-400/30':
+                    context.focused && context.active,
+                'text-primary-700 dark:text-surface-0/80 bg-primary-50 dark:bg-primary-400/30':
+                    !context.focused && context.active,
             },
 
             // Hover States
             {
-                'hover:bg-surface-100 dark:hover:bg-surface-600/80': !context.active,
-                'hover:bg-primary-500/50 dark:hover:bg-primary-300/30 text-primary-700 dark:text-surface-0/80': context.active
+                'hover:bg-surface-100 dark:hover:bg-surface-600/80':
+                    !context.active,
+                'hover:bg-primary-500/50 dark:hover:bg-primary-300/30 text-primary-700 dark:text-surface-0/80':
+                    context.active,
             },
 
             // Transitions
             'transition-all',
-            'duration-200'
-        ]
+            'duration-200',
+        ],
     }),
     action: {
         class: [
@@ -101,19 +110,19 @@ export default {
             'select-none',
             'cursor-pointer',
             'no-underline ',
-            'overflow-hidden'
-        ]
+            'overflow-hidden',
+        ],
     },
     icon: {
-        class: 'mr-2'
+        class: 'mr-2',
     },
     submenuicon: ({ props }) => ({
         class: [
             {
                 'ml-auto sm:ml-2': props.horizontal,
-                'ml-auto': !props.horizontal
-            }
-        ]
+                'ml-auto': !props.horizontal,
+            },
+        ],
     }),
     panel: ({ props }) => ({
         class: [
@@ -135,18 +144,18 @@ export default {
             'static sm:absolute',
             'z-10',
             {
-                'sm:left-full top-0': !props.horizontal
-            }
-        ]
+                'sm:left-full top-0': !props.horizontal,
+            },
+        ],
     }),
     grid: {
-        class: 'flex flex-wrap sm:flex-nowrap'
+        class: 'flex flex-wrap sm:flex-nowrap',
     },
     column: {
-        class: 'w-full sm:w-1/2'
+        class: 'w-full sm:w-1/2',
     },
     submenu: {
-        class: ['m-0 list-none', 'py-1 px-2 w-full sm:min-w-[14rem]']
+        class: ['m-0 list-none', 'py-1 px-2 w-full sm:min-w-[14rem]'],
     },
     submenuheader: {
         class: [
@@ -158,11 +167,11 @@ export default {
 
             // Color
             'text-surface-700 dark:text-white/80',
-            'bg-surface-0 dark:bg-surface-700'
-        ]
+            'bg-surface-0 dark:bg-surface-700',
+        ],
     },
     separator: {
-        class: 'border-t border-surface-200 dark:border-surface-600 my-1'
+        class: 'border-t border-surface-200 dark:border-surface-600 my-1',
     },
     menubutton: {
         class: [
@@ -190,10 +199,10 @@ export default {
 
             // Misc
             'cursor-pointer',
-            'no-underline'
-        ]
+            'no-underline',
+        ],
     },
     end: {
-        class: 'ml-auto self-center'
-    }
-};
+        class: 'ml-auto self-center',
+    },
+}

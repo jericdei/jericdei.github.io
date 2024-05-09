@@ -1,6 +1,9 @@
 export default {
     root: {
-        class: ['cursor-pointer inline-flex relative select-none align-bottom', 'w-6 h-6']
+        class: [
+            'cursor-pointer inline-flex relative select-none align-bottom',
+            'w-6 h-6',
+        ],
     },
     input: {
         class: [
@@ -27,8 +30,8 @@ export default {
 
             // Misc
             'appearance-none',
-            'cursor-pointer'
-        ]
+            'cursor-pointer',
+        ],
     },
     box: ({ props, context }) => ({
         class: [
@@ -47,8 +50,10 @@ export default {
 
             // Colors
             {
-                'border-surface-200 bg-surface-0 dark:border-surface-700 dark:bg-surface-900': !context.active && !props.invalid,
-                'border-primary-500 bg-primary-500 dark:border-primary-400 dark:bg-primary-400': context.active
+                'border-surface-200 bg-surface-0 dark:border-surface-700 dark:bg-surface-900':
+                    !context.active && !props.invalid,
+                'border-primary-500 bg-primary-500 dark:border-primary-400 dark:bg-primary-400':
+                    context.active,
             },
 
             // Invalid State
@@ -56,16 +61,19 @@ export default {
 
             // States
             {
-                'peer-hover:border-primary-500 dark:peer-hover:border-primary-400': !props.disabled && !context.active && !props.invalid,
-                'peer-hover:bg-primary-600 dark:peer-hover:bg-primary-300 peer-hover:border-primary-700 dark:peer-hover:border-primary-300': !props.disabled && context.active,
-                'peer-focus-visible:border-primary-500 dark:peer-focus-visible:border-primary-400 peer-focus-visible:ring-2 peer-focus-visible:ring-primary-400/20 dark:peer-focus-visible:ring-primary-300/20': !props.disabled,
-                'cursor-default opacity-60': props.disabled
+                'peer-hover:border-primary-500 dark:peer-hover:border-primary-400':
+                    !props.disabled && !context.active && !props.invalid,
+                'peer-hover:bg-primary-600 dark:peer-hover:bg-primary-300 peer-hover:border-primary-700 dark:peer-hover:border-primary-300':
+                    !props.disabled && context.active,
+                'peer-focus-visible:border-primary-500 dark:peer-focus-visible:border-primary-400 peer-focus-visible:ring-2 peer-focus-visible:ring-primary-400/20 dark:peer-focus-visible:ring-primary-300/20':
+                    !props.disabled,
+                'cursor-default opacity-60': props.disabled,
             },
 
             // Transitions
             'transition-colors',
-            'duration-200'
-        ]
+            'duration-200',
+        ],
     }),
     checkicon: {
         class: [
@@ -81,8 +89,8 @@ export default {
 
             // Transitions
             'transition-all',
-            'duration-200'
-        ]
+            'duration-200',
+        ],
     },
     uncheckicon: {
         class: [
@@ -98,7 +106,7 @@ export default {
 
             // Transitions
             'transition-all',
-            'duration-200'
-        ]
-    }
-};
+            'duration-200',
+        ],
+    },
+}

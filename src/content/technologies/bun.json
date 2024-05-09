@@ -1,12 +1,8 @@
 {
-  "slug": "bun",
-  "name": "Bun",
-  "type": [
-    "js",
-    "web",
-    "backend"
-  ],
-  "logo": "/logos/bun.svg",
-  "level": 8,
-  "opinion": "I've been using Bun for quite some time. It's much faster to work with than Node, especially when using its built in package manager. I also love that TypeScript works out of the box."
+    "slug": "bun",
+    "name": "Bun",
+    "type": ["js", "web", "backend"],
+    "logo": "/logos/bun.svg",
+    "level": 8,
+    "opinion": "I've been using Bun for quite some time. It's much faster to work with than Node, especially when using its built in package manager. I also love that TypeScript works out of the box."
 }

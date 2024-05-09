@@ -1,14 +1,10 @@
 {
-  "name": "PSGC to Database",
-  "type": "personal",
-  "repo_url": "https://github.com/jericdei/psgc-to-database",
-  "live_url": null,
-  "image": "/projects/psgc-to-database.png",
-  "progress": 100,
-  "description": "A simple PHP command line tool to convert Philippine Standard Geographic Code (PSGC) data to database tables. It will download the latest PSGC data and convert Regions, Provinces, Municipalities, Cities, Sub-municipalities, and Barangays to their respective tables.",
-  "technologies": [
-    "php",
-    "laravel",
-    "mysql"
-  ]
+    "name": "PSGC to Database",
+    "type": "personal",
+    "repo_url": "https://github.com/jericdei/psgc-to-database",
+    "live_url": null,
+    "image": "/projects/psgc-to-database.png",
+    "progress": 100,
+    "description": "A simple PHP command line tool to convert Philippine Standard Geographic Code (PSGC) data to database tables. It will download the latest PSGC data and convert Regions, Provinces, Municipalities, Cities, Sub-municipalities, and Barangays to their respective tables.",
+    "technologies": ["php", "laravel", "mysql"]
 }

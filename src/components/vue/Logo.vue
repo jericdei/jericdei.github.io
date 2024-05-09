@@ -31,6 +31,9 @@ const props = withDefaults(
             d="M282.843 71.449L255 101.353L262.955 109.898L298.752 71.449L262.955 33L255 41.5442L282.843 71.449Z"
             class="fill-primary-500"
         />
-        <path d="M190 110.264L228.592 23H243.376L204.88 110.264H190Z" class="fill-primary-500" />
+        <path
+            d="M190 110.264L228.592 23H243.376L204.88 110.264H190Z"
+            class="fill-primary-500"
+        />
     </svg>
 </template>

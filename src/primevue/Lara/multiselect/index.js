@@ -21,17 +21,27 @@ export default {
             'duration-200',
 
             // States
-            { 'hover:border-primary-500 dark:hover:border-primary-300': !props.invalid },
-            { 'outline-none outline-offset-0 ring ring-primary-400/50 dark:ring-primary-300/50': state.focused },
+            {
+                'hover:border-primary-500 dark:hover:border-primary-300':
+                    !props.invalid,
+            },
+            {
+                'outline-none outline-offset-0 ring ring-primary-400/50 dark:ring-primary-300/50':
+                    state.focused,
+            },
 
             // Misc
             'cursor-pointer',
             'select-none',
-            { 'opacity-60': props.disabled, 'pointer-events-none': props.disabled, 'cursor-default': props.disabled }
-        ]
+            {
+                'opacity-60': props.disabled,
+                'pointer-events-none': props.disabled,
+                'cursor-default': props.disabled,
+            },
+        ],
     }),
     labelContainer: {
-        class: 'overflow-hidden flex flex-auto cursor-pointer '
+        class: 'overflow-hidden flex flex-auto cursor-pointer ',
     },
     label: ({ props }) => ({
         class: [
@@ -41,20 +51,26 @@ export default {
             // Spacing
             {
                 'p-3': props.display !== 'chip',
-                'py-3 px-3': props.display === 'chip' && !props?.modelValue?.length,
-                'py-1.5 px-3': props.display === 'chip' && props?.modelValue?.length > 0
+                'py-3 px-3':
+                    props.display === 'chip' && !props?.modelValue?.length,
+                'py-1.5 px-3':
+                    props.display === 'chip' && props?.modelValue?.length > 0,
             },
 
             // Color
-            { 'text-surface-800 dark:text-white/80': props.modelValue?.length, 'text-surface-400 dark:text-surface-500': !props.modelValue?.length },
+            {
+                'text-surface-800 dark:text-white/80': props.modelValue?.length,
+                'text-surface-400 dark:text-surface-500':
+                    !props.modelValue?.length,
+            },
             'placeholder:text-surface-400 dark:placeholder:text-surface-500',
 
             // Transitions
             'transition duration-200',
 
             // Misc
-            'overflow-hidden whitespace-nowrap cursor-pointer overflow-ellipsis'
-        ]
+            'overflow-hidden whitespace-nowrap cursor-pointer overflow-ellipsis',
+        ],
     }),
     token: {
         class: [
@@ -72,8 +88,8 @@ export default {
             'text-surface-700 dark:text-white/70',
 
             // Misc
-            'cursor-default'
-        ]
+            'cursor-default',
+        ],
     },
     removeTokenIcon: {
         class: [
@@ -90,8 +106,8 @@ export default {
             'transition duration-200 ease-in-out',
 
             // Misc
-            'cursor-pointer'
-        ]
+            'cursor-pointer',
+        ],
     },
     trigger: {
         class: [
@@ -108,8 +124,8 @@ export default {
 
             // Shape
             'rounded-tr-md',
-            'rounded-br-md'
-        ]
+            'rounded-br-md',
+        ],
     },
     panel: {
         class: [
@@ -124,8 +140,8 @@ export default {
             // Color
             'bg-surface-0 dark:bg-surface-800',
             'text-surface-800 dark:text-white/80',
-            'dark:border-surface-700'
-        ]
+            'dark:border-surface-700',
+        ],
     },
     header: {
         class: [
@@ -142,8 +158,8 @@ export default {
             // Color
             'text-surface-700 dark:text-white/80',
             'bg-surface-100 dark:bg-surface-800',
-            'border-surface-300 dark:border-surface-700'
-        ]
+            'border-surface-300 dark:border-surface-700',
+        ],
     },
     headerCheckboxContainer: {
         class: [
@@ -159,8 +175,8 @@ export default {
 
             // Misc
             'cursor-pointer',
-            'select-none'
-        ]
+            'select-none',
+        ],
     },
     headerCheckbox: {
         root: {
@@ -180,8 +196,8 @@ export default {
 
                 // Misc
                 'cursor-pointer',
-                'select-none'
-            ]
+                'select-none',
+            ],
         },
         box: ({ props, context }) => ({
             class: [
@@ -200,22 +216,27 @@ export default {
 
                 // Colors
                 {
-                    'border-surface-200 bg-surface-0 dark:border-surface-700 dark:bg-surface-900': !context.checked,
-                    'border-primary-500 bg-primary-500 dark:border-primary-400 dark:bg-primary-400': context.checked
+                    'border-surface-200 bg-surface-0 dark:border-surface-700 dark:bg-surface-900':
+                        !context.checked,
+                    'border-primary-500 bg-primary-500 dark:border-primary-400 dark:bg-primary-400':
+                        context.checked,
                 },
 
                 // States
                 {
-                    'peer-hover:border-primary-500 dark:peer-hover:border-primary-400': !props.disabled && !context.checked,
-                    'peer-hover:bg-primary-600 dark:peer-hover:bg-primary-300 peer-hover:border-primary-700 dark:peer-hover:border-primary-300': !props.disabled && context.checked,
-                    'peer-focus-visible:border-primary-500 dark:peer-focus-visible:border-primary-400 peer-focus-visible:ring-2 peer-focus-visible:ring-primary-400/20 dark:peer-focus-visible:ring-primary-300/20': !props.disabled,
-                    'cursor-default opacity-60': props.disabled
+                    'peer-hover:border-primary-500 dark:peer-hover:border-primary-400':
+                        !props.disabled && !context.checked,
+                    'peer-hover:bg-primary-600 dark:peer-hover:bg-primary-300 peer-hover:border-primary-700 dark:peer-hover:border-primary-300':
+                        !props.disabled && context.checked,
+                    'peer-focus-visible:border-primary-500 dark:peer-focus-visible:border-primary-400 peer-focus-visible:ring-2 peer-focus-visible:ring-primary-400/20 dark:peer-focus-visible:ring-primary-300/20':
+                        !props.disabled,
+                    'cursor-default opacity-60': props.disabled,
                 },
 
                 // Transitions
                 'transition-colors',
-                'duration-200'
-            ]
+                'duration-200',
+            ],
         }),
         input: {
             class: [
@@ -242,8 +263,8 @@ export default {
 
                 // Misc
                 'appearance-none',
-                'cursor-pointer'
-            ]
+                'cursor-pointer',
+            ],
         },
         icon: {
             class: [
@@ -259,9 +280,9 @@ export default {
 
                 // Transitions
                 'transition-all',
-                'duration-200'
-            ]
-        }
+                'duration-200',
+            ],
+        },
     },
     itemCheckbox: {
         root: {
@@ -281,8 +302,8 @@ export default {
 
                 // Misc
                 'cursor-pointer',
-                'select-none'
-            ]
+                'select-none',
+            ],
         },
         box: ({ props, context }) => ({
             class: [
@@ -301,22 +322,27 @@ export default {
 
                 // Colors
                 {
-                    'border-surface-200 bg-surface-0 dark:border-surface-700 dark:bg-surface-900': !context.checked,
-                    'border-primary-500 bg-primary-500 dark:border-primary-400 dark:bg-primary-400': context.checked
+                    'border-surface-200 bg-surface-0 dark:border-surface-700 dark:bg-surface-900':
+                        !context.checked,
+                    'border-primary-500 bg-primary-500 dark:border-primary-400 dark:bg-primary-400':
+                        context.checked,
                 },
 
                 // States
                 {
-                    'peer-hover:border-primary-500 dark:peer-hover:border-primary-400': !props.disabled && !context.checked,
-                    'peer-hover:bg-primary-600 dark:peer-hover:bg-primary-300 peer-hover:border-primary-700 dark:peer-hover:border-primary-300': !props.disabled && context.checked,
-                    'peer-focus-visible:border-primary-500 dark:peer-focus-visible:border-primary-400 peer-focus-visible:ring-2 peer-focus-visible:ring-primary-400/20 dark:peer-focus-visible:ring-primary-300/20': !props.disabled,
-                    'cursor-default opacity-60': props.disabled
+                    'peer-hover:border-primary-500 dark:peer-hover:border-primary-400':
+                        !props.disabled && !context.checked,
+                    'peer-hover:bg-primary-600 dark:peer-hover:bg-primary-300 peer-hover:border-primary-700 dark:peer-hover:border-primary-300':
+                        !props.disabled && context.checked,
+                    'peer-focus-visible:border-primary-500 dark:peer-focus-visible:border-primary-400 peer-focus-visible:ring-2 peer-focus-visible:ring-primary-400/20 dark:peer-focus-visible:ring-primary-300/20':
+                        !props.disabled,
+                    'cursor-default opacity-60': props.disabled,
                 },
 
                 // Transitions
                 'transition-colors',
-                'duration-200'
-            ]
+                'duration-200',
+            ],
         }),
         input: {
             class: [
@@ -343,8 +369,8 @@ export default {
 
                 // Misc
                 'appearance-none',
-                'cursor-pointer'
-            ]
+                'cursor-pointer',
+            ],
         },
         icon: {
             class: [
@@ -360,9 +386,9 @@ export default {
 
                 // Transitions
                 'transition-all',
-                'duration-200'
-            ]
-        }
+                'duration-200',
+            ],
+        },
     },
     closeButton: {
         class: [
@@ -394,11 +420,11 @@ export default {
             'focus:ring-primary-400/50 dark:focus:ring-primary-300/50',
 
             // Misc
-            'overflow-hidden'
-        ]
+            'overflow-hidden',
+        ],
     },
     closeButtonIcon: {
-        class: 'w-4 h-4 inline-block'
+        class: 'w-4 h-4 inline-block',
     },
     wrapper: {
         class: [
@@ -406,11 +432,11 @@ export default {
             'max-h-[200px]',
 
             // Misc
-            'overflow-auto'
-        ]
+            'overflow-auto',
+        ],
     },
     list: {
-        class: 'py-3 list-none m-0'
+        class: 'py-3 list-none m-0',
     },
     item: ({ context }) => ({
         class: [
@@ -433,14 +459,32 @@ export default {
             'py-3 px-5',
 
             // Color
-            { 'text-surface-700 dark:text-white/80': !context.focused && !context.selected },
-            { 'bg-surface-200 dark:bg-surface-600/60 text-surface-700 dark:text-white/80': context.focused && !context.selected },
-            { 'bg-primary-100 dark:bg-primary-400/40 text-primary-700 dark:text-white/80': context.focused && context.selected },
-            { 'bg-primary-50 dark:bg-primary-400/40 text-primary-700 dark:text-white/80': !context.focused && context.selected },
+            {
+                'text-surface-700 dark:text-white/80':
+                    !context.focused && !context.selected,
+            },
+            {
+                'bg-surface-200 dark:bg-surface-600/60 text-surface-700 dark:text-white/80':
+                    context.focused && !context.selected,
+            },
+            {
+                'bg-primary-100 dark:bg-primary-400/40 text-primary-700 dark:text-white/80':
+                    context.focused && context.selected,
+            },
+            {
+                'bg-primary-50 dark:bg-primary-400/40 text-primary-700 dark:text-white/80':
+                    !context.focused && context.selected,
+            },
 
             //States
-            { 'hover:bg-surface-100 dark:hover:bg-surface-600/80': !context.focused && !context.selected },
-            { 'hover:text-surface-700 hover:bg-surface-100 dark:hover:text-white dark:hover:bg-surface-600/80': context.focused && !context.selected },
+            {
+                'hover:bg-surface-100 dark:hover:bg-surface-600/80':
+                    !context.focused && !context.selected,
+            },
+            {
+                'hover:text-surface-700 hover:bg-surface-100 dark:hover:text-white dark:hover:bg-surface-600/80':
+                    context.focused && !context.selected,
+            },
 
             // Transitions
             'transition-shadow',
@@ -449,8 +493,8 @@ export default {
             // Misc
             'cursor-pointer',
             'overflow-hidden',
-            'whitespace-nowrap'
-        ]
+            'whitespace-nowrap',
+        ],
     }),
     itemgroup: {
         class: [
@@ -466,11 +510,11 @@ export default {
             'bg-surface-0 dark:bg-surface-600/80',
 
             // Misc
-            'cursor-auto'
-        ]
+            'cursor-auto',
+        ],
     },
     filtercontainer: {
-        class: 'relative w-full mx-2'
+        class: 'relative w-full mx-2',
     },
     filterinput: {
         class: [
@@ -504,11 +548,11 @@ export default {
             'focus:ring-primary-400/50 dark:focus:ring-primary-300/50',
 
             // Misc
-            'appearance-none'
-        ]
+            'appearance-none',
+        ],
     },
     filtericon: {
-        class: ['absolute', 'top-1/2 right-3', '-mt-2']
+        class: ['absolute', 'top-1/2 right-3', '-mt-2'],
     },
     clearicon: {
         class: [
@@ -521,8 +565,8 @@ export default {
             'right-12',
 
             // Spacing
-            '-mt-2'
-        ]
+            '-mt-2',
+        ],
     },
     emptymessage: {
         class: [
@@ -534,13 +578,14 @@ export default {
 
             // Color
             'text-surface-800 dark:text-white/80',
-            'bg-transparent'
-        ]
+            'bg-transparent',
+        ],
     },
     transition: {
         enterFromClass: 'opacity-0 scale-y-[0.8]',
-        enterActiveClass: 'transition-[transform,opacity] duration-[120ms] ease-[cubic-bezier(0,0,0.2,1)]',
+        enterActiveClass:
+            'transition-[transform,opacity] duration-[120ms] ease-[cubic-bezier(0,0,0.2,1)]',
         leaveActiveClass: 'transition-opacity duration-100 ease-linear',
-        leaveToClass: 'opacity-0'
-    }
-};
+        leaveToClass: 'opacity-0',
+    },
+}

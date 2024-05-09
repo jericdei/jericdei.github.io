@@ -1,11 +1,8 @@
 {
-  "slug": "storyblok",
-  "name": "Storyblok",
-  "type": [
-    "js",
-    "cms"
-  ],
-  "logo": "/logos/storyblok.svg",
-  "level": 7,
-  "opinion": "I think Storyblok is one of the best CMS I've used. It's a great way to build content and a great way to build an ecosystem of plugins."
+    "slug": "storyblok",
+    "name": "Storyblok",
+    "type": ["js", "cms"],
+    "logo": "/logos/storyblok.svg",
+    "level": 7,
+    "opinion": "I think Storyblok is one of the best CMS I've used. It's a great way to build content and a great way to build an ecosystem of plugins."
 }

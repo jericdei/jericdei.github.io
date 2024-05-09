@@ -1,12 +1,8 @@
 {
-  "slug": "php",
-  "name": "PHP",
-  "type": [
-    "php",
-    "web",
-    "backend"
-  ],
-  "logo": "/logos/php.svg",
-  "level": 10,
-  "opinion": "I think PHP is overly hated these days. But in reality, modern PHP is a very powerful language, and in my opinion, building backends in PHP is a lot more intuitive than building backends in JavaScript."
+    "slug": "php",
+    "name": "PHP",
+    "type": ["php", "web", "backend"],
+    "logo": "/logos/php.svg",
+    "level": 10,
+    "opinion": "I think PHP is overly hated these days. But in reality, modern PHP is a very powerful language, and in my opinion, building backends in PHP is a lot more intuitive than building backends in JavaScript."
 }
