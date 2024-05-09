@@ -89,5 +89,15 @@ const isActive = (path: string) => path === Astro.url.pathname
         <main>
             <slot />
         </main>
+
+        <footer class="container mx-auto px-4 py-8">
+            <span>© {new Date().getFullYear()} Jeric June Logan.</span>
+
+            <a
+                class="underline"
+                href="https://github.com/jericdei/jericdei.github.io"
+                target="_blank">Source Code</a
+            >
+        </footer>
     </body>
 </html>
