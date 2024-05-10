@@ -53,9 +53,7 @@ const technologies = await getCollection('technologies')
             </div>
         </div>
 
-        <div>
-            <TechStackList client:load technologies={technologies} />
-        </div>
+        <TechStackList client:only="vue" technologies={technologies} />
     </section>
 </Layout>
 
