@@ -3,6 +3,7 @@
     "name": "Express",
     "type": ["Web", "Backend"],
     "logo": "/logos/express.svg",
-    "level": 8,
+    "skill": 8,
+    "interest": 8,
     "opinion": "Express is my most used library in creating JavaScript backends. It's very simple to use."
 }

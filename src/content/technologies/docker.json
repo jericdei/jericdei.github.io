@@ -3,6 +3,7 @@
     "name": "Docker",
     "type": ["Tools", "DevOps"],
     "logo": "/logos/docker.svg",
-    "level": 9,
+    "skill": 9,
+    "interest": 10,
     "opinion": "Setting up development environment and production infrastructure has never been easier with Docker. I'm in love with this technology because I literally can do whatever I want with it. It's a great skillset to have especially in CI/CD pipelines and automations."
 }

@@ -3,6 +3,7 @@
     "name": "PostgreSQL",
     "type": ["Database", "Backend"],
     "logo": "/logos/postgres.svg",
-    "level": 7,
+    "skill": 7,
+    "interest": 10,
     "opinion": "Just like MySQL, I like using Postgres. Unfortunately, it's not the go-to database in my work (they love MySQL), but I used it on my personal projects."
 }

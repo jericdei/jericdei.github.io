@@ -3,6 +3,7 @@
     "name": "Tailwind CSS",
     "type": ["Styling", "Web", "Frontend"],
     "logo": "/logos/tailwind.svg",
-    "level": 10,
+    "skill": 10,
+    "interest": 10,
     "opinion": "I love CSS, but Tailwind just makes writing styles fun and easy. It's my go-to CSS framework when I need to build some good-looking interfaces. I can't imagine not using Tailwind in my projects."
 }

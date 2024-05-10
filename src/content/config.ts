@@ -7,7 +7,8 @@ const technologies = defineCollection({
         name: z.string(),
         type: z.array(z.string()),
         logo: z.string(),
-        level: z.number(),
+        skill: z.number(),
+        interest: z.number(),
         opinion: z.string(),
     }),
 })

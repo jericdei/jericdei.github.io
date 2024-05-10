@@ -3,6 +3,7 @@
     "name": "MongoDB",
     "type": ["Backend", "Database"],
     "logo": "/logos/mongodb.svg",
-    "level": 8,
+    "skill": 8,
+    "interest": 7,
     "opinion": "MongoDB is a great tool to quickly store data. It's very powerful and has great integrations with JavaScript libraries and frameworks."
 }

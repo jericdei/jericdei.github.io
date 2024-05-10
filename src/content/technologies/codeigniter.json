@@ -3,6 +3,7 @@
     "name": "CodeIgniter",
     "type": ["Framework", "Backend"],
     "logo": "/logos/codeigniter.svg",
-    "level": 5,
+    "skill": 7,
+    "interest": 4,
     "opinion": "I used CodeIgniter in some of the legacy projects in my company. Not a big fan of it but it's the framework most of our projects was built with and it gets the job done."
 }

@@ -3,6 +3,7 @@
     "name": "Next.js",
     "type": ["Framework", "Web", "Frontend", "Backend"],
     "logo": "/logos/next.svg",
-    "level": 8,
+    "skill": 8,
+    "interest": 9,
     "opinion": "The most popular framework in the JavaScript ecosystem. Haven't used it (cuz Vue is life) but I'm excited to try it out."
 }

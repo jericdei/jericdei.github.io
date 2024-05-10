@@ -3,6 +3,7 @@
     "name": "Nuxt.js",
     "type": ["Framework", "Web", "Frontend", "Backend"],
     "logo": "/logos/nuxt.svg",
-    "level": 9,
+    "skill": 9,
+    "interest": 10,
     "opinion": "Since I love using Vue, I'm also enjoying using Nuxt. It's just the best of both worlds. I'm looking forward to use it in my future projects."
 }

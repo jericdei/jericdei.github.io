@@ -3,6 +3,7 @@
     "name": "Storyblok",
     "type": ["CMS", "Tools"],
     "logo": "/logos/storyblok.svg",
-    "level": 7,
+    "skill": 7,
+    "interest": 8,
     "opinion": "I think Storyblok is one of the best CMS I've used. It's a great way to build content and a great way to build an ecosystem of plugins."
 }

@@ -3,6 +3,7 @@
     "name": "Laravel",
     "type": ["Framework", "Web", "Backend"],
     "logo": "/logos/laravel.svg",
-    "level": 9,
+    "skill": 9,
+    "interest": 10,
     "opinion": "In terms of building backends and server-rendered web apps, Laravel is my favorite framework to use. It's the first web framework I learned and it's the reason I love developing full-stack applications, especially now that Laravel has a very good ecosystem and libraries that really makes my life easy."
 }

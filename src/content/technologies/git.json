@@ -3,6 +3,7 @@
     "name": "Git",
     "type": ["Tools"],
     "logo": "/logos/git.svg",
-    "level": 10,
+    "skill": 10,
+    "interest": 10,
     "opinion": "Must-have for version control. Nuffsaid."
 }

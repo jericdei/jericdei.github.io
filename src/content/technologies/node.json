@@ -3,6 +3,7 @@
     "name": "Node.js",
     "type": ["Web", "Backend"],
     "logo": "/logos/node.svg",
-    "level": 9,
+    "skill": 9,
+    "interest": 9,
     "opinion": "It's the most popular JavaScript runtime. It's a must-have for full-stack developers."
 }

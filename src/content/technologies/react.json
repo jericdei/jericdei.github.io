@@ -3,6 +3,7 @@
     "name": "React",
     "type": ["Web", "Frontend"],
     "logo": "/logos/react.svg",
-    "level": 7,
+    "skill": 7,
+    "interest": 9,
     "opinion": "At first, I hate React because of its syntax. But as I use it in my work, I understand the strengths and advantages of it. The ecosystem is top-notch. Integrations with third-party libraries are very well supported."
 }

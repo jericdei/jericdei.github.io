@@ -3,6 +3,7 @@
     "name": "React Native",
     "type": ["Mobile", "Frontend"],
     "logo": "/logos/react.svg",
-    "level": 8,
+    "skill": 8,
+    "interest": 9,
     "opinion": "My go-to technology when building mobile apps. It's very easy to develop cross-platform apps that are truly native, and because I'm a web developer, I feel right at home with it."
 }
