@@ -29,12 +29,12 @@ const { Content } = await entry.render()
                 alt={entry.data.title}
                 height={300}
                 width={600}
-                transition:name="blog-image"
+                transition:name={`blog-image-${entry.slug}`}
             />
 
             <h1
                 class="mt-8 text-center text-xl font-bold md:text-2xl lg:text-left lg:text-4xl"
-                transition:name="blog-title"
+                transition:name={`blog-title-${entry.slug}`}
             >
                 {entry.data.title}
             </h1>

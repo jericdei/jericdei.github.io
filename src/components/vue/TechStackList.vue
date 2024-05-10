@@ -18,13 +18,17 @@ const types = Array.from(
 const selected = ref<string | null>(null)
 
 const technologyList = computed(() => {
-    if (selected.value === null) {
-        return props.technologies
+    let filteredTech = props.technologies
+
+    if (selected.value !== null) {
+        filteredTech = filteredTech.filter((technology) =>
+            technology.data.type.includes(selected.value as string),
+        )
     }
 
-    return props.technologies.filter((technology) =>
-        technology.data.type.includes(selected.value as string),
-    )
+    return filteredTech
+        .toSorted((a, b) => b.data.skill - a.data.skill)
+        .toSorted((a, b) => b.data.interest - a.data.interest)
 })
 </script>
 

@@ -31,9 +31,9 @@ defineProps<{
                     readonly
                     :cancel="false"
                     :stars="10"
-                    class="flex justify-center gap-0"
                     :pt="{
                         onicon: '!text-yellow-500',
+                        root: '!gap-0',
                     }"
                     :pt-options="{
                         mergeProps: true,
@@ -53,9 +53,9 @@ defineProps<{
                     readonly
                     :cancel="false"
                     :stars="10"
-                    class="flex justify-center gap-0"
                     :pt="{
                         onicon: '!text-yellow-500',
+                        root: '!gap-0',
                     }"
                     :pt-options="{
                         mergeProps: true,

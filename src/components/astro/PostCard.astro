@@ -21,12 +21,15 @@ const { post } = Astro.props
                 height={150}
                 width={300}
                 class="h-[300px] w-full rounded-lg bg-slate-400 object-cover dark:bg-slate-600"
-                transition:name="blog-image"
+                transition:name={`blog-image-${post.slug}`}
             />
         </div>
 
         <div class="mt-4 flex flex-col gap-2">
-            <p class="font-bold lg:text-lg" transition:name="blog-title">
+            <p
+                class="font-bold lg:text-lg"
+                transition:name={`blog-title-${post.slug}`}
+            >
                 {post.data.title}
             </p>
 
