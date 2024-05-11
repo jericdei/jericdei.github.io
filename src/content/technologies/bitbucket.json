@@ -1,0 +1,9 @@
+{
+    "slug": "bitbucket",
+    "name": "BitBucket",
+    "type": ["DevOps"],
+    "logo": "/logos/bitbucket.svg",
+    "skill": 9,
+    "interest": 6,
+    "opinion": "I used BitBucket for my professional projects. It's a great tool for version control and collaboration."
+}

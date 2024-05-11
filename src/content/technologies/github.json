@@ -1,0 +1,9 @@
+{
+    "slug": "github",
+    "name": "GitHub",
+    "type": ["DevOps"],
+    "logo": "/logos/github.svg",
+    "skill": 10,
+    "interest": 10,
+    "opinion": "Where I store all my code. I also use GitHub Actions for automating my CI/CD pipelines. I'm always looking for ways to improve my workflow."
+}

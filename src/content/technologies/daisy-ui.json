@@ -1,0 +1,9 @@
+{
+    "slug": "daisy-ui",
+    "name": "Daisy UI",
+    "type": ["Web", "Frontend", "Styling"],
+    "logo": "/logos/daisy-ui.svg",
+    "skill": 9,
+    "interest": 8,
+    "opinion": "Basically the Bootstrap Version of Tailwind. It provides a good amount of pre-built components using Tailwind, so it's kinda the best of both worlds."
+}

@@ -1,0 +1,9 @@
+{
+    "slug": "statamic",
+    "name": "Statamic",
+    "type": ["CMS", "Tools"],
+    "logo": "/logos/statamic.svg",
+    "skill": 8,
+    "interest": 7,
+    "opinion": "A CMS built with Laravel. Pretty nice to have if you want your users to manage the content of your website. It's a great way to build content and a great way to build an ecosystem of plugins."
+}

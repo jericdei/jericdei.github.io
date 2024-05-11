@@ -1,0 +1,9 @@
+{
+    "slug": "jira",
+    "name": "Jira",
+    "type": ["DevOps"],
+    "logo": "/logos/jira.svg",
+    "skill": 8,
+    "interest": 7,
+    "opinion": "A necessity for Agile methodology. It's also used in some of my professional projects. It's good for defining project priorities and tracking work."
+}
