@@ -1,0 +1,22 @@
+name: portfolio
+
+services:
+    app:
+        image: oven/bun:1.1.4-alpine
+        container_name: portfolio-app
+        ports:
+            - 42069:4321
+        labels:
+            - traefik.docker.network=dei
+            - traefik.http.services.portfolio-app.loadbalancer.server.port=4321
+            - traefik.http.routers.portfolio-app.rule=Host(`portfolio.localhost`)
+        networks:
+            - dei
+        volumes:
+            - .:/app
+        working_dir: /app
+        command: bun dev
+
+networks:
+    dei:
+        external: true
