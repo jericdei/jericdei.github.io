@@ -1,0 +1,9 @@
+{
+    "slug": "vercel",
+    "name": "Vercel",
+    "type": ["Infrastructure"],
+    "logo": "/logos/vercel.svg",
+    "skill": 10,
+    "interest": 10,
+    "opinion": "Vercel is arguably the most popular deployment tool for JavaScript apps out there. I also use it for my personal projects because it's very easy to use with already configured auto deployment on push."
+}

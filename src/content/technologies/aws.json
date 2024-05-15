@@ -1,0 +1,9 @@
+{
+    "slug": "aws",
+    "name": "AWS",
+    "type": ["Backend", "Infrastructure"],
+    "logo": "/logos/aws.svg",
+    "skill": 7,
+    "interest": 9,
+    "opinion": "Nowadays, it's the most common cloud solution. Each service is not that easy to grasp, but it makes deployments much easier."
+}

@@ -1,7 +1,7 @@
 {
     "slug": "docker",
     "name": "Docker",
-    "type": ["Tools", "DevOps"],
+    "type": ["Tools", "Infrastructure", "DevOps"],
     "logo": "/logos/docker.svg",
     "skill": 9,
     "interest": 10,

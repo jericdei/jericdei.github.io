@@ -1,0 +1,9 @@
+{
+    "slug": "nginx",
+    "name": "NGINX",
+    "type": ["Backend", "Infrastructure"],
+    "logo": "/logos/nginx.svg",
+    "skill": 7,
+    "interest": 10,
+    "opinion": "It's a must-have skill to have in terms of manually deploying backend HTTP services. I like to use it more instead of Apache."
+}
