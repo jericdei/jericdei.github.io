@@ -1,0 +1,9 @@
+{
+    "slug": "jquery",
+    "name": "jQuery",
+    "type": ["Web", "Frontend", "Backend", "Language"],
+    "logo": "/logos/jquery.svg",
+    "skill": 9,
+    "interest": 7,
+    "opinion": "The most popular JavaScript library. Even if it's not that popular nowadays because it's quite old, most sites still use it, so it's important to know how to use it."
+}

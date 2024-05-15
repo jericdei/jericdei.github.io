@@ -1,0 +1,9 @@
+{
+    "slug": "sass",
+    "name": "SASS",
+    "type": ["Styling", "Web", "Frontend"],
+    "logo": "/logos/sass.svg",
+    "skill": 8,
+    "interest": 6,
+    "opinion": "One of the first solutions to better manage CSS. I like that it's still growing despite vanilla CSS catching up to its features."
+}

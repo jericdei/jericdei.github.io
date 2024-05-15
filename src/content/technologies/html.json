@@ -1,0 +1,9 @@
+{
+    "slug": "html",
+    "name": "HTML",
+    "type": ["Web", "Frontend", "Language"],
+    "logo": "/logos/html.svg",
+    "skill": 10,
+    "interest": 10,
+    "opinion": "The building blocks of the web. Can't go wrong with it."
+}

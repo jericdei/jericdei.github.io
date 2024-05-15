@@ -1,0 +1,9 @@
+{
+    "slug": "apache",
+    "name": "Apache",
+    "type": ["Backend", "Infrastructure"],
+    "logo": "/logos/apache.svg",
+    "skill": 6,
+    "interest": 5,
+    "opinion": "Core part of the LAMP stack. Not a fan of it but can't avoid using it on most of my professional projects. It's still a great choice for simple manual deployments for servers."
+}

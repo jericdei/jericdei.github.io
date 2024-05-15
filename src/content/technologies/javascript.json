@@ -1,0 +1,9 @@
+{
+    "slug": "javascript",
+    "name": "JavaScript",
+    "type": ["Web", "Frontend", "Backend", "Language"],
+    "logo": "/logos/javascript.svg",
+    "skill": 10,
+    "interest": 9,
+    "opinion": "The language of the web. Even with its quirkiness and imperfections, JavaScript is still a must-have for any developer."
+}

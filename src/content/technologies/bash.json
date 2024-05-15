@@ -1,0 +1,9 @@
+{
+    "slug": "bash",
+    "name": "Bash",
+    "type": ["Backend", "Language"],
+    "logo": "/logos/bash.svg",
+    "skill": 6,
+    "interest": 9,
+    "opinion": "Since I'm a huge fan of Linux, I also write a lot of Bash scripts. I like to automate tasks on my workflow and Bash helps me to do that."
+}

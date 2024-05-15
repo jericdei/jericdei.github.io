@@ -1,0 +1,9 @@
+{
+    "slug": "ionic",
+    "name": "Ionic",
+    "type": ["Mobile", "Frontend"],
+    "logo": "/logos/ionic.svg",
+    "skill": 8,
+    "interest": 9,
+    "opinion": "It's a very good technology to create cross-platform apps. You can even use popular frontend frameworks and the integrations are very smooth."
+}

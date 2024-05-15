@@ -1,0 +1,9 @@
+{
+    "slug": "python",
+    "name": "Python",
+    "type": ["Web", "Backend", "Language"],
+    "logo": "/logos/python.svg",
+    "skill": 7,
+    "interest": 8,
+    "opinion": "One of the most popular scripting language. I like it's simplicity regardless of the fact that I'm not a fan of indentation-based languages. It's still a very powerful language where you can built almost anything using it."
+}

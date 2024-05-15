@@ -1,0 +1,9 @@
+{
+    "slug": "digital-ocean",
+    "name": "Digital Ocean",
+    "type": ["Infrastructure"],
+    "logo": "/logos/digital-ocean.svg",
+    "skill": 9,
+    "interest": 9,
+    "opinion": "I used it for deploying some of my freelance projects. It's a very cheap hosting provider and it's really easy to use."
+}

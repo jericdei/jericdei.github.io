@@ -1,0 +1,9 @@
+{
+    "slug": "css",
+    "name": "CSS",
+    "type": ["Web", "Frontend", "Language"],
+    "logo": "/logos/css.svg",
+    "skill": 10,
+    "interest": 10,
+    "opinion": "Despite the frustrations, CSS is still a must-have for any developer."
+}
