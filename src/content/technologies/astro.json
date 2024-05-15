@@ -1,7 +1,7 @@
 {
     "slug": "astro",
     "name": "Astro",
-    "type": ["Framework", "Web", "Frontend", "Backend"],
+    "type": ["Framework", "Web", "Frontend", "Backend", "Main"],
     "logo": "/logos/astro.svg",
     "skill": 8,
     "interest": 10,

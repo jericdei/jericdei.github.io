@@ -1,7 +1,7 @@
 {
     "slug": "laravel",
     "name": "Laravel",
-    "type": ["Framework", "Web", "Backend"],
+    "type": ["Framework", "Web", "Backend", "Main"],
     "logo": "/logos/laravel.svg",
     "skill": 10,
     "interest": 10,

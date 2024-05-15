@@ -1,7 +1,7 @@
 {
     "slug": "php",
     "name": "PHP",
-    "type": ["Web", "Backend", "Language"],
+    "type": ["Web", "Backend", "Language", "Main"],
     "logo": "/logos/php.svg",
     "skill": 10,
     "interest": 9,

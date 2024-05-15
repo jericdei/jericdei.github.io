@@ -12,7 +12,27 @@ const props = defineProps<{
 const breakpoints = useBreakpoints(breakpointsTailwind)
 
 const types = Array.from(
-    new Set(props.technologies.flatMap((technology) => technology.data.type)),
+    new Set(
+        props.technologies
+            .flatMap((technology) => technology.data.type)
+            .toSorted((a, b) => {
+                const x = a.toLowerCase()
+                const y = b.toLowerCase()
+
+                if (x === 'main') {
+                    return -1
+                }
+
+                if (y === 'main') {
+                    return 1
+                }
+
+                if (x < y) return -1
+                if (x > y) return 1
+
+                return 0
+            }),
+    ),
 )
 
 const selected = ref<string | null>(null)

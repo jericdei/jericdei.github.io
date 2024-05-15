@@ -1,7 +1,7 @@
 {
     "slug": "mysql",
     "name": "MySQL",
-    "type": ["Backend", "Database"],
+    "type": ["Backend", "Database", "Main"],
     "logo": "/logos/mysql.svg",
     "skill": 10,
     "interest": 9,
