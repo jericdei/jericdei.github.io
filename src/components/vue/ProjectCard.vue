@@ -63,8 +63,8 @@ defineProps<{
                             :src="String(project.data.image)"
                             :alt="project.data.name"
                             :height="768"
-                            :width="1280"
-                            class="flex h-[768px] items-center justify-center rounded-lg bg-slate-400 object-cover dark:bg-slate-600"
+                            :width="1600"
+                            class="flex h-[768px] items-center justify-center rounded-lg bg-slate-400 dark:bg-slate-600"
                         />
                     </template>
                 </Image>
