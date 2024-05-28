@@ -51,6 +51,12 @@ defineProps<{
                     :width="600"
                     class="flex h-[200px] items-center justify-center rounded-lg bg-slate-400 dark:bg-slate-600"
                     :preview="String(project.data.image) !== '/placeholder.svg'"
+                    :pt="{
+                        rotateRightButton: 'hidden',
+                        rotateLeftButton: 'hidden',
+                        zoomInButton: 'hidden',
+                        zoomOutButton: 'hidden',
+                    }"
                 >
                     <template #preview>
                         <img
