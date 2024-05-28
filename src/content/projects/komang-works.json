@@ -4,7 +4,7 @@
     "repo_url": "https://github.com/jericdei/komang-works",
     "live_url": "https://komang-works.vercel.app",
     "image": "/projects/komang-works.png",
-    "progress": 20,
+    "progress": 75,
     "description": "A store website for a local business. It features a simple ordering system.",
     "technologies": ["typescript", "nuxt", "vue", "tailwind"]
 }

@@ -5,6 +5,7 @@ import TechnologyTag from './TechnologyTag.vue'
 import Tag from 'primevue/tag'
 import ProgressBar from 'primevue/progressbar'
 import Button from 'primevue/button'
+import Image from 'primevue/image'
 
 defineProps<{
     project: CollectionEntry<'projects'>
@@ -43,14 +44,24 @@ defineProps<{
             </div>
 
             <div class="mt-4">
-                <img
+                <Image
                     :src="String(project.data.image)"
                     :alt="project.data.name"
                     :height="300"
                     :width="600"
-                    class="flex items-center justify-center rounded-lg bg-slate-400 dark:bg-slate-600"
-                    onerror="this.src='/placeholder.svg'"
-                />
+                    class="flex h-[200px] items-center justify-center rounded-lg bg-slate-400 dark:bg-slate-600"
+                    :preview="String(project.data.image) !== '/placeholder.svg'"
+                >
+                    <template #preview>
+                        <img
+                            :src="String(project.data.image)"
+                            :alt="project.data.name"
+                            :height="768"
+                            :width="1280"
+                            class="flex h-[768px] items-center justify-center rounded-lg bg-slate-400 object-cover dark:bg-slate-600"
+                        />
+                    </template>
+                </Image>
             </div>
 
             <div class="mt-4">
@@ -71,7 +82,11 @@ defineProps<{
                     <Button
                         client:only="vue"
                         severity="secondary"
-                        :label="project.data.repo_url ? 'Repository' : 'N/A'"
+                        :label="
+                            project.data.repo_url
+                                ? 'Repository'
+                                : 'Private Repo'
+                        "
                         :icon="project.data.repo_url ? 'ri-github-fill' : ''"
                         size="small"
                         :disabled="!project.data.repo_url"

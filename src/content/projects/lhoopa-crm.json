@@ -1,0 +1,18 @@
+{
+    "name": "Lhoopa CRM",
+    "type": "professional",
+    "repo_url": null,
+    "live_url": "https://crm.lhoopa.com",
+    "image": "/projects/crm.png",
+    "progress": null,
+    "description": "The official CRM of Lhoopa. Its main features are property sourcing, listing management, network registrations, and many more. It also follows the modular and monolithic architecture.",
+    "technologies": [
+        "php",
+        "codeigniter",
+        "mysql",
+        "jquery",
+        "javascript",
+        "apache",
+        "bootstrap"
+    ]
+}

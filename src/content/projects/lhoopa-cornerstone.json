@@ -1,0 +1,18 @@
+{
+    "name": "Lhoopa Cornerstone",
+    "type": "professional",
+    "repo_url": null,
+    "live_url": "https://lhoopa.cornerstone.ph",
+    "image": "/projects/cornerstone.png",
+    "progress": null,
+    "description": "The official business process application of Lhoopa. It mainly handles processing of properties from acquisition to selling, network management, financial services, and all kinds of reports and visualizations. It's a modular, monolithic, and data-driven application",
+    "technologies": [
+        "php",
+        "codeigniter",
+        "mysql",
+        "jquery",
+        "javascript",
+        "apache",
+        "bootstrap"
+    ]
+}
