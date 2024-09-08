@@ -2,9 +2,10 @@
 import Layout from '../layouts/Layout.astro'
 import TextCarousel from '../components/vue/TextCarousel.vue'
 import SocialLinks from '../components/vue/SocialLinks.vue'
-import ScrollToTechStack from '@/components/vue/ScrollToTechStack.vue'
+import Scroller from '@/components/vue/Scroller.vue'
 import TechStackList from '@/components/vue/TechStackList.vue'
 import { getCollection } from 'astro:content'
+import CareerTimeline from '@/components/vue/CareerTimeline.vue'
 
 const roles = ['Full-Stack Developer.', 'Tech Enthusiast.', 'Innovator.']
 
@@ -28,7 +29,26 @@ const technologies = await getCollection('technologies')
         <SocialLinks client:load />
 
         <div class="flex justify-center md:pt-16 lg:pt-32">
-            <ScrollToTechStack client:load />
+            <Scroller client:load to="about" />
+        </div>
+    </section>
+
+    <section
+        id="about"
+        class="container mx-auto flex flex-col justify-center space-y-16 px-4 py-16 text-center lg:text-left"
+    >
+        <div class="space-y-4">
+            <h2 class="mt-4 text-center text-3xl font-bold lg:text-5xl">
+                About me
+            </h2>
+
+            <p class="text-center">
+                Here's a little something about my career.
+            </p>
+        </div>
+
+        <div>
+            <CareerTimeline client:load />
         </div>
     </section>
 
