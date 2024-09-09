@@ -1,0 +1,9 @@
+{
+    "slug": "hono",
+    "name": "Hono",
+    "type": ["Web", "Backend"],
+    "logo": "/logos/hono.svg",
+    "skill": 8,
+    "interest": 8,
+    "opinion": "Hono is a very good alternative to Express. It's very simple to use and contains a lot of commonly needed features for creating JavaScript backends."
+}

@@ -1,0 +1,10 @@
+{
+    "name": "IRMO Auth",
+    "type": "personal",
+    "repo_url": "https://github.com/jericdei/irmo-auth",
+    "live_url": null,
+    "image": "/projects/irmo-auth.png",
+    "progress": 100,
+    "description": "A simple project that demonstrates how to create a credentials-based authentication in TypeScript.",
+    "technologies": ["typescript", "bun", "hono", "drizzle", "tailwind"]
+}

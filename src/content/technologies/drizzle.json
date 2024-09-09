@@ -1,0 +1,9 @@
+{
+    "slug": "drizzle",
+    "name": "Drizzle",
+    "type": ["Database"],
+    "logo": "/logos/drizzle.svg",
+    "skill": 8,
+    "interest": 10,
+    "opinion": "Drizzle is one of the most popular JavaScript ORMs. It's honestly my preferred JavaScript ORM instead of Prisma because I don't have to learn a new syntax for creating schemas. In Drizzle, I just need TypeScript in order to generate tables, so it doesn't need any code generation to infer model types."
+}
