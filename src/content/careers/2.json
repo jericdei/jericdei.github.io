@@ -1,0 +1,24 @@
+{
+    "$schema": "../../../.astro/collections/careers.schema.json",
+    "date_from": "2023-01-16",
+    "date_to": "2023-03-15",
+    "position": "Junior Full Stack Developer",
+    "company": "Lhoopa",
+    "description": "My second job. This role is very challenging for me since Lhoopa's Applications are very different compared to Prime Outsourcing's. Instead of just developing front-facing websites, I was trained and tasked to develop interactive and full-stack web applications.",
+    "technologies": [
+        "php",
+        "codeigniter",
+        "jquery",
+        "laravel",
+        "inertia",
+        "node",
+        "vue",
+        "react",
+        "mysql",
+        "bootstrap",
+        "tailwind",
+        "typescript",
+        "react-native",
+        "docker"
+    ]
+}

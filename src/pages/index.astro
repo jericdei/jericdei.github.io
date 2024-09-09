@@ -10,6 +10,7 @@ import CareerTimeline from '@/components/vue/CareerTimeline.vue'
 const roles = ['Full-Stack Developer.', 'Tech Enthusiast.', 'Innovator.']
 
 const technologies = await getCollection('technologies')
+const careers = await getCollection('careers')
 ---
 
 <Layout title="jericdei">
@@ -47,8 +48,8 @@ const technologies = await getCollection('technologies')
             </p>
         </div>
 
-        <div>
-            <CareerTimeline client:load />
+        <div class="max-w-2xl mx-auto">
+            <CareerTimeline careers={careers} technologies={technologies} client:load />
         </div>
     </section>
 

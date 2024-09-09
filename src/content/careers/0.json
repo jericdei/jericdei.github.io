@@ -1,0 +1,8 @@
+{
+    "$schema": "../../../.astro/collections/careers.schema.json",
+    "date_from": "2018-06-01",
+    "date_to": "2022-08-05",
+    "position": "BS in Computer Science",
+    "company": "Pamantasan ng Lungsod ng Maynila",
+    "description": "This is where my journey started. Being a below-average student in College is a tough challenge. I was never good at coding, especially in advanced topics in our university. But, being a tech savvy and enthusiast, I survived the course and succeed in getting the degree I always wanted."
+}

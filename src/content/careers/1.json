@@ -1,0 +1,21 @@
+{
+    "$schema": "../../../.astro/collections/careers.schema.json",
+    "date_from": "2022-08-23",
+    "date_to": "2023-01-04",
+    "position": "Web Developer",
+    "company": "Prime Outsourcing",
+    "description": "My first tech job! Just 17 days after my graduation, I got accepted as an Entry-level Web Developer. As someone who has no prior experience, I must be lucky to pass that developer examination! Most of my tasks here includes client website maintenance and development of new in-house applications.",
+    "technologies": [
+        "html",
+        "css",
+        "javascript",
+        "php",
+        "laravel",
+        "inertia",
+        "node",
+        "vue",
+        "bootstrap",
+        "tailwind",
+        "mysql"
+    ]
+}

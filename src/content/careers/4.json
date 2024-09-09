@@ -1,0 +1,18 @@
+{
+    "$schema": "../../../.astro/collections/careers.schema.json",
+    "date_from": "2023-07-15",
+    "date_to": null,
+    "position": "Software Engineer",
+    "company": "Evelan",
+    "description": "My current role! After a year and a half with my role in Lhoopa, I've decided to settle with a work-from-home job. Luckily, I got hired as a Software Engineer in a German IT company named Evelan. To be honest, this is my dream job! Being work-from-home while using latest technologies is a matchmade in heaven. But of course, having this role is also a very big challenge for me. The skill level needed are way higher than before, but I'm all for it! Since this will help me in my future career as a successfull Software Engineer.",
+    "technologies": [
+        "next",
+        "react",
+        "node",
+        "typescript",
+        "postgres",
+        "prisma",
+        "tailwind",
+        "docker"
+    ]
+}

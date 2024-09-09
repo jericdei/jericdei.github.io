@@ -1,0 +1,9 @@
+{
+    "slug": "prisma",
+    "name": "Prisma",
+    "type": ["Database"],
+    "logo": "/logos/prisma.svg",
+    "skill": 7,
+    "interest": 8,
+    "opinion": "Prisma is one of the most popular JavaScript ORMs. I've used it professionally and it is very easy to work with. I also like that it integrates with TypeScript beautifully."
+}
