@@ -1,6 +1,6 @@
 {
     "$schema": "../../../.astro/collections/careers.schema.json",
-    "date_from": "2023-07-15",
+    "date_from": "2024-07-15",
     "date_to": null,
     "position": "Software Engineer",
     "company": "Evelan",
