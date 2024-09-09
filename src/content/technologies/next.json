@@ -1,7 +1,7 @@
 {
     "slug": "next",
     "name": "Next.js",
-    "type": ["Framework", "Web", "Frontend", "Backend"],
+    "type": ["Framework", "Web", "Frontend", "Backend", "Main"],
     "logo": "/logos/next.svg",
     "skill": 8,
     "interest": 9,

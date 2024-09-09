@@ -1,7 +1,7 @@
 {
     "slug": "react",
     "name": "React",
-    "type": ["Web", "Frontend"],
+    "type": ["Web", "Frontend", "Main"],
     "logo": "/logos/react.svg",
     "skill": 7,
     "interest": 9,
