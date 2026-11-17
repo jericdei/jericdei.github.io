@@ -1,0 +1,25 @@
+---
+import type { CollectionEntry } from 'astro:content'
+
+interface Props {
+    technology: CollectionEntry<'technologies'>
+    size?: 'sm' | 'md' | 'lg'
+}
+
+const { technology, size = 'sm' } = Astro.props
+const dims = { sm: 'size-6', md: 'size-9', lg: 'size-12' }[size]
+const pad = { sm: 'p-1', md: 'p-1.5', lg: 'p-2' }[size]
+---
+
+<span
+    class:list={['logo-tile', dims, pad]}
+    title={technology.data.name}
+>
+    <img
+        src={technology.data.logo}
+        alt={technology.data.name}
+        loading="lazy"
+        decoding="async"
+        class="h-full w-full object-contain"
+    />
+</span>

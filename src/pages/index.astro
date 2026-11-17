@@ -1,102 +1,395 @@
 ---
-import Layout from '../layouts/Layout.astro'
-import TextCarousel from '../components/vue/TextCarousel.vue'
-import SocialLinks from '../components/vue/SocialLinks.vue'
-import Scroller from '@/components/vue/Scroller.vue'
-import TechStackList from '@/components/vue/TechStackList.vue'
+import Layout from '@/layouts/Layout.astro'
 import { getCollection } from 'astro:content'
-import CareerTimeline from '@/components/vue/CareerTimeline.vue'
-
-const roles = ['Full-Stack Developer.', 'Tech Enthusiast.', 'Innovator.']
+import TechLogo from '@/components/ui/TechLogo.astro'
+import SectionHeading from '@/components/ui/SectionHeading.astro'
+import ProjectCard from '@/components/ui/ProjectCard.astro'
+import { site, formatMonth, formatDate } from '@/data/site'
 
 const technologies = await getCollection('technologies')
-const careers = await getCollection('careers')
+const projects = await getCollection('projects')
+const careers = (await getCollection('careers')).sort(
+    (a, b) =>
+        (b.data.date_from?.getTime() ?? 0) - (a.data.date_from?.getTime() ?? 0),
+)
+const posts = (
+    await getCollection('posts', ({ data }) => Boolean(data.publishedDate))
+).sort(
+    (a, b) =>
+        (b.data.publishedDate?.getTime() ?? 0) -
+        (a.data.publishedDate?.getTime() ?? 0),
+)
+const latestPost = posts[0]
+
+const techById = (id: string) => technologies.find((t) => t.id === id)!
+
+const current = careers.find((c) => c.data.date_to === null)
+const jobs = careers.filter((c) => c.data.technologies?.length)
+const firstJob = jobs.at(-1)?.data.date_from ?? new Date()
+const years = Math.floor(
+    (Date.now() - firstJob.getTime()) / (365.25 * 24 * 60 * 60 * 1000),
+)
+
+const mainStack = technologies
+    .filter((t) => t.data.type.includes('Main'))
+    .sort((a, b) => b.data.skill + b.data.interest - (a.data.skill + a.data.interest))
+
+const featuredIds = [
+    'paul',
+    'wewo',
+    'doodle',
+    'majekal-mission',
+]
+const featured = featuredIds
+    .map((id) => projects.find((p) => p.id === id))
+    .filter((p): p is NonNullable<typeof p> => Boolean(p))
+
+const categoryOrder = ['Main', 'AI', 'Frontend', 'Backend', 'Database', 'Mobile', 'DevOps', 'Infrastructure', 'Tools']
+const categories = categoryOrder.filter((c) =>
+    technologies.some((t) => t.data.type.includes(c)),
+)
+const stack = technologies.toSorted(
+    (a, b) =>
+        b.data.skill * 2 + b.data.interest - (a.data.skill * 2 + a.data.interest),
+)
 ---
 
-<Layout title="jericdei">
+<Layout title={site.name}>
+    <!-- ───────── Hero ───────── -->
     <section
-        class="container mx-auto flex flex-col justify-center space-y-16 py-16 text-center lg:py-32 lg:text-left"
+        class="mx-auto w-[min(100%-2rem,64rem)] pb-16 pt-20 sm:pb-24 sm:pt-28"
     >
-        <div class="flex flex-col gap-4 text-3xl leading-[3rem]">
-            <p class="lg:text-4xl">Hi there! I'm</p>
+        <a
+            href={current ? '#experience' : `mailto:${site.email}`}
+            class="rise chip bg-bg-elevated/60 backdrop-blur hover:border-fg/20 hover:text-fg"
+        >
+            <span class="relative flex size-2">
+                <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-500 opacity-60"></span>
+                <span class="relative inline-flex size-2 rounded-full bg-emerald-500"></span>
+            </span>
+            {
+                current
+                    ? `${current.data.position} at ${current.data.company}`
+                    : 'Open to remote software engineering roles'
+            }
+            <i class="ri-arrow-right-s-line"></i>
+        </a>
 
-            <span class="text-4xl font-bold md:text-6xl lg:text-8xl"
-                >Jeric June Logan</span
-            >
+        <h1
+            class="rise mt-8 text-balance text-5xl font-medium leading-[0.95] tracking-[-0.04em] [animation-delay:80ms] sm:text-7xl lg:text-8xl"
+        >
+            Jeric June Logan
+            <span class="block font-serif font-normal italic tracking-[-0.02em] text-muted">
+                builds for the web.
+            </span>
+        </h1>
 
-            <TextCarousel client:load texts={roles} />
-        </div>
+        <p
+            class="rise mt-8 max-w-xl text-pretty text-lg leading-relaxed text-muted [animation-delay:160ms] sm:text-xl"
+        >
+            Full-stack software engineer crafting <span class="text-fg"
+                >fast, thoughtful products</span
+            > with TypeScript, React, Next.js, Laravel and Vue — from database to
+            pixel.
+        </p>
 
-        <SocialLinks client:load />
-
-        <div class="flex justify-center md:pt-16 lg:pt-32">
-            <Scroller client:load to="about" />
+        <div
+            class="rise mt-10 flex flex-wrap items-center gap-3 [animation-delay:240ms]"
+        >
+            <a href={`mailto:${site.email}`} class="btn-primary">
+                Get in touch <i class="ri-arrow-right-line"></i>
+            </a>
+            <a href="/resume.pdf" target="_blank" class="btn-ghost">
+                <i class="ri-file-text-line"></i> Résumé
+            </a>
+            <div class="ml-1 flex items-center gap-1">
+                {
+                    site.socials.map((s) => (
+                        <a
+                            href={s.href}
+                            target="_blank"
+                            rel="noopener"
+                            aria-label={s.label}
+                            class="grid size-10 place-items-center rounded-full text-muted transition-colors hover:bg-fg/[0.07] hover:text-fg"
+                        >
+                            <i class={`${s.icon} text-xl`} />
+                        </a>
+                    ))
+                }
+            </div>
         </div>
     </section>
 
+    <!-- ───────── Bento ───────── -->
     <section
-        id="about"
-        class="container mx-auto flex flex-col justify-center space-y-16 px-4 py-16 text-center lg:text-left"
+        aria-label="At a glance"
+        class="mx-auto grid w-[min(100%-2rem,64rem)] auto-rows-[minmax(0,auto)] grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4"
     >
-        <div class="space-y-4">
-            <h2 class="mt-4 text-center text-3xl font-bold lg:text-5xl">
-                About me
-            </h2>
-
-            <p class="text-center">
-                Here's a little something about my career.
-            </p>
-        </div>
-
-        <div class="max-w-2xl mx-auto">
-            <CareerTimeline careers={careers} technologies={technologies} client:load />
-        </div>
-    </section>
-
-    <section
-        id="tech-stack"
-        class="container mx-auto flex flex-col justify-center space-y-16 px-4 py-16 text-center lg:text-left"
-    >
-        <div class="space-y-4">
-            <h2 class="mt-4 text-center text-3xl font-bold lg:text-5xl">
-                My Tech Stack
-            </h2>
-
-            <p class="text-center">
-                Here are the technologies I have experience with and
-                continuously learning. <br />
-                <em>(Hover each card for my opinion about it!)</em>
-            </p>
-
-            <div class="text-center">
-                1 <i class="ri-heart-fill ri-lg text-red-500"></i> === My love of
-                using it
-
-                <br />
-
-                1 <i class="ri-star-fill ri-lg text-yellow-500"></i> === My skill
-                on it
+        <div class="card reveal col-span-2 flex flex-col justify-between gap-6 p-6 sm:p-8 lg:row-span-2">
+            <p class="eyebrow">About</p>
+            <div class="space-y-4 text-pretty leading-relaxed text-muted">
+                <p>
+                    I'm a <span class="text-fg">full-stack engineer</span> from
+                    Manila, {site.location}, currently a <span class="text-fg"
+                        >Senior Backend Engineer at Guerilla360</span
+                    >, where I build web apps and run the AWS infrastructure
+                    behind our client applications and APIs.
+                </p>
+                <p>
+                    Before that I worked remotely at <span class="text-fg"
+                        >Evelan GmbH</span
+                    >, a German IT company, mainly on <span class="text-fg"
+                        >PAUL360</span
+                    > — a Next.js, tRPC and Prisma platform. Earlier, I spent a
+                    year and a half at Lhoopa, going from junior to mid-level in
+                    three months and shipping CRMs, ticketing systems and mobile
+                    apps.
+                </p>
+                <p>
+                    I care about developer experience, clean architecture and
+                    interfaces that feel effortless.
+                </p>
             </div>
         </div>
 
-        <TechStackList client:only="vue" technologies={technologies} />
+        <div class="card reveal flex flex-col justify-between gap-6 p-6">
+            <p class="eyebrow">Experience</p>
+            <p>
+                <span class="text-5xl font-medium tracking-tight sm:text-6xl">{years}+</span>
+                <span class="mt-1 block text-sm text-muted">years shipping production code</span>
+            </p>
+        </div>
+
+        <div class="card reveal flex flex-col justify-between gap-6 p-6">
+            <p class="eyebrow">Projects</p>
+            <p>
+                <span class="text-5xl font-medium tracking-tight sm:text-6xl">{projects.length}</span>
+                <span class="mt-1 block text-sm text-muted">professional, freelance & personal</span>
+            </p>
+        </div>
+
+        <div class="card reveal col-span-2 flex flex-col justify-between gap-6 overflow-hidden py-6">
+            <p class="eyebrow px-6">Daily drivers</p>
+            <div class="marquee overflow-hidden">
+                <ul class="marquee-track flex w-max gap-3" aria-label="Main tech stack">
+                    {
+                        [...mainStack, ...mainStack].map((t, i) => (
+                            <li
+                                aria-hidden={i >= mainStack.length ? 'true' : undefined}
+                                class="flex items-center gap-2 rounded-full border border-line py-1.5 pl-1.5 pr-4 text-sm"
+                            >
+                                <TechLogo technology={t} />
+                                {t.data.name}
+                            </li>
+                        ))
+                    }
+                </ul>
+            </div>
+        </div>
+
+        <div class="card reveal col-span-2 flex items-center justify-between gap-4 p-6 lg:col-span-1 lg:flex-col lg:items-start">
+            <p class="eyebrow">Local time</p>
+            <p class="text-right lg:text-left">
+                <span
+                    id="local-time"
+                    class="font-mono text-3xl tracking-tight tabular-nums"
+                >--:--</span>
+                <span class="mt-1 block text-sm text-muted">{site.location} · GMT+8</span>
+            </p>
+        </div>
+
+        {
+            latestPost && (
+                <a
+                    href={`/blog/${latestPost.slug}/`}
+                    class="card reveal group col-span-2 flex flex-col justify-between gap-6 p-6 transition-colors hover:border-fg/20 lg:col-span-3"
+                >
+                    <div class="flex items-center justify-between">
+                        <p class="eyebrow">Latest writing</p>
+                        <i class="ri-arrow-right-up-line text-lg text-muted transition-all group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-accent" />
+                    </div>
+                    <div>
+                        <p class="text-balance text-xl font-medium tracking-tight sm:text-2xl">
+                            {latestPost.data.title}
+                        </p>
+                        <p class="mt-2 text-sm text-muted">
+                            {formatDate(latestPost.data.publishedDate)}
+                        </p>
+                    </div>
+                </a>
+            )
+        }
+    </section>
+
+    <!-- ───────── Selected work ───────── -->
+    <section
+        aria-labelledby="work"
+        class="mx-auto mt-32 w-[min(100%-2rem,64rem)]"
+    >
+        <SectionHeading id="work" eyebrow="Selected work" title="Things I've" accent="shipped.">
+            <a href="/projects/" class="btn-ghost self-start sm:self-auto">
+                All projects <i class="ri-arrow-right-line"></i>
+            </a>
+        </SectionHeading>
+
+        <div class="mt-10 grid gap-4 sm:grid-cols-2">
+            {
+                featured.map((p) => (
+                    <ProjectCard project={p} technologies={technologies} />
+                ))
+            }
+        </div>
+    </section>
+
+    <!-- ───────── Experience ───────── -->
+    <section
+        id="experience"
+        aria-labelledby="experience-title"
+        class="mx-auto mt-32 w-[min(100%-2rem,64rem)] scroll-mt-28"
+    >
+        <SectionHeading id="experience-title" eyebrow="Experience" title="Where I've" accent="been." />
+
+        <ol class="mt-10 border-t border-line">
+            {
+                careers.map((c) => (
+                    <li class="reveal grid gap-4 border-b border-line py-8 sm:grid-cols-[11rem_1fr] sm:gap-8">
+                        <p class="font-mono text-xs uppercase tracking-wider text-muted sm:pt-1.5">
+                            {formatMonth(c.data.date_from)} — {formatMonth(c.data.date_to)}
+                        </p>
+                        <div>
+                            <h3 class="text-lg font-medium tracking-tight sm:text-xl">
+                                {c.data.position}
+                                <span class="text-muted"> · {c.data.company}</span>
+                                {c.data.date_to === null && (
+                                    <span class="ml-2 inline-block translate-y-[-2px] rounded-full bg-accent/15 px-2 py-0.5 align-middle text-[11px] font-medium text-accent">
+                                        Now
+                                    </span>
+                                )}
+                            </h3>
+                            <p class="mt-3 max-w-2xl text-pretty leading-relaxed text-muted">
+                                {c.data.description}
+                            </p>
+                            {c.data.technologies && (
+                                <div class="mt-4 flex flex-wrap gap-1.5">
+                                    {c.data.technologies.map((ref) => (
+                                        <TechLogo technology={techById(ref.id)} />
+                                    ))}
+                                </div>
+                            )}
+                        </div>
+                    </li>
+                ))
+            }
+        </ol>
+    </section>
+
+    <!-- ───────── Stack ───────── -->
+    <section
+        id="stack"
+        aria-labelledby="stack-title"
+        class="mx-auto mt-32 w-[min(100%-2rem,64rem)] scroll-mt-28"
+    >
+        <SectionHeading id="stack-title" eyebrow="Toolbox" title="What I" accent="work with." />
+        <p class="reveal mt-4 max-w-xl text-pretty text-muted">
+            Honest ratings of how good I am with each tool, and how much I enjoy
+            it. Hover or focus a card for my take.
+        </p>
+
+        <div
+            class="reveal mt-8 flex flex-wrap gap-2"
+            role="group"
+            aria-label="Filter technologies"
+            data-filter-group="stack"
+        >
+            {
+                categories.map((c, i) => (
+                    <button
+                        type="button"
+                        data-filter={c}
+                        aria-pressed={i === 0 ? 'true' : 'false'}
+                        class="chip hover:text-fg aria-pressed:border-fg aria-pressed:bg-fg aria-pressed:text-bg"
+                    >
+                        {c === 'Main' ? 'Favorites' : c}
+                    </button>
+                ))
+            }
+            <button
+                type="button"
+                data-filter="*"
+                aria-pressed="false"
+                class="chip hover:text-fg aria-pressed:border-fg aria-pressed:bg-fg aria-pressed:text-bg"
+            >
+                Everything ({technologies.length})
+            </button>
+        </div>
+
+        <ul class="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-3" data-filter-list="stack">
+            {
+                stack.map((t) => (
+                    <li
+                        data-types={t.data.type.join('|')}
+                        hidden={!t.data.type.includes(categories[0])}
+                        tabindex="0"
+                        class="card group flex flex-col gap-4 p-4 transition-colors hover:border-fg/20 focus:border-fg/20"
+                    >
+                        <div class="flex items-center gap-3">
+                            <TechLogo technology={t} size="md" />
+                            <p class="font-medium">{t.data.name}</p>
+                        </div>
+                        <dl class="grid grid-cols-[4.5rem_1fr] items-center gap-x-3 gap-y-2 text-xs text-muted">
+                            {[
+                                ['Skill', t.data.skill],
+                                ['Enjoyment', t.data.interest],
+                            ].map(([label, value]) => (
+                                <>
+                                    <dt>{label}</dt>
+                                    <dd
+                                        class="flex gap-0.5"
+                                        aria-label={`${value} out of 10`}
+                                    >
+                                        {Array.from({ length: 10 }, (_, i) => (
+                                            <span
+                                                class:list={[
+                                                    'h-1.5 flex-1 rounded-full',
+                                                    i < Number(value)
+                                                        ? 'bg-accent'
+                                                        : 'bg-fg/10',
+                                                ]}
+                                            />
+                                        ))}
+                                    </dd>
+                                </>
+                            ))}
+                        </dl>
+                        <p class="line-clamp-2 text-sm leading-relaxed text-muted transition-all group-hover:line-clamp-none group-focus:line-clamp-none">
+                            {t.data.opinion}
+                        </p>
+                    </li>
+                ))
+            }
+        </ul>
     </section>
 </Layout>
 
-<style>
-    @keyframes bounce {
-        0%,
-        20%,
-        50%,
-        80%,
-        100% {
-            transform: translateY(0);
-        }
-        40% {
-            transform: translateY(-20px);
-        }
-        60% {
-            transform: translateY(-10px);
-        }
-    }
-</style>
+<script>
+    import { initFilters } from '@/utils/filter'
+
+    let timer: number | undefined
+
+    document.addEventListener('astro:page-load', () => {
+        initFilters()
+
+        const el = document.getElementById('local-time')
+        clearInterval(timer)
+        if (!el) return
+        const fmt = new Intl.DateTimeFormat('en-US', {
+            hour: '2-digit',
+            minute: '2-digit',
+            hour12: false,
+            timeZone: 'Asia/Manila',
+        })
+        const tick = () => (el.textContent = fmt.format(new Date()))
+        tick()
+        timer = window.setInterval(tick, 15_000)
+    })
+</script>

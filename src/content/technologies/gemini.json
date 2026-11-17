@@ -1,0 +1,11 @@
+{
+    "slug": "gemini",
+    "name": "Gemini",
+    "type": [
+        "AI"
+    ],
+    "logo": "/logos/gemini.svg",
+    "skill": 9,
+    "interest": 7,
+    "opinion": "Great for long-context work like dumping in a large codebase or long docs and asking questions about them. I reach for it when I need a second opinion or a huge context window."
+}

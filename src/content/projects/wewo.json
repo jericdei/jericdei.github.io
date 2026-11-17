@@ -1,0 +1,19 @@
+{
+    "name": "Wewo",
+    "type": "personal",
+    "tags": ["game"],
+    "repo_url": null,
+    "live_url": "https://wewo.jericdei.dev",
+    "image": "/projects/wewo.jpg",
+    "progress": null,
+    "description": "Werewolf on your phones. The host creates a room, friends join by scanning a QR code or typing a 4-letter code, and everyone secretly gets dealt a role. Play Campfire mode around a real table with the host narrating, or Online mode where the server runs every timed day and night phase.",
+    "technologies": ["next", "react", "typescript", "tailwind", "bun", "docker"],
+    "stack": ["Bun WebSockets", "SQLite", "Turborepo", "PWA", "Dokploy"],
+    "highlights": [
+        "11 built-in roles (Werewolf, Seer, Witch, Hunter, Troublemaker, Jester and more), plus custom roles in Campfire mode",
+        "Online mode runs a server-side phase machine: timed day chat and public votes, then a night order of Seer → Werewolves → Witch → Doctor → Bodyguard → Troublemaker",
+        "Last words, a private werewolf den, a graveyard chat for the dead, a sky that shifts to a blood moon, and a post-game log of who did what",
+        "Game state lives in SQLite, so refreshed or disconnected phones get their seat back; if the host drops for 30 seconds, another player takes over",
+        "One Docker container: Bun serves the Next.js static export, the WebSocket and the database on a single port, deployed with Dokploy"
+    ]
+}

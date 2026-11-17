@@ -1,27 +1,40 @@
 ---
 import { getCollection } from 'astro:content'
-import Layout from '../../layouts/Layout.astro'
+import Layout from '@/layouts/Layout.astro'
 import PostCard from '@/components/astro/PostCard.astro'
 
 const posts = await getCollection('posts', ({ data }) =>
-    import.meta.env.DEV ? true : data.publishedDate,
+    import.meta.env.DEV ? true : Boolean(data.publishedDate),
 )
 
-posts.sort((a, b) => {
-    const publishedDateA = a.data?.publishedDate?.getTime() || 0
-    const publishedDateB = b.data?.publishedDate?.getTime() || 0
-
-    return publishedDateB - publishedDateA
-})
+posts.sort(
+    (a, b) =>
+        (b.data.publishedDate?.getTime() ?? 0) -
+        (a.data.publishedDate?.getTime() ?? 0),
+)
 ---
 
-<Layout title="Blog">
-    <section class="container mx-auto grid place-items-center px-4 py-32">
-        <h1 class="mt-4 text-center text-3xl font-bold lg:text-5xl">
-            Latest Posts
+<Layout
+    title="Writing"
+    description="Notes and tutorials on web development, Docker, Laravel and more."
+>
+    <section class="mx-auto w-[min(100%-2rem,64rem)] pt-20 sm:pt-28">
+        <p class="eyebrow rise">Writing</p>
+        <h1
+            class="rise mt-4 text-balance text-5xl font-medium tracking-[-0.04em] [animation-delay:80ms] sm:text-7xl"
+        >
+            Notes & <span class="font-serif font-normal italic text-muted"
+                >tutorials</span
+            >
         </h1>
+        <p
+            class="rise mt-6 max-w-xl text-pretty text-lg text-muted [animation-delay:160ms]"
+        >
+            Things I've figured out and want to remember — written up so you
+            don't have to figure them out too.
+        </p>
 
-        <div class="mt-16 flex flex-wrap justify-center gap-x-8 gap-y-12 p-4">
+        <div class="mt-12 border-t border-line">
             {posts.map((post) => <PostCard post={post} />)}
         </div>
     </section>

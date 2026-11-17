@@ -1,0 +1,20 @@
+{
+    "name": "Pasiklab",
+    "type": "personal",
+    "tags": ["game"],
+    "repo_url": null,
+    "live_url": "https://pasiklab.jericdei.dev",
+    "image": "/projects/pasiklab.jpg",
+    "progress": null,
+    "description": "A real-time multiplayer impostor word game. Everyone gets the same secret word, except the impostors. Players take turns giving short clues, then decide whether to vote now or go around again. Too obvious helps the impostor, too vague looks sus.",
+    "technologies": ["next", "react", "typescript", "tailwind", "bun", "docker"],
+    "stack": ["Bun WebSockets", "SQLite", "Zod", "Turborepo", "Biome", "Traefik", "Dokploy"],
+    "highlights": [
+        "Two modes: Classic, where impostors know they're impostors but don't get the word, and Decoy, where they get a different word from the same category and don't know it",
+        "Each round runs clues → decide (vote now or another round) → vote → ejection, with an optional last-chance guess that lets a caught impostor steal the win",
+        "Clues and chat that say the word itself are blocked, and round 1 never opens with an impostor",
+        "Per-player snapshots keep roles and words secret, so inspecting network traffic reveals nothing; voted-out players chat in a hidden ghost channel",
+        "Scoring and leaderboard in SQLite, and live rooms survive redeploys by snapshotting to SQLite on shutdown",
+        "Same architecture as Doodle: a Turborepo monorepo with a transport-agnostic, unit-tested Room state machine, deployed with Docker Compose on Dokploy"
+    ]
+}

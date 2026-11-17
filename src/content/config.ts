@@ -25,6 +25,12 @@ const projects = defineCollection({
     progress: z.number().nullable(),
     description: z.string(),
     technologies: reference('technologies').array().nullable(),
+    /** Extra categories for filtering, e.g. "game". */
+    tags: z.array(z.string()).optional(),
+    /** Tools that have no entry in the technologies collection (infra, libraries). */
+    stack: z.array(z.string()).optional(),
+    /** Key mechanics or features, shown in an expandable list. */
+    highlights: z.array(z.string()).optional(),
   }),
 })
 

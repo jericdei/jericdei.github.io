@@ -1,34 +1,110 @@
 ---
-import Layout from '../layouts/Layout.astro'
-import Button from 'primevue/button/Button.vue'
-import { getCollection } from 'astro:content'
-import ProjectList from '@/components/vue/ProjectList.vue'
+import Layout from '@/layouts/Layout.astro'
+import { getCollection, type CollectionEntry } from 'astro:content'
+import ProjectCard from '@/components/ui/ProjectCard.astro'
+import { capitalizeFirstLetter } from '@/utils/string'
 
-const projects = await getCollection('projects')
 const technologies = await getCollection('technologies')
+const order = { professional: 0, freelance: 1, personal: 2 }
+const isGame = (p: CollectionEntry<'projects'>) =>
+    Boolean(p.data.tags?.includes('game'))
+const projects = (await getCollection('projects')).sort(
+    (a, b) =>
+        order[a.data.type] - order[b.data.type] ||
+        Number(isGame(b)) - Number(isGame(a)) ||
+        a.data.name.localeCompare(b.data.name),
+)
+const types = Object.keys(order).filter((t) =>
+    projects.some((p) => p.data.type === t),
+)
+const filters = [
+    ...types,
+    ...(projects.some(isGame) ? ['game'] : []),
+]
+const typesOf = (p: CollectionEntry<'projects'>) => [
+    p.data.type,
+    ...(p.data.tags ?? []),
+]
+const count = (t: string) => projects.filter((p) => typesOf(p).includes(t)).length
+const label = (t: string) => (t === 'game' ? 'Games' : capitalizeFirstLetter(t))
 ---
 
-<Layout title="Projects">
-    <section class="container mx-auto px-4 py-32">
-        <h1 class="mt-4 text-center text-3xl font-bold lg:text-5xl">
-            Projects
+<Layout
+    title="Work"
+    description="Professional, freelance and personal projects by Jeric June Logan."
+>
+    <section class="mx-auto w-[min(100%-2rem,64rem)] pb-4 pt-20 sm:pt-28">
+        <p class="eyebrow rise">Work</p>
+        <h1
+            class="rise mt-4 text-balance text-5xl font-medium tracking-[-0.04em] [animation-delay:80ms] sm:text-7xl"
+        >
+            Selected <span class="font-serif font-normal italic text-muted"
+                >projects</span
+            >
         </h1>
+        <p
+            class="rise mt-6 max-w-xl text-pretty text-lg text-muted [animation-delay:160ms]"
+        >
+            Client work, products I've helped build at companies, and side
+            projects I hack on to learn something new.
+        </p>
 
-        <ProjectList
-            client:only="vue"
-            projects={projects}
-            technologies={technologies}
-        />
+        <div
+            class="rise mt-10 flex flex-wrap gap-2 [animation-delay:240ms]"
+            role="group"
+            aria-label="Filter projects"
+            data-filter-group="projects"
+        >
+            <button
+                type="button"
+                data-filter="*"
+                aria-pressed="true"
+                class="chip hover:text-fg aria-pressed:border-fg aria-pressed:bg-fg aria-pressed:text-bg"
+            >
+                All <span class="opacity-60">{projects.length}</span>
+            </button>
+            {
+                filters.map((t) => (
+                    <button
+                        type="button"
+                        data-filter={t}
+                        aria-pressed="false"
+                        class="chip hover:text-fg aria-pressed:border-fg aria-pressed:bg-fg aria-pressed:text-bg"
+                    >
+                        {label(t)}
+                        <span class="opacity-60">{count(t)}</span>
+                    </button>
+                ))
+            }
+        </div>
+
+        <div
+            class="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3"
+            data-filter-list="projects"
+        >
+            {
+                projects.map((p) => (
+                    <div data-types={typesOf(p).join('|')} class="grid">
+                        <ProjectCard project={p} technologies={technologies} />
+                    </div>
+                ))
+            }
+        </div>
 
         <div class="mt-16 flex justify-center">
-            <a href="https://github.com/jericdei" target="_blank">
-                <Button
-                    client:only="vue"
-                    severity="secondary"
-                    label="View more in GitHub"
-                    icon="ri-github-fill"
-                />
+            <a
+                href="https://github.com/jericdei"
+                target="_blank"
+                rel="noopener"
+                class="btn-ghost"
+            >
+                <i class="ri-github-fill"></i> More on GitHub
             </a>
         </div>
     </section>
 </Layout>
+
+<script>
+    import { initFilters } from '@/utils/filter'
+    document.addEventListener('astro:page-load', initFilters)
+</script>

@@ -1,0 +1,11 @@
+{
+    "slug": "cursor",
+    "name": "Cursor",
+    "type": [
+        "AI"
+    ],
+    "logo": "/logos/cursor.svg",
+    "skill": 10,
+    "interest": 10,
+    "opinion": "The editor I live in. Tab completions that read my mind plus agent mode for bigger changes make it feel like pair programming with someone who never gets tired."
+}

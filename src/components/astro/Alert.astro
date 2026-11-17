@@ -1,19 +1,27 @@
 ---
-import Message from 'primevue/message/Message.vue'
-import type { MessageProps } from 'primevue/message'
+interface Props {
+    severity?: 'info' | 'warn' | 'success' | 'error'
+}
 
-type Props = MessageProps
+const { severity = 'info' } = Astro.props
 
-const props = Astro.props
+const styles = {
+    info: { icon: 'ri-information-line', cls: 'border-sky-500/30 bg-sky-500/[0.07] [&_i]:text-sky-500' },
+    warn: { icon: 'ri-error-warning-line', cls: 'border-amber-500/30 bg-amber-500/[0.07] [&_i]:text-amber-500' },
+    success: { icon: 'ri-checkbox-circle-line', cls: 'border-emerald-500/30 bg-emerald-500/[0.07] [&_i]:text-emerald-500' },
+    error: { icon: 'ri-close-circle-line', cls: 'border-rose-500/30 bg-rose-500/[0.07] [&_i]:text-rose-500' },
+}[severity]
 ---
 
-<Message
-    client:only="vue"
-    closable={false}
-    pt={{
-        text: 'leading-5!',
-    }}
-    {...props}
+<aside
+    role="note"
+    class:list={[
+        'not-prose my-6 flex gap-3 rounded-2xl border px-4 py-3 text-[0.95rem] leading-relaxed',
+        styles.cls,
+    ]}
 >
-    <slot />
-</Message>
+    <i class:list={[styles.icon, 'mt-0.5 text-lg']} aria-hidden="true"></i>
+    <div class="[&_a]:underline [&_code]:rounded [&_code]:bg-fg/10 [&_code]:px-1.5 [&_code]:py-0.5 [&_code]:font-mono [&_code]:text-[0.85em]">
+        <slot />
+    </div>
+</aside>

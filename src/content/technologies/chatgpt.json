@@ -1,0 +1,11 @@
+{
+    "slug": "chatgpt",
+    "name": "ChatGPT",
+    "type": [
+        "AI"
+    ],
+    "logo": "/logos/chatgpt.svg",
+    "skill": 10,
+    "interest": 8,
+    "opinion": "The tool that started it all for me. Still my go-to for quick questions, brainstorming and rubber-ducking a problem, though these days it's more of a sidekick than my main AI tool."
+}

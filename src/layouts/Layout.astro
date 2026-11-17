@@ -1,103 +1,238 @@
 ---
-import '@fontsource-variable/dm-sans'
-import '@fontsource-variable/fira-code'
+import '@fontsource-variable/geist'
+import '@fontsource-variable/geist-mono'
+import '@fontsource/instrument-serif'
+import '@fontsource/instrument-serif/400-italic.css'
 import 'remixicon/fonts/remixicon.css'
 import '../css/global.css'
-import Menu from '../components/vue/Menu.vue'
 import { ViewTransitions } from 'astro:transitions'
-import Logo from '../components/vue/Logo.vue'
+import Logo from '@/components/ui/Logo.astro'
+import { site } from '@/data/site'
+
 interface Props {
     title: string
+    description?: string
 }
 
-const { title } = Astro.props
+const { title, description = site.description } = Astro.props
 
 const menuItems = [
-    {
-        label: 'Home',
-        path: '/',
-    },
-    {
-        label: 'Projects',
-        path: '/projects/',
-    },
-    {
-        label: 'Blog',
-        path: '/blog/',
-    },
+    { label: 'Home', path: '/' },
+    { label: 'Work', path: '/projects/' },
+    { label: 'Writing', path: '/blog/' },
 ]
 
-const isActive = (path: string) => path === Astro.url.pathname
+const pathname = Astro.url.pathname
+const isActive = (path: string) =>
+    path === '/' ? pathname === '/' : pathname.startsWith(path)
+
+const fullTitle = title === site.name ? title : `${title} — ${site.name}`
 ---
 
 <!doctype html>
 <html lang="en">
     <head>
         <meta charset="UTF-8" />
-        <meta name="description" content="Astro description" />
-        <meta name="viewport" content="width=device-width" />
-        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="description" content={description} />
         <meta name="generator" content={Astro.generator} />
+        <meta name="theme-color" content="#09090b" />
         <meta
             name="google-site-verification"
             content="DQafIPRTojkob_ubQs0UgSuEBxuY7ful7tlf2A_Ag8k"
         />
-        <title>{title}</title>
+        <meta property="og:title" content={fullTitle} />
+        <meta property="og:description" content={description} />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content={Astro.url} />
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <link rel="canonical" href={Astro.url} />
+        <title>{fullTitle}</title>
+
+        <script is:inline>
+            const applyTheme = () => {
+                let theme = null
+                try {
+                    theme = localStorage.getItem('theme')
+                } catch {}
+                const dark =
+                    theme === 'dark' ||
+                    (!theme &&
+                        window.matchMedia('(prefers-color-scheme: dark)')
+                            .matches)
+                document.documentElement.classList.toggle('dark', dark)
+            }
+            applyTheme()
+            document.addEventListener('astro:after-swap', applyTheme)
+        </script>
 
         <ViewTransitions />
     </head>
-    <body
-        class="bg-gradient-to-r from-slate-100 to-slate-200 font-sans text-slate-900 dark:from-slate-800 dark:to-slate-900 dark:text-slate-200"
-    >
-        <header
-            class="container relative top-0 mx-auto flex items-center justify-between p-8"
+    <body class="relative min-h-dvh overflow-x-hidden">
+        <div
+            aria-hidden="true"
+            class="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[720px]"
         >
-            <a href="/">
-                <span class="sr-only">Home</span>
-                <Logo width={100} />
+            <div class="bg-grid absolute inset-0"></div>
+            <div class="bg-glow absolute inset-0"></div>
+        </div>
+
+        <a
+            href="#main"
+            class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-full focus:bg-accent focus:px-4 focus:py-2 focus:text-accent-fg"
+            >Skip to content</a
+        >
+
+        <header
+            class="sticky top-4 z-40 mx-auto flex w-[min(100%-2rem,64rem)] items-center justify-between gap-2 rounded-full border border-line bg-bg/70 py-2 pl-4 pr-2 shadow-[0_8px_30px_rgb(0_0_0/0.06)] backdrop-blur-xl"
+            transition:persist
+        >
+            <a href="/" class="shrink-0" aria-label="Home">
+                <Logo width={64} />
             </a>
 
-            <div>
-                <nav class="hidden md:block">
-                    <ul class="flex items-center gap-8">
-                        {
-                            menuItems.map((item) => (
-                                <>
-                                    <li
-                                        class:list={[
-                                            'text-lg',
-                                            {
-                                                'font-bold text-primary-500':
-                                                    isActive(item.path),
-                                            },
-                                        ]}
-                                    >
-                                        <a href={item.path}>{item.label}</a>
-                                    </li>
-                                </>
-                            ))
-                        }
-                    </ul>
-                </nav>
+            <nav aria-label="Primary">
+                <ul class="flex items-center gap-0.5 text-sm">
+                    {
+                        menuItems.map((item) => (
+                            <li>
+                                <a
+                                    href={item.path}
+                                    data-nav={item.path}
+                                    aria-current={
+                                        isActive(item.path) ? 'page' : undefined
+                                    }
+                                    class="rounded-full px-3 py-1.5 text-muted transition-colors hover:text-fg aria-[current=page]:bg-fg/[0.07] aria-[current=page]:text-fg sm:px-4"
+                                >
+                                    {item.label}
+                                </a>
+                            </li>
+                        ))
+                    }
+                </ul>
+            </nav>
 
-                <div class="md:hidden">
-                    <Menu client:only="vue" items={menuItems} />
-                </div>
-            </div>
+            <button
+                id="theme-toggle"
+                type="button"
+                aria-label="Toggle color theme"
+                class="grid size-9 shrink-0 place-items-center rounded-full text-muted transition-colors hover:bg-fg/[0.07] hover:text-fg"
+            >
+                <i class="ri-sun-line hidden text-lg dark:block"></i>
+                <i class="ri-moon-line text-lg dark:hidden"></i>
+            </button>
         </header>
 
-        <main>
+        <main id="main">
             <slot />
         </main>
 
-        <footer class="container mx-auto px-4 py-8 text-center">
-            <span>© {new Date().getFullYear()} Jeric June Logan.</span>
-
-            <a
-                class="underline"
-                href="https://github.com/jericdei/jericdei.github.io"
-                target="_blank">Source Code</a
+        <footer class="mx-auto mt-32 w-[min(100%-2rem,64rem)] pb-10">
+            <section
+                class="card reveal relative overflow-hidden px-6 py-14 text-center sm:px-12 sm:py-20"
             >
+                <div
+                    aria-hidden="true"
+                    class="bg-glow absolute inset-0 opacity-70"
+                >
+                </div>
+                <p class="eyebrow relative">Get in touch</p>
+                <h2
+                    class="relative mx-auto mt-4 max-w-2xl text-balance text-4xl font-medium tracking-tight sm:text-6xl"
+                >
+                    Have an idea? <span class="font-serif italic text-accent"
+                        >Let's build it.</span
+                    >
+                </h2>
+                <p class="relative mx-auto mt-4 max-w-md text-pretty text-muted">
+                    Open to interesting projects, collaborations, and a good
+                    chat about web tech.
+                </p>
+                <div
+                    class="relative mt-8 flex flex-wrap items-center justify-center gap-3"
+                >
+                    <a href={`mailto:${site.email}`} class="btn-primary">
+                        <i class="ri-mail-line"></i>
+                        {site.email}
+                    </a>
+                    <a href="/resume.pdf" target="_blank" class="btn-ghost">
+                        <i class="ri-file-text-line"></i> Résumé
+                    </a>
+                </div>
+            </section>
+
+            <div
+                class="mt-10 flex flex-col items-center justify-between gap-4 text-sm text-muted sm:flex-row"
+            >
+                <span>© {new Date().getFullYear()} {site.name}</span>
+                <div class="flex items-center gap-5">
+                    {
+                        site.socials.map((s) => (
+                            <a
+                                href={s.href}
+                                target="_blank"
+                                rel="noopener"
+                                class="transition-colors hover:text-fg"
+                                aria-label={s.label}
+                            >
+                                <i class={`${s.icon} text-lg`} />
+                            </a>
+                        ))
+                    }
+                    <a
+                        class="link-underline"
+                        href="https://github.com/jericdei/jericdei.github.io"
+                        target="_blank"
+                        rel="noopener">Source</a
+                    >
+                </div>
+            </div>
         </footer>
+
+        <script>
+            const setup = () => {
+                const btn = document.getElementById('theme-toggle')
+                if (!btn || btn.dataset.bound) return
+                btn.dataset.bound = '1'
+                btn.addEventListener('click', () => {
+                    const root = document.documentElement
+                    const toggle = () => {
+                        const dark = root.classList.toggle('dark')
+                        try {
+                            localStorage.setItem(
+                                'theme',
+                                dark ? 'dark' : 'light',
+                            )
+                        } catch {}
+                    }
+                    const doc = document as Document & {
+                        startViewTransition?: (cb: () => void) => unknown
+                    }
+                    doc.startViewTransition
+                        ? doc.startViewTransition(toggle)
+                        : toggle()
+                })
+            }
+
+            // Persisted header keeps stale aria-current between pages; refresh it.
+            const syncNav = () => {
+                const path = location.pathname
+                document
+                    .querySelectorAll<HTMLAnchorElement>('[data-nav]')
+                    .forEach((a) => {
+                        const p = a.dataset.nav!
+                        const active =
+                            p === '/' ? path === '/' : path.startsWith(p)
+                        active
+                            ? a.setAttribute('aria-current', 'page')
+                            : a.removeAttribute('aria-current')
+                    })
+            }
+
+            document.addEventListener('astro:page-load', () => {
+                setup()
+                syncNav()
+            })
+        </script>
     </body>
 </html>

@@ -1,0 +1,11 @@
+{
+    "slug": "openrouter",
+    "name": "OpenRouter",
+    "type": [
+        "AI"
+    ],
+    "logo": "/logos/openrouter.svg",
+    "skill": 7,
+    "interest": 8,
+    "opinion": "One API key for almost every model out there. Perfect for experimenting, comparing models side by side, and wiring LLMs into side projects without juggling a dozen providers."
+}

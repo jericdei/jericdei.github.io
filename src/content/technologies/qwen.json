@@ -1,0 +1,11 @@
+{
+    "slug": "qwen",
+    "name": "Qwen",
+    "type": [
+        "AI"
+    ],
+    "logo": "/logos/qwen.svg",
+    "skill": 8,
+    "interest": 7,
+    "opinion": "My pick when I want a strong open-weight model, especially for coding. Impressive for its size, and fun to experiment with."
+}

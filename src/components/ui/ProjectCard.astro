@@ -1,0 +1,170 @@
+---
+import type { CollectionEntry } from 'astro:content'
+import TechLogo from './TechLogo.astro'
+import { capitalizeFirstLetter } from '@/utils/string'
+
+interface Props {
+    project: CollectionEntry<'projects'>
+    technologies: CollectionEntry<'technologies'>[]
+}
+
+const { project, technologies } = Astro.props
+const {
+    name,
+    type,
+    image,
+    description,
+    repo_url,
+    live_url,
+    progress,
+    tags = [],
+    stack = [],
+    highlights = [],
+} = project.data
+
+const techs = technologies.filter((t) =>
+    project.data.technologies?.some((ref) => ref.id === t.id),
+)
+const primaryUrl = live_url ?? repo_url
+const inProgress = progress !== null && progress < 100
+
+const typeDot = {
+    professional: 'bg-sky-500',
+    freelance: 'bg-violet-500',
+    personal: 'bg-amber-500',
+}[type]
+---
+
+<article
+    class="card group reveal relative flex flex-col overflow-hidden p-2 transition-colors hover:border-fg/20"
+    data-type={type}
+>
+    <div
+        class="relative aspect-[16/10] overflow-hidden rounded-2xl border border-line bg-fg/5"
+    >
+        {
+            image && image !== '/placeholder.svg' ? (
+                <img
+                    src={image}
+                    alt={`Screenshot of ${name}`}
+                    loading="lazy"
+                    decoding="async"
+                    class="h-full w-full object-cover object-top transition-transform duration-700 ease-out group-hover:scale-[1.03]"
+                />
+            ) : (
+                <div class="grid h-full place-items-center font-serif text-3xl italic text-muted">
+                    {name}
+                </div>
+            )
+        }
+        <span
+            class="absolute left-3 top-3 inline-flex items-center gap-1.5 rounded-full bg-bg/85 px-2.5 py-1 text-[11px] font-medium text-fg shadow-sm ring-1 ring-line backdrop-blur-md"
+        >
+            <span class:list={['size-1.5 rounded-full', typeDot]}></span>
+            {[type, ...tags].map(capitalizeFirstLetter).join(' · ')}
+        </span>
+    </div>
+
+    <div class="flex flex-1 flex-col gap-3 p-4">
+        <div class="flex items-start justify-between gap-3">
+            <h3 class="text-lg font-medium tracking-tight">
+                {
+                    primaryUrl ? (
+                        <a
+                            href={primaryUrl}
+                            target="_blank"
+                            rel="noopener"
+                            class="after:absolute after:inset-0"
+                        >
+                            {name}
+                        </a>
+                    ) : (
+                        name
+                    )
+                }
+            </h3>
+            {
+                primaryUrl && (
+                    <i
+                        aria-hidden="true"
+                        class="ri-arrow-right-up-line text-lg text-muted transition-all duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-accent"
+                    />
+                )
+            }
+        </div>
+
+        <p class="line-clamp-3 text-sm leading-relaxed text-muted">
+            {description}
+        </p>
+
+        {
+            stack.length > 0 && (
+                <ul class="flex flex-wrap gap-1" aria-label="Infrastructure and tooling">
+                    {stack.map((s) => (
+                        <li class="rounded-md bg-fg/[0.06] px-2 py-0.5 font-mono text-[11px] text-muted">
+                            {s}
+                        </li>
+                    ))}
+                </ul>
+            )
+        }
+
+        {
+            highlights.length > 0 && (
+                <details class="group/d relative z-10 rounded-xl border border-line text-sm open:bg-fg/[0.03]">
+                    <summary class="flex cursor-pointer list-none items-center justify-between gap-2 px-3 py-2 text-muted transition-colors hover:text-fg [&::-webkit-details-marker]:hidden">
+                        How it works
+                        <i class="ri-add-line transition-transform group-open/d:rotate-45" aria-hidden="true" />
+                    </summary>
+                    <ul class="space-y-2 px-3 pb-3 text-[13px] leading-relaxed text-muted">
+                        {highlights.map((h) => (
+                            <li class="flex gap-2">
+                                <span class="mt-[0.55em] size-1 shrink-0 rounded-full bg-accent" />
+                                <span>{h}</span>
+                            </li>
+                        ))}
+                    </ul>
+                </details>
+            )
+        }
+
+        <div class="mt-auto flex items-center justify-between gap-3 pt-2">
+            <div class="flex flex-wrap gap-1.5">
+                {techs.map((t) => <TechLogo technology={t} />)}
+            </div>
+
+            <div class="relative z-10 flex shrink-0 items-center gap-1">
+                {
+                    inProgress && (
+                        <span class="mr-1 font-mono text-[11px] text-muted">
+                            WIP {progress}%
+                        </span>
+                    )
+                }
+                {
+                    repo_url && live_url && (
+                        <a
+                            href={repo_url}
+                            target="_blank"
+                            rel="noopener"
+                            aria-label={`${name} source code`}
+                            class="grid size-8 place-items-center rounded-full text-muted transition-colors hover:bg-fg/[0.07] hover:text-fg"
+                        >
+                            <i class="ri-github-line" />
+                        </a>
+                    )
+                }
+                {
+                    !repo_url && (
+                        <span
+                            class="grid size-8 place-items-center text-muted"
+                            title="Private repository"
+                        >
+                            <i class="ri-lock-line" />
+                        </span>
+                    )
+                }
+            </div>
+        </div>
+    </div>
+</article>

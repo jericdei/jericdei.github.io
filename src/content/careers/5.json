@@ -1,0 +1,25 @@
+{
+    "$schema": "../../../.astro/collections/careers.schema.json",
+    "date_from": "2025-09-01",
+    "date_to": null,
+    "position": "Senior Backend Engineer (Remote)",
+    "company": "Guerilla360",
+    "description": "My current role! I'm a Senior Backend Engineer at Guerilla360, where I develop full-stack web applications, contribute new features and improvements across projects, and deploy and maintain the AWS cloud infrastructure behind all of our client applications and APIs.",
+    "technologies": [
+        "next",
+        "typescript",
+        "react",
+        "laravel",
+        "inertia",
+        "docker",
+        "claude",
+        "cursor",
+        "aws",
+        "php",
+        "node",
+        "bun",
+        "tailwind",
+        "postgres",
+        "mysql"
+    ]
+}

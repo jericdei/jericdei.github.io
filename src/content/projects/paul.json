@@ -1,0 +1,29 @@
+{
+    "name": "PAUL360",
+    "type": "professional",
+    "repo_url": null,
+    "live_url": "https://paul360.app",
+    "image": "/projects/paul.jpg",
+    "progress": null,
+    "description": "A German-language business platform built by Evelan and Profilium for managing Mandanten (clients) and their data. It was the main product I worked on at Evelan, where I built features across the full stack, from the database schema to the UI.",
+    "technologies": [
+        "typescript",
+        "next",
+        "node",
+        "prisma",
+        "postgres",
+        "docker"
+    ],
+    "stack": [
+        "tRPC",
+        "Socket.IO",
+        "Turborepo"
+    ],
+    "highlights": [
+        "Turborepo monorepo with a Next.js app and Node.js services sharing TypeScript types",
+        "End-to-end type-safe API with tRPC: backend changes surface as type errors in the frontend",
+        "Prisma ORM over PostgreSQL for the data model and migrations",
+        "Real-time updates pushed to clients with Socket.IO",
+        "Containerised with Docker"
+    ]
+}

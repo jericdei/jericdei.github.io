@@ -1,10 +1,10 @@
 {
     "$schema": "../../../.astro/collections/careers.schema.json",
     "date_from": "2024-07-15",
-    "date_to": null,
-    "position": "Software Engineer",
-    "company": "Evelan",
-    "description": "My current role! After a year and a half with my role in Lhoopa, I've decided to settle with a work-from-home job. Luckily, I got hired as a Software Engineer in a German IT company named Evelan. To be honest, this is my dream job! Being work-from-home while using latest technologies is a matchmade in heaven. But of course, having this role is also a very big challenge for me. The skill level needed are way higher than before, but I'm all for it! Since this will help me in my future career as a successfull Software Engineer.",
+    "date_to": "2026-05-31",
+    "position": "Software Engineer (Remote)",
+    "company": "Evelan GmbH",
+    "description": "After a year and a half with Lhoopa, I joined Evelan, a German IT company based in Hamburg, as a remote Software Engineer. I mainly worked on PAUL360, a full-stack Next.js, tRPC and Prisma platform. I built full-stack web applications, shipped new features on existing products, maintained and debugged several apps and APIs, and wrote unit and integration tests for every feature I added — all while collaborating closely with other developers and designers. Working remotely with the latest technologies was a dream setup, and the higher bar pushed me to grow a lot as an engineer.",
     "technologies": [
         "next",
         "react",

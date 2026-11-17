@@ -1,0 +1,11 @@
+{
+    "slug": "claude",
+    "name": "Claude",
+    "type": [
+        "AI"
+    ],
+    "logo": "/logos/claude.svg",
+    "skill": 10,
+    "interest": 10,
+    "opinion": "My favorite AI model, hands down. It writes code that actually fits the codebase, explains its reasoning clearly, and is the model I trust most for agentic work like refactors, reviews and multi-step features."
+}

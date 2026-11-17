@@ -1,6 +1,7 @@
 ---
-import Image from 'astro/components/Image.astro'
+import { Image } from 'astro:assets'
 import type { CollectionEntry } from 'astro:content'
+import { formatDate } from '@/data/site'
 
 interface Props {
     post: CollectionEntry<'posts'>
@@ -10,40 +11,43 @@ const { post } = Astro.props
 ---
 
 <a
-    href={post.slug}
-    class="inline-block max-w-md cursor-pointer rounded-lg bg-slate-300 transition-all hover:bg-slate-400 dark:bg-surface-700 dark:hover:bg-surface-700/50"
+    href={`/blog/${post.slug}/`}
+    class="reveal group grid gap-5 border-b border-line py-8 sm:grid-cols-[1fr_14rem] sm:items-center sm:gap-10"
 >
-    <div class="p-4">
-        <div class="h-full w-full">
-            <Image
-                src={post.data.image || '/placeholder.svg'}
-                alt={post.data.title}
-                height={150}
-                width={300}
-                class="h-[300px] w-full rounded-lg bg-slate-400 object-cover dark:bg-slate-600"
-                transition:name={`blog-image-${post.slug}`}
-            />
-        </div>
+    <div class="order-2 sm:order-1">
+        <p class="font-mono text-xs uppercase tracking-wider text-muted">
+            {formatDate(post.data.publishedDate) ?? 'Draft'}
+        </p>
+        <h2
+            class="mt-3 text-balance text-2xl font-medium tracking-tight transition-colors group-hover:text-accent sm:text-3xl"
+            transition:name={`blog-title-${post.slug}`}
+        >
+            {post.data.title}
+        </h2>
+        <p class="mt-3 max-w-xl text-pretty text-muted">
+            {post.data.description}
+        </p>
+        {
+            post.data.tags && (
+                <div class="mt-4 flex flex-wrap gap-1.5">
+                    {post.data.tags.slice(0, 4).map((tag) => (
+                        <span class="chip py-0.5">#{tag}</span>
+                    ))}
+                </div>
+            )
+        }
+    </div>
 
-        <div class="mt-4 flex flex-col gap-2">
-            <p
-                class="font-bold lg:text-lg"
-                transition:name={`blog-title-${post.slug}`}
-            >
-                {post.data.title}
-            </p>
-
-            <p class="text-sm">{post.data.description}</p>
-
-            <small
-                >{
-                    post.data.publishedDate?.toLocaleDateString('en-us', {
-                        year: 'numeric',
-                        month: 'long',
-                        day: '2-digit',
-                    }) || <em>Unpublished</em>
-                }</small
-            >
-        </div>
+    <div
+        class="order-1 aspect-[16/10] overflow-hidden rounded-2xl border border-line bg-fg/5 sm:order-2"
+    >
+        <Image
+            src={post.data.image || '/placeholder.svg'}
+            alt=""
+            height={280}
+            width={448}
+            class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.04]"
+            transition:name={`blog-image-${post.slug}`}
+        />
     </div>
 </a>

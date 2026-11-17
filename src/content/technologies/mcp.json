@@ -1,0 +1,11 @@
+{
+    "slug": "mcp",
+    "name": "MCP Servers",
+    "type": [
+        "AI"
+    ],
+    "logo": "/logos/mcp.svg",
+    "skill": 8,
+    "interest": 10,
+    "opinion": "Model Context Protocol is the glue that lets AI tools actually do things: talk to databases, docs, browsers and APIs. I love plugging MCP servers into my workflow so my AI tools work with real context instead of guesses."
+}

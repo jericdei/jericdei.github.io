@@ -1,0 +1,20 @@
+{
+    "name": "Doodle",
+    "type": "personal",
+    "tags": ["game"],
+    "repo_url": null,
+    "live_url": "https://doodle.jericdei.dev",
+    "image": "/projects/doodle.jpg",
+    "progress": null,
+    "description": "A real-time multiplayer draw-and-guess game. One player picks a secret word and sketches it while everyone else races to guess it in chat. Letters get revealed as the clock ticks, faster guesses earn more points, and the drawer scores when others get it.",
+    "technologies": ["next", "react", "typescript", "tailwind", "bun", "docker"],
+    "stack": ["Bun WebSockets", "SQLite", "Zod", "Turborepo", "Biome", "Traefik", "Dokploy"],
+    "highlights": [
+        "Quick play matchmaking or private rooms with a 4-character code, plus a leaderboard from finished games",
+        "Authoritative server: clients send intents validated by shared Zod schemas, and each player gets their own snapshot, so guessers only ever see the masked word",
+        "Strokes use logical 800×600 coordinates and stream in per-frame chunks; the canvas paints outside React state, so drawing never triggers re-renders",
+        "Close-guess detection, undo by whole stroke, and flood fill",
+        "Games survive deploys: on SIGTERM every live room is saved to SQLite and restored by the next container, so games survive a redeploy",
+        "Two containers (Next.js + Bun) behind Traefik on one domain, routing /api and /ws to the game server, deployed with Dokploy"
+    ]
+}
