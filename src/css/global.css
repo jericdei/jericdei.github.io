@@ -5,14 +5,20 @@
 /* ---------- Design tokens ---------- */
 :root {
     color-scheme: light;
-    --bg: 250 250 249;
-    --bg-elevated: 255 255 255;
-    --fg: 23 23 23;
-    --muted: 99 99 104;
-    --line: 228 228 231;
+    /* Softened paper-gray (not pure white) to reduce glare */
+    --bg: 238 238 234;
+    --bg-elevated: 246 246 243;
+    --fg: 28 28 30;
+    --muted: 88 88 94;
+    --line: 216 216 210;
     --accent: 22 128 61; /* deep green, legible on light */
     --accent-fg: 255 255 255;
     --glow: 34 197 94;
+
+    /* Glow strengths: light backgrounds need more to read */
+    --glow-alpha: 0.24;
+    --cursor-glow-alpha: 0.3;
+    --cursor-grid: 22 128 61 / 0.28; /* green-tinted lines around the cursor */
 
     /* legacy tokens used by the logo */
     --primary-500: var(--accent);
@@ -28,6 +34,10 @@
     --accent: 190 242 100; /* lime */
     --accent-fg: 9 9 11;
     --glow: 132 204 22;
+
+    --glow-alpha: 0.18;
+    --cursor-glow-alpha: 0.13;
+    --cursor-grid: 39 39 42;
 }
 
 /* ---------- Base ---------- */
@@ -121,9 +131,172 @@
 .bg-glow {
     background: radial-gradient(
         600px circle at 50% -10%,
-        rgb(var(--glow) / 0.18),
+        rgb(var(--glow) / var(--glow-alpha)),
         transparent 70%
     );
+}
+
+/* ---------- Cursor spotlight (driven by --x / --y / --sy from Layout.astro) ---------- */
+.cursor-glow,
+.cursor-grid {
+    opacity: 0;
+    transition: opacity 0.6s ease;
+}
+#cursor-light[data-active] .cursor-glow,
+#cursor-light[data-active] .cursor-grid {
+    opacity: 1;
+}
+
+.cursor-glow {
+    background: radial-gradient(
+        520px circle at var(--x, 50%) var(--y, -200px),
+        rgb(var(--glow) / var(--cursor-glow-alpha)),
+        transparent 65%
+    );
+}
+
+/* Same grid as .bg-grid, shifted with scroll so the lines line up, revealed around the cursor */
+.cursor-grid {
+    background-image:
+        linear-gradient(to right, rgb(var(--cursor-grid)) 1px, transparent 1px),
+        linear-gradient(to bottom, rgb(var(--cursor-grid)) 1px, transparent 1px);
+    background-size: 56px 56px;
+    background-position: 0 var(--sy, 0);
+    mask-image: radial-gradient(
+        280px circle at var(--x, 50%) var(--y, -200px),
+        rgb(0 0 0 / 0.9),
+        transparent 75%
+    );
+}
+
+@media (hover: none), (pointer: coarse) {
+    #cursor-light {
+        display: none;
+    }
+}
+
+/* ---------- Expandable text (toolbox opinions, project descriptions) ---------- */
+/* A clamped block with a soft fade that animates open to its measured height (--full,
+   set by src/utils/expand.ts). Desktop: opens on hover/focus. Touch: opens via .is-open. */
+@property --fade-shift {
+    syntax: '<length>';
+    inherits: false;
+    initial-value: 0px;
+}
+
+.expandable {
+    --lines: 2;
+    overflow: hidden;
+    max-height: calc(1.625em * var(--lines));
+    max-height: calc(1lh * var(--lines));
+    --fade-shift: 0px;
+    -webkit-mask-image: linear-gradient(
+        to bottom,
+        #000 calc(100% - 1.4em + var(--fade-shift)),
+        transparent calc(100% + var(--fade-shift))
+    );
+    mask-image: linear-gradient(
+        to bottom,
+        #000 calc(100% - 1.4em + var(--fade-shift)),
+        transparent calc(100% + var(--fade-shift))
+    );
+    transition:
+        max-height 0.5s cubic-bezier(0.2, 0.7, 0.2, 1),
+        --fade-shift 0.4s ease,
+        color 0.3s ease;
+}
+
+.expandable[data-fits] {
+    -webkit-mask-image: none;
+    mask-image: none;
+}
+
+.expand-host.is-open .expandable {
+    max-height: var(--full, 40em);
+    --fade-shift: 1.4em;
+    color: rgb(var(--fg) / 0.75);
+}
+
+/* Only real hover devices: avoids "sticky hover" after a tap on phones */
+@media (hover: hover) and (pointer: fine) {
+    .expand-host:is(:hover, :focus-within) .expandable {
+        max-height: var(--full, 40em);
+        --fade-shift: 1.4em;
+        color: rgb(var(--fg) / 0.75);
+    }
+    .expand-toggle {
+        display: none !important;
+    }
+}
+
+.expand-toggle i {
+    transition: transform 0.35s ease;
+}
+.expand-host.is-open .expand-toggle i {
+    transform: rotate(180deg);
+}
+
+/* ---------- Toolbox cards ---------- */
+.tool-card {
+    transition:
+        transform 0.35s cubic-bezier(0.2, 0.7, 0.2, 1),
+        border-color 0.35s ease,
+        box-shadow 0.35s ease;
+}
+.tool-card:is(:hover, :focus-visible, .is-open) {
+    transform: translateY(-3px);
+    border-color: rgb(var(--accent) / 0.35);
+    box-shadow: 0 18px 40px -18px rgb(var(--glow) / 0.45);
+}
+
+.tool-logo {
+    display: inline-flex;
+    transition: transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.tool-card:is(:hover, :focus-visible, .is-open) .tool-logo {
+    transform: scale(1.1) rotate(-6deg);
+}
+
+/* Filled meter segments ripple left to right */
+.meter-seg.is-on {
+    transition:
+        transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
+        box-shadow 0.3s ease;
+    transition-delay: var(--d, 0ms);
+}
+.tool-card:is(:hover, :focus-visible, .is-open) .meter-seg.is-on {
+    transform: scaleY(1.6);
+    box-shadow: 0 0 8px rgb(var(--accent) / 0.55);
+}
+
+/* ---------- <details> open/close animation (progressive: Chromium today) ---------- */
+:root {
+    interpolate-size: allow-keywords;
+}
+details::details-content {
+    block-size: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition:
+        block-size 0.4s cubic-bezier(0.2, 0.7, 0.2, 1),
+        opacity 0.3s ease,
+        content-visibility 0.4s allow-discrete;
+}
+details[open]::details-content {
+    block-size: auto;
+    opacity: 1;
+}
+
+/* Staggered entrance when a filter changes */
+.filter-in {
+    animation: filter-in 0.45s cubic-bezier(0.2, 0.7, 0.2, 1) backwards;
+    animation-delay: calc(min(var(--i, 0), 12) * 35ms);
+}
+@keyframes filter-in {
+    from {
+        opacity: 0;
+        transform: translateY(10px) scale(0.98);
+    }
 }
 
 /* ---------- Scroll reveal (progressive enhancement) ---------- */

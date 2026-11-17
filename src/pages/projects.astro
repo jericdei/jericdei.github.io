@@ -3,6 +3,7 @@ import Layout from '@/layouts/Layout.astro'
 import { getCollection, type CollectionEntry } from 'astro:content'
 import ProjectCard from '@/components/ui/ProjectCard.astro'
 import { capitalizeFirstLetter } from '@/utils/string'
+import { site } from '@/data/site'
 
 const technologies = await getCollection('technologies')
 const order = { professional: 0, freelance: 1, personal: 2 }
@@ -31,7 +32,39 @@ const label = (t: string) => (t === 'game' ? 'Games' : capitalizeFirstLetter(t))
 
 <Layout
     title="Work"
-    description="Professional, freelance and personal projects by Jeric June Logan."
+    description="Projects by Jeric June Logan: PAUL360, real-time multiplayer web games, client websites and full-stack apps built with Next.js, Laravel, Bun and TypeScript."
+    breadcrumbs={[{ name: 'Work', path: '/projects/' }]}
+    schema={[
+        {
+            '@type': 'CollectionPage',
+            url: `${site.url}/projects/`,
+            name: 'Work',
+            isPartOf: { '@id': `${site.url}/#website` },
+            about: { '@id': `${site.url}/#person` },
+            mainEntity: {
+                '@type': 'ItemList',
+                numberOfItems: projects.length,
+                itemListElement: projects.map((p, i) => ({
+                    '@type': 'ListItem',
+                    position: i + 1,
+                    item: {
+                        '@type': 'CreativeWork',
+                        name: p.data.name,
+                        description: p.data.description,
+                        ...(p.data.image && { image: new URL(p.data.image, site.url).href }),
+                        ...((p.data.live_url ?? p.data.repo_url) && {
+                            url: p.data.live_url ?? p.data.repo_url,
+                        }),
+                        creator: { '@id': `${site.url}/#person` },
+                        keywords: [
+                            ...(p.data.technologies ?? []).map((t) => t.id),
+                            ...(p.data.stack ?? []),
+                        ].join(', '),
+                    },
+                })),
+            },
+        },
+    ]}
 >
     <section class="mx-auto w-[min(100%-2rem,64rem)] pb-4 pt-20 sm:pt-28">
         <p class="eyebrow rise">Work</p>

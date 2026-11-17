@@ -54,7 +54,20 @@ const stack = technologies.toSorted(
 )
 ---
 
-<Layout title={site.name}>
+<Layout
+    title={site.name}
+    type="profile"
+    schema={[
+        {
+            '@type': 'ProfilePage',
+            '@id': `${site.url}/#profile`,
+            url: `${site.url}/`,
+            name: `${site.name} — ${site.role}`,
+            mainEntity: { '@id': `${site.url}/#person` },
+            isPartOf: { '@id': `${site.url}/#website` },
+        },
+    ]}
+>
     <!-- ───────── Hero ───────── -->
     <section
         class="mx-auto w-[min(100%-2rem,64rem)] pb-16 pt-20 sm:pb-24 sm:pt-28"
@@ -323,17 +336,20 @@ const stack = technologies.toSorted(
             </button>
         </div>
 
-        <ul class="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-3" data-filter-list="stack">
+        <ul class="mt-6 grid items-start gap-3 sm:grid-cols-2 lg:grid-cols-3" data-filter-list="stack">
             {
                 stack.map((t) => (
                     <li
                         data-types={t.data.type.join('|')}
                         hidden={!t.data.type.includes(categories[0])}
                         tabindex="0"
-                        class="card group flex flex-col gap-4 p-4 transition-colors hover:border-fg/20 focus:border-fg/20"
+                        class="tool-card expand-host card group flex flex-col gap-4 p-4"
+                        data-expand-tap
                     >
                         <div class="flex items-center gap-3">
-                            <TechLogo technology={t} size="md" />
+                            <span class="tool-logo">
+                                <TechLogo technology={t} size="md" />
+                            </span>
                             <p class="font-medium">{t.data.name}</p>
                         </div>
                         <dl class="grid grid-cols-[4.5rem_1fr] items-center gap-x-3 gap-y-2 text-xs text-muted">
@@ -350,18 +366,19 @@ const stack = technologies.toSorted(
                                         {Array.from({ length: 10 }, (_, i) => (
                                             <span
                                                 class:list={[
-                                                    'h-1.5 flex-1 rounded-full',
+                                                    'meter-seg h-1.5 flex-1 rounded-full',
                                                     i < Number(value)
-                                                        ? 'bg-accent'
+                                                        ? 'is-on bg-accent'
                                                         : 'bg-fg/10',
                                                 ]}
+                                                style={`--d: ${i * 30}ms`}
                                             />
                                         ))}
                                     </dd>
                                 </>
                             ))}
                         </dl>
-                        <p class="line-clamp-2 text-sm leading-relaxed text-muted transition-all group-hover:line-clamp-none group-focus:line-clamp-none">
+                        <p class="expandable text-sm leading-relaxed text-muted">
                             {t.data.opinion}
                         </p>
                     </li>
@@ -378,6 +395,7 @@ const stack = technologies.toSorted(
 
     document.addEventListener('astro:page-load', () => {
         initFilters()
+
 
         const el = document.getElementById('local-time')
         clearInterval(timer)

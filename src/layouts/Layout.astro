@@ -7,14 +7,15 @@ import 'remixicon/fonts/remixicon.css'
 import '../css/global.css'
 import { ViewTransitions } from 'astro:transitions'
 import Logo from '@/components/ui/Logo.astro'
+import SEO, { type SEOProps } from '@/components/seo/SEO.astro'
 import { site } from '@/data/site'
 
-interface Props {
+type Props = Omit<SEOProps, 'title' | 'description'> & {
     title: string
     description?: string
 }
 
-const { title, description = site.description } = Astro.props
+const { title, description = site.description, ...seo } = Astro.props
 
 const menuItems = [
     { label: 'Home', path: '/' },
@@ -26,7 +27,8 @@ const pathname = Astro.url.pathname
 const isActive = (path: string) =>
     path === '/' ? pathname === '/' : pathname.startsWith(path)
 
-const fullTitle = title === site.name ? title : `${title} — ${site.name}`
+const fullTitle =
+    title === site.name ? `${site.name} — ${site.role}` : `${title} — ${site.name}`
 ---
 
 <!doctype html>
@@ -34,20 +36,24 @@ const fullTitle = title === site.name ? title : `${title} — ${site.name}`
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta name="description" content={description} />
         <meta name="generator" content={Astro.generator} />
-        <meta name="theme-color" content="#09090b" />
+        <meta
+            name="theme-color"
+            content="#eeeeea"
+            media="(prefers-color-scheme: light)"
+        />
+        <meta
+            name="theme-color"
+            content="#09090b"
+            media="(prefers-color-scheme: dark)"
+        />
         <meta
             name="google-site-verification"
             content="DQafIPRTojkob_ubQs0UgSuEBxuY7ful7tlf2A_Ag8k"
         />
-        <meta property="og:title" content={fullTitle} />
-        <meta property="og:description" content={description} />
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content={Astro.url} />
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-        <link rel="canonical" href={Astro.url} />
-        <title>{fullTitle}</title>
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+        <SEO title={fullTitle} description={description} {...seo} />
 
         <script is:inline>
             const applyTheme = () => {
@@ -77,6 +83,17 @@ const fullTitle = title === site.name ? title : `${title} — ${site.name}`
             <div class="bg-glow absolute inset-0"></div>
         </div>
 
+        <!-- Cursor spotlight: a glow + brighter grid that trail the pointer -->
+        <div
+            id="cursor-light"
+            aria-hidden="true"
+            class="pointer-events-none fixed inset-0 -z-10"
+            transition:persist="cursor-light"
+        >
+            <div class="cursor-grid absolute inset-0"></div>
+            <div class="cursor-glow absolute inset-0"></div>
+        </div>
+
         <a
             href="#main"
             class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-full focus:bg-accent focus:px-4 focus:py-2 focus:text-accent-fg"
@@ -85,7 +102,7 @@ const fullTitle = title === site.name ? title : `${title} — ${site.name}`
 
         <header
             class="sticky top-4 z-40 mx-auto flex w-[min(100%-2rem,64rem)] items-center justify-between gap-2 rounded-full border border-line bg-bg/70 py-2 pl-4 pr-2 shadow-[0_8px_30px_rgb(0_0_0/0.06)] backdrop-blur-xl"
-            transition:persist
+            transition:persist="site-header"
         >
             <a href="/" class="shrink-0" aria-label="Home">
                 <Logo width={64} />
@@ -190,6 +207,8 @@ const fullTitle = title === site.name ? title : `${title} — ${site.name}`
         </footer>
 
         <script>
+            import { initExpanders } from '@/utils/expand'
+
             const setup = () => {
                 const btn = document.getElementById('theme-toggle')
                 if (!btn || btn.dataset.bound) return
@@ -229,9 +248,66 @@ const fullTitle = title === site.name ? title : `${title} — ${site.name}`
                     })
             }
 
+            // ── Cursor spotlight ───────────────────────────────────────────
+            // Eases toward the pointer each frame; idles when it catches up.
+            // The element is looked up on every use (never cached) so the effect
+            // keeps working even if a navigation swaps in a fresh element.
+            const finePointer = matchMedia('(hover: hover) and (pointer: fine)')
+            const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)')
+            const getLight = () => document.getElementById('cursor-light')
+
+            let tx = innerWidth / 2
+            let ty = -200
+            let x = tx
+            let y = ty
+            let raf = 0
+            let active = false
+
+            const paint = () => {
+                const light = getLight()
+                if (!light) return
+                light.style.setProperty('--x', `${x}px`)
+                light.style.setProperty('--y', `${y}px`)
+                light.style.setProperty('--sy', `${-scrollY}px`)
+                light.toggleAttribute('data-active', active)
+            }
+
+            const frame = () => {
+                const ease = reducedMotion.matches ? 1 : 0.12
+                x += (tx - x) * ease
+                y += (ty - y) * ease
+                paint()
+                raf =
+                    Math.abs(tx - x) + Math.abs(ty - y) > 0.5
+                        ? requestAnimationFrame(frame)
+                        : 0
+            }
+
+            document.addEventListener(
+                'pointermove',
+                (e) => {
+                    if (e.pointerType !== 'mouse' || !finePointer.matches) return
+                    tx = e.clientX
+                    ty = e.clientY
+                    active = true
+                    if (!raf) raf = requestAnimationFrame(frame)
+                },
+                { passive: true },
+            )
+            document.documentElement.addEventListener('pointerleave', () => {
+                active = false
+                paint()
+            })
+            addEventListener('scroll', paint, { passive: true })
+            // Re-apply position and visibility right after each page swap
+            document.addEventListener('astro:after-swap', paint)
+            document.addEventListener('astro:page-load', paint)
+            paint()
+
             document.addEventListener('astro:page-load', () => {
                 setup()
                 syncNav()
+                initExpanders()
             })
         </script>
     </body>

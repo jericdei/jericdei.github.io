@@ -2,7 +2,7 @@
 import Layout from '@/layouts/Layout.astro'
 import { Image } from 'astro:assets'
 import { getCollection } from 'astro:content'
-import { formatDate } from '@/data/site'
+import { formatDate, site } from '@/data/site'
 
 export async function getStaticPaths() {
     const posts = await getCollection('posts')
@@ -17,9 +17,69 @@ const { entry } = Astro.props
 const { Content, headings } = await entry.render()
 const words = entry.body.split(/\s+/).length
 const minutes = Math.max(1, Math.round(words / 220))
+const url = `${site.url}/blog/${entry.slug}/`
+const shareText = encodeURIComponent(entry.data.title)
+const shareUrl = encodeURIComponent(url)
+const shareLinks = [
+    {
+        label: 'Share on X',
+        icon: 'ri-twitter-x-line',
+        href: `https://x.com/intent/post?text=${shareText}&url=${shareUrl}`,
+    },
+    {
+        label: 'Share on LinkedIn',
+        icon: 'ri-linkedin-box-line',
+        href: `https://www.linkedin.com/sharing/share-offsite/?url=${shareUrl}`,
+    },
+    {
+        label: 'Share on Facebook',
+        icon: 'ri-facebook-circle-line',
+        href: `https://www.facebook.com/sharer/sharer.php?u=${shareUrl}`,
+    },
+]
 ---
 
-<Layout title={entry.data.title} description={entry.data.description}>
+<Layout
+    title={entry.data.title}
+    description={entry.data.description}
+    type="article"
+    image={entry.data.image}
+    imageAlt={entry.data.title}
+    publishedDate={entry.data.publishedDate}
+    updatedDate={entry.data.updatedDate}
+    tags={entry.data.tags}
+    noindex={!entry.data.publishedDate}
+    breadcrumbs={[
+        { name: 'Writing', path: '/blog/' },
+        { name: entry.data.title, path: `/blog/${entry.slug}/` },
+    ]}
+    schema={[
+        {
+            '@type': 'BlogPosting',
+            '@id': `${url}#article`,
+            headline: entry.data.title,
+            description: entry.data.description,
+            url,
+            mainEntityOfPage: url,
+            ...(entry.data.image && {
+                image: new URL(entry.data.image, site.url).href,
+            }),
+            ...(entry.data.publishedDate && {
+                datePublished: entry.data.publishedDate.toISOString(),
+                dateModified: (
+                    entry.data.updatedDate ?? entry.data.publishedDate
+                ).toISOString(),
+            }),
+            author: { '@id': `${site.url}/#person` },
+            publisher: { '@id': `${site.url}/#person` },
+            isPartOf: { '@id': `${site.url}/blog/#blog` },
+            keywords: entry.data.tags?.join(', '),
+            wordCount: words,
+            timeRequired: `PT${minutes}M`,
+            inLanguage: 'en',
+        },
+    ]}
+>
     <article class="mx-auto w-[min(100%-2rem,48rem)] pt-16 sm:pt-24">
         <a
             href="/blog/"
@@ -102,5 +162,65 @@ const minutes = Math.max(1, Math.round(words / 220))
         >
             <Content />
         </div>
+
+        <footer
+            class="mt-16 flex flex-col gap-4 border-t border-line pt-8 sm:flex-row sm:items-center sm:justify-between"
+        >
+            <p class="eyebrow">Share this post</p>
+            <div class="flex items-center gap-1">
+                {
+                    shareLinks.map((l) => (
+                        <a
+                            href={l.href}
+                            target="_blank"
+                            rel="noopener"
+                            aria-label={l.label}
+                            title={l.label}
+                            class="grid size-10 place-items-center rounded-full text-muted transition-colors hover:bg-fg/[0.07] hover:text-fg"
+                        >
+                            <i class={`${l.icon} text-lg`} />
+                        </a>
+                    ))
+                }
+                <button
+                    type="button"
+                    data-share
+                    data-url={url}
+                    data-title={entry.data.title}
+                    class="btn-ghost ml-2 py-2"
+                >
+                    <i class="ri-link"></i>
+                    <span>Copy link</span>
+                </button>
+            </div>
+        </footer>
     </article>
 </Layout>
+
+<script>
+    // Native share sheet on phones, copy-to-clipboard elsewhere
+    document.addEventListener('astro:page-load', () => {
+        const btn = document.querySelector<HTMLButtonElement>('[data-share]')
+        if (!btn || btn.dataset.bound) return
+        btn.dataset.bound = '1'
+        const label = btn.querySelector('span')!
+        const canShare =
+            'share' in navigator && matchMedia('(pointer: coarse)').matches
+        if (canShare) label.textContent = 'Share'
+
+        btn.addEventListener('click', async () => {
+            const { url = location.href, title = document.title } = btn.dataset
+            try {
+                if (canShare) {
+                    await navigator.share({ title, url })
+                    return
+                }
+                await navigator.clipboard.writeText(url)
+                label.textContent = 'Copied!'
+                setTimeout(() => (label.textContent = 'Copy link'), 2000)
+            } catch {
+                /* share sheet dismissed or clipboard blocked */
+            }
+        })
+    })
+</script>

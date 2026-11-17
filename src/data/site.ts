@@ -1,8 +1,19 @@
 export const site = {
     name: 'Jeric June Logan',
-    role: 'Software Engineer',
+    role: 'Full-Stack Software Engineer',
     description:
-        'Jeric June Logan — full-stack software engineer building fast, thoughtful web products with TypeScript, React, Next.js, Laravel and Vue.',
+        'Full-stack software engineer in Manila, Philippines. Senior Backend Engineer at Guerilla360, building web products with TypeScript, Next.js, Laravel and AWS.',
+    url: 'https://jericdei.github.io',
+    locale: 'en_US',
+    city: 'Manila',
+    countryCode: 'PH',
+    ogImage: {
+        src: '/og-default.png',
+        width: 1200,
+        height: 630,
+        alt: 'Jeric June Logan builds for the web — full-stack software engineer',
+    },
+    education: 'Pamantasan ng Lungsod ng Maynila',
     email: 'loganjeric25@gmail.com',
     location: 'Philippines',
     socials: [

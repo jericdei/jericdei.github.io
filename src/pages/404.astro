@@ -1,0 +1,35 @@
+---
+import Layout from '@/layouts/Layout.astro'
+---
+
+<Layout
+    title="Page not found"
+    description="This page doesn't exist. Head back to the homepage."
+    noindex
+>
+    <section
+        class="mx-auto flex w-[min(100%-2rem,64rem)] flex-col items-start pb-10 pt-24 sm:pt-32"
+    >
+        <p class="eyebrow rise">Error 404</p>
+        <h1
+            class="rise mt-4 text-balance text-5xl font-medium tracking-[-0.04em] [animation-delay:80ms] sm:text-7xl"
+        >
+            Lost in the <span class="font-serif font-normal italic text-muted"
+                >grid.</span
+            >
+        </h1>
+        <p
+            class="rise mt-6 max-w-md text-pretty text-lg text-muted [animation-delay:160ms]"
+        >
+            The page you're looking for moved, or never existed. Try one of
+            these instead.
+        </p>
+        <div class="rise mt-10 flex flex-wrap gap-3 [animation-delay:240ms]">
+            <a href="/" class="btn-primary"
+                ><i class="ri-home-5-line"></i> Home</a
+            >
+            <a href="/projects/" class="btn-ghost">Work</a>
+            <a href="/blog/" class="btn-ghost">Writing</a>
+        </div>
+    </section>
+</Layout>

@@ -27,9 +27,16 @@ export function initFilters() {
                         String(b.dataset.filter === value),
                     ),
                 )
+                let shown = 0
                 items.forEach((item) => {
                     const types = item.dataset.types!.split('|')
                     item.hidden = value !== '*' && !types.includes(value)
+                    if (item.hidden) return
+                    // Restart the staggered entrance animation
+                    item.style.setProperty('--i', String(shown++))
+                    item.classList.remove('filter-in')
+                    void item.offsetWidth
+                    item.classList.add('filter-in')
                 })
             }
 

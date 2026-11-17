@@ -36,7 +36,7 @@ const typeDot = {
 ---
 
 <article
-    class="card group reveal relative flex flex-col overflow-hidden p-2 transition-colors hover:border-fg/20"
+    class="card expand-host group reveal relative flex flex-col overflow-hidden p-2 transition-colors hover:border-fg/20"
     data-type={type}
 >
     <div
@@ -93,9 +93,22 @@ const typeDot = {
             }
         </div>
 
-        <p class="line-clamp-3 text-sm leading-relaxed text-muted">
-            {description}
-        </p>
+        <div>
+            <p
+                class="expandable text-sm leading-relaxed text-muted"
+                style="--lines: 3"
+            >
+                {description}
+            </p>
+            <button
+                type="button"
+                class="expand-toggle relative z-10 mt-1 inline-flex items-center gap-0.5 text-xs font-medium text-accent"
+                aria-expanded="false"
+            >
+                <span>Show more</span>
+                <i class="ri-arrow-down-s-line" aria-hidden="true"></i>
+            </button>
+        </div>
 
         {
             stack.length > 0 && (
